@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=7d696389">
+<link rel="stylesheet" href="styles.css?v=36ced53c">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -103,8 +103,8 @@
   </section>
 </main>
 
-<script src="auth-config.js?v=7d696389"></script>
-<script src="auth.js?v=7d696389"></script>
+<script src="auth-config.js?v=36ced53c"></script>
+<script src="auth.js?v=36ced53c"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -144,6 +144,16 @@
   }
   const val = id => document.getElementById(id).value.trim();
   const emailOk = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+  // رابط إيميل منتهي أو مستعمل قبل (#error=...&error_description=...)
+  const hashErr = new URLSearchParams(location.hash.slice(1));
+  if (hashErr.get('error') || hashErr.get('error_code')) {
+    const code = (hashErr.get('error_code') || '') + ' ' + (hashErr.get('error_description') || '');
+    msg(false, /expired|invalid/i.test(code)
+      ? 'الرابط يلي فتحتو انتهى أو انستعمل قبل هيك. إذا كان لتأكيد الحساب جرّب سجّل دخول، وإذا كان لكلمة السر اطلب رابط جديد من «نسيت كلمة السر».'
+      : 'ما زبط الرابط: ' + (hashErr.get('error_description') || code));
+    history.replaceState(null, '', 'login.html');
+  }
 
   let recovering = /type=recovery/.test(location.hash);
   if (recovering) setMode('reset');

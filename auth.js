@@ -91,7 +91,21 @@
     return base.replace(/\/?$/, '/') + (page || '');
   }
 
+  // رابط الإيميل (تأكيد الحساب / كلمة سر جديدة) إذا وصل على صفحة تانية (مثلاً الرئيسية):
+  // منوديه عالصفحة الصح ومعو نفس المعلومات يلي بعد الـ #
+  function routeAuthLink() {
+    const h = location.hash;
+    if (!enabled || !/(access_token=|error_description=|error_code=)/.test(h)) return false;
+    const page = location.pathname.split('/').pop() || 'index.html';
+    const target = /error/.test(h) || /type=recovery/.test(h) ? 'login.html' : 'account.html';
+    if (page === target) return false;
+    location.replace(target + h);
+    return true;
+  }
+
   window.ZikehAuth = { enabled, cfg, client, hasStoredSession, mountHeaderButton, arError, subStatus, fmtDate, daysText, siteUrl };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountHeaderButton);
-  else mountHeaderButton();
+  if (!routeAuthLink()) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountHeaderButton);
+    else mountHeaderButton();
+  }
 })();
