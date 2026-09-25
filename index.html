@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ZIKEH STORE توافقيات</title>
+<meta name="description" content="ZIKEH STORE: اعرف شو بيركب على جهازك من لصاقات شاشة وكفرات وشاشات وبطاريات وآيسيات.">
+<meta name="theme-color" content="#0055AA">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
+<link rel="stylesheet" href="styles.css?v=6067fd9f">
+</head>
+<body>
+<header class="topbar is-sticky">
+  <div class="wrap topbar-in">
+    <a class="brandmark" href="./" aria-label="ZIKEH STORE توافقيات — الصفحة الرئيسية">
+      <img src="logo.jpg" alt="" width="46" height="46" class="logo">
+      <div class="brand-text">
+        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
+        <span>توافقيات القطع · Mobile services &amp; tools</span>
+      </div>
+    </a>
+    <nav class="topnav" aria-label="أقسام الموقع">
+      <a href="#browse">تصفّح</a>
+      <a href="#support">الدعم</a>
+      <a class="btn wa small" href="https://wa.me/963935959558" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+        <span>واتساب</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero-band">
+  <div class="wrap hero">
+    <div id="previewBanner" class="banner" hidden>
+      وضع المعاينة: عم تشوف التعديلات غير المنشورة من صفحة الإدارة. الزباين ما بيشوفوها لسا.
+    </div>
+    <p class="eyebrow-light">دليل التوافقيات من ZIKEH STORE</p>
+    <h1>لاقي القطعة اللي بتركب على جهازك</h1>
+    <p class="hero-sub">اكتب اسم جهازك أو رقم الموديل أو رقم الآيسي أو المعالج أو المسطرة أو كود البطارية، ومنقلك شو بيركب عليه من لصاقات وكفرات وشاشات وبطاريات وآيسيات.</p>
+    <div class="search" id="search">
+      <form class="search-box" id="searchForm" role="search" action="#" novalidate>
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+          placeholder="مثلاً: A12 أو ايفون 13 أو BN46 أو MT6765"
+          role="combobox" aria-expanded="false" aria-controls="suggest" aria-autocomplete="list" aria-label="نوع الجهاز أو رقم الآيسي أو المعالج أو المسطرة أو كود البطارية" enterkeyhint="search">
+        <button class="btn primary" type="submit">ابحث</button>
+      </form>
+      <ul id="suggest" class="suggest" role="listbox" hidden></ul>
+    </div>
+    <div class="quick" id="quick"><span>الأكثر بحثاً:</span></div>
+    <dl class="stats" id="stats"></dl>
+  </div>
+</section>
+
+<main class="wrap">
+  <section id="result" class="result" aria-live="polite" hidden></section>
+
+  <section class="browse section" id="browse">
+    <div class="section-head">
+      <span class="eyebrow">تصفّح</span>
+      <h2>اختار جهازك من القائمة</h2>
+    </div>
+    <div class="seg" id="browseMode" hidden>
+      <button type="button" data-mode="devices" aria-pressed="true">الأجهزة</button>
+      <button type="button" data-mode="ics" aria-pressed="false">الآيسيات</button>
+    </div>
+    <div class="tabs" id="brandTabs" role="tablist" aria-label="الماركات"></div>
+    <div class="chips" id="brandModels"></div>
+  </section>
+
+  <section class="info-grid section">
+    <aside class="help">
+      <h3>ما بتعرف نوع جهازك؟</h3>
+      <p>افتح <b>الإعدادات</b> ← <b>حول الهاتف</b>، وبتلاقي اسم الجهاز أو رقم الموديل (متل <span class="ltr mono">SM-A125F</span>). فيك تكتب أي واحد منهن بالبحث.</p>
+    </aside>
+    <aside class="help">
+      <h3>شو معنى الألوان؟</h3>
+      <ul class="legend-list">
+        <li><span class="conf" data-conf="high"><span class="dot"></span></span><b>مؤكد</b>: مجرّب أو من قائمة مورّد.</li>
+        <li><span class="conf" data-conf="medium"><span class="dot"></span></span><b>محتمل</b>: الأغلب بيركب، جرّب قبل البيع.</li>
+        <li><span class="conf" data-conf="low"><span class="dot"></span></span><b>ضعيف</b>: بحاجة تأكيد.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <section class="support section" id="support">
+    <div class="support-card">
+      <div class="support-text">
+        <span class="eyebrow">تواصل مع الدعم</span>
+        <h2>ما لقيت جهازك أو القطعة؟ احكينا</h2>
+        <p>فريق ZIKEH STORE جاهز يساعدك تلاقي القطعة الصح، أو يأكدلك التوافق قبل ما تشتري.</p>
+      </div>
+      <div class="support-actions">
+        <div class="support-number">
+          <span>رقم الدعم</span>
+          <b class="ltr" id="supportNumber">0935 959 558</b>
+        </div>
+        <a class="btn wa" href="https://wa.me/963935959558" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+          راسلنا واتساب
+        </a>
+        <a class="btn call" href="tel:+963935959558">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
+          اتصل فينا
+        </a>
+        <button class="btn ghost-light" type="button" id="copyNumber">نسخ الرقم</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <img src="logo.jpg" alt="" width="40" height="40" class="logo">
+      <div>
+        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
+        <span class="ltr">Mobile services &amp; tools</span>
+      </div>
+    </div>
+    <div class="foot-meta">
+      <span>الدعم: <a class="ltr" href="tel:+963935959558">0935 959 558</a></span>
+      <span>المعلومات للمساعدة. جرّب القطعة على جهازك قبل ما تشتري إذا بتقدر.</span>
+      <span id="updated"></span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/963935959558" target="_blank" rel="noopener" aria-label="تواصل معنا على واتساب">
+  <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+</a>
+
+<!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
+<script src="data/index.js?v=6067fd9f"></script>
+<script src="core.js?v=6067fd9f"></script>
+<script src="votes.js?v=6067fd9f"></script>
+<script>
+(function () {
+  const P = window.PhoneFit;
+  if (!window.PHONE_DATA) {
+    document.getElementById('result').hidden = false;
+    document.getElementById('result').innerHTML = '<p class="banner">ما لقينا ملف البيانات data/index.js. شغّل build_site.bat بمجلد التطبيق.</p>';
+  }
+  const isPreview = /(^|[?&])preview\b/.test(location.search);
+  const { data, fromDraft } = P.loadData({ useDraft: isPreview });
+  if (fromDraft) document.getElementById('previewBanner').hidden = false;
+  const index = P.buildIndex(data);
+  const esc = P.escapeHtml;
+
+  const $q = document.getElementById('q');
+  const $suggest = document.getElementById('suggest');
+  const $result = document.getElementById('result');
+  let current = [];
+  let active = -1;
+
+  const ICONS = {
+    protector: '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 9l4-4M9 14l7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    case: '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="1.5" width="14" height="21" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="7.5" y="4" width="5" height="5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+    screen: '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5" fill="currentColor" opacity=".2"/><rect x="6" y="2.5" width="12" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>',
+    battery: '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="4" width="11" height="17.5" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10 2.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12.8 8.5l-2.6 4.2h3.6l-2.6 4.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+  };
+  ICONS.frame = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="7.5" y="4.5" width="9" height="15" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 1.5"/></svg>';
+  const mahText = b => b.mah ? b.mah + ' mAh' : '';
+  const PHONE_ICON = '<svg width="18" height="18" viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.5 18.5h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
+
+  // صورة الجهاز من الوجه والخلف (إذا موجودة) مع اسم المصوّر والرخصة
+  function devicePhotos(d) {
+    const img = d.img;
+    if (!img || !(img.f || img.b)) return '';
+    const fig = (src, label, cr, url) => src ? '<figure class="dev-photo"><img src="' + esc(src) + '" alt="' + esc(d.name + ' — ' + label) + '" loading="lazy">' +
+      '<figcaption>' + label + (cr ? ' · <a class="ltr" href="' + esc(url || '#') + '" target="_blank" rel="noopener" title="الصورة من ويكيميديا كومنز">' + esc(cr) + '</a>' : '') +
+      '</figcaption></figure>' : '';
+    return '<div class="dev-photos">' + fig(img.f, img.g ? 'صورة الجهاز' : 'الوجه', img.fc, img.fu) + fig(img.b, 'الخلف', img.bc, img.bu) + '</div>';
+  }
+
+  // ---------- الاقتراحات ----------
+  function renderSuggest() {
+    const text = $q.value.trim();
+    if (!text) { closeSuggest(); return; }
+    // أجهزة وآيسيات بنفس القائمة، الأقرب أول
+    const devs = P.search(index, text, 8).map(r => ({ id: r.device.id, label: r.device.name, sub: r.device.brand, score: r.score,
+      thumb: r.device.img && (r.device.img.f || r.device.img.b) }));
+    const ics = P.searchICs(index, text, 6).map(r => ({ id: r.ic.id, label: r.ic.code, sub: P.IC_KINDS[r.ic.kind], score: r.score, ic: true }));
+    const bats = P.searchBatteries(index, text, 6).map(r => ({ id: r.bat.id, label: r.bat.code,
+      sub: 'بطارية' + (r.bat.mah ? ' · ' + mahText(r.bat) : '') + ' · ' + r.bat.devices.length + ' ' + (r.bat.devices.length === 1 ? 'جهاز' : 'أجهزة'),
+      score: r.score, badge: '<span class="ic-badge bat-badge">BAT</span>' }));
+    const chips = P.searchChips(index, text, 6).map(r => r.chip
+      ? { id: r.chip.id, label: r.chip.code, score: r.score,
+          sub: [(r.chip.alt || []).find(n => P.normalize(text).includes(P.normalize(n))) || r.chip.short,
+            P.CHIP_TYPES[r.chip.type]].filter(Boolean).join(' · '),
+          badge: '<span class="ic-badge chip-badge">' + (r.chip.type === 'cpu' ? 'CPU' : 'IC') + '</span>' }
+      : { id: r.stencil.id, label: r.stencil.code, score: r.score,
+          sub: 'مسطرة · ' + r.stencil.items.length + ' ' + (r.stencil.items.length === 1 ? 'شريحة' : 'شرايح'),
+          badge: '<span class="ic-badge stn-badge">STENCIL</span>' });
+    ics.forEach(r => { r.badge = '<span class="ic-badge">IC</span>'; });
+    current = devs.concat(ics, bats, chips).sort((a, b) => b.score - a.score).slice(0, 8);
+    active = current.length ? 0 : -1;
+    if (!current.length) {
+      $suggest.innerHTML = '<li class="s-empty" role="option" aria-disabled="true">ما لقينا جهاز أو آيسي أو معالج أو مسطرة أو بطارية بهالاسم. جرّب تكتب رقم الموديل أو اختار من القائمة تحت.</li>';
+    } else {
+      $suggest.innerHTML = current.map((r, i) =>
+        '<li role="option" id="opt-' + i + '" data-id="' + esc(r.id) + '" aria-selected="' + (i === active) + '">' +
+        (r.badge ? '' : '<span class="s-thumb" aria-hidden="true">' +
+          (r.thumb ? '<img src="' + esc(r.thumb) + '" alt="" loading="lazy">' : PHONE_ICON) + '</span>') +
+        '<span class="ltr">' + (r.badge ? r.badge + ' ' : '') + esc(r.label) + '</span><span class="s-brand">' + esc(r.sub) + '</span></li>'
+      ).join('');
+    }
+    $suggest.hidden = false;
+    document.body.classList.add('suggest-open');
+    $q.setAttribute('aria-expanded', 'true');
+    updateActive();
+  }
+  function closeSuggest() {
+    $suggest.hidden = true;
+    document.body.classList.remove('suggest-open');
+    $q.setAttribute('aria-expanded', 'false');
+    $q.removeAttribute('aria-activedescendant');
+  }
+  function updateActive() {
+    [...$suggest.querySelectorAll('li[data-id]')].forEach((li, i) => li.setAttribute('aria-selected', String(i === active)));
+    if (active >= 0) {
+      $q.setAttribute('aria-activedescendant', 'opt-' + active);
+      const el = document.getElementById('opt-' + active);
+      if (el) el.scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  $q.addEventListener('input', renderSuggest);
+  $q.addEventListener('focus', () => { if ($q.value.trim()) renderSuggest(); });
+  $q.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' && current.length) { e.preventDefault(); active = (active + 1) % current.length; updateActive(); }
+    else if (e.key === 'ArrowUp' && current.length) { e.preventDefault(); active = (active - 1 + current.length) % current.length; updateActive(); }
+    else if (e.key === 'Escape') closeSuggest();
+  });
+  document.getElementById('searchForm').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!$q.value.trim()) { $q.focus(); return; }
+    if ($suggest.hidden) renderSuggest();
+    if (active >= 0 && current[active]) choose(current[active].id);
+    else $q.focus();
+  });
+  // mousedown حتى ما يضيع الاختيار قبل ما يصير blur
+  $suggest.addEventListener('mousedown', e => {
+    const li = e.target.closest('li[data-id]');
+    if (li) { e.preventDefault(); choose(li.dataset.id); }
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('#search')) closeSuggest(); });
+
+  function choose(id) {
+    closeSuggest();
+    const d = index.byId.get(id) || index.icById.get(id) || index.batById.get(id) || index.chipById.get(id) || index.stencilById.get(id);
+    if (d) $q.value = d.name || d.code;
+    $q.blur();
+    if (location.hash.slice(1) === id) show(id);
+    else location.hash = id;
+  }
+
+  // ---------- النتيجة ----------
+  // ---------- أصوات العملاء ----------
+  const V = window.PhoneFitVotes;
+  let currentId = null;
+  let voteCounts = {};
+  let myVotes = {};
+  const openVotes = new Set();
+  const voteMsg = {};
+
+  function show(id) {
+    if (id !== currentId) { openVotes.clear(); voteCounts = {}; myVotes = {}; }
+    currentId = id;
+    const dev = index.byId.get(id);
+    if (dev && P.needsBrand(data, dev.brand)) {
+      // منحمّل ملف ماركة الجهاز أول مرة بس
+      $result.hidden = false;
+      $result.innerHTML = '<div class="loading" role="status">عم نجيب توافقات <span class="ltr">' + esc(dev.name) + '</span>…</div>';
+      P.ensureBrand(data, dev.brand).then(() => {
+        if (currentId !== id) return;
+        render();
+        loadVotes(id);
+      }).catch(() => {
+        if (currentId !== id) return;
+        $result.innerHTML = '<p class="banner">ما قدرنا نحمّل بيانات ' + esc(dev.brand) + '. تأكد إنو مجلد data موجود جنب الصفحة، وجرّب تحدّث الصفحة.</p>';
+      });
+      return;
+    }
+    render();
+    loadVotes(id);
+  }
+
+  async function loadVotes(id) {
+    if (!V) return;
+    const keys = [];
+    Object.keys(P.TYPES).forEach(type =>
+      P.compatible(data, index, id, type).items.forEach(i => keys.push(P.pairKey(type, id, i.device.id))));
+    try {
+      const [counts, mine] = await Promise.all([V.counts(keys), V.mine(keys)]);
+      if (currentId !== id) return;
+      voteCounts = counts; myVotes = mine;
+      render();
+    } catch (e) { /* الأصوات مش ضرورية لعرض الصفحة */ }
+  }
+
+  function voteRow(type, d, i) {
+    const key = P.pairKey(type, d.id, i.device.id);
+    const mine = myVotes[key];
+    const v = i.votes || { yes: 0, no: 0 };
+    return '<div class="vote-row"><span class="ltr">' + esc(i.device.name) + '</span><span class="vote-btns">' +
+      '<button type="button" class="vote yes" data-key="' + esc(key) + '" data-vote="yes" aria-pressed="' + (mine === 'yes') + '">✓ ركبت <b>' + v.yes + '</b></button>' +
+      '<button type="button" class="vote no" data-key="' + esc(key) + '" data-vote="no" aria-pressed="' + (mine === 'no') + '">✗ ما ركبت <b>' + v.no + '</b></button>' +
+      '</span></div>';
+  }
+
+  function render() {
+    const d = index.byId.get(currentId);
+    if (!d) { $result.hidden = true; return; }
+    const rules = P.voteRules(data);
+    const codes = (d.codes || []).length ? '<div class="codes">يُعرف أيضاً: <span class="ltr mono">' + d.codes.map(esc).join(' · ') + '</span></div>' : '';
+    const parts = Object.keys(P.TYPES).map(type => {
+      const t = P.TYPES[type];
+      const c = P.compatible(data, index, d.id, type, { votes: voteCounts });
+      let body;
+      if (c.items.length) {
+        const weak = c.items.some(i => i.confidence !== 'high');
+        const rejected = c.items.filter(i => i.rejected);
+        const open = openVotes.has(type);
+        body = '<p class="lead">' + esc(t.label) + ' تبع هدول بتركب على جهازك:</p>' +
+          '<div class="chips">' + c.items.map(i =>
+            '<a class="chip fit conf" data-conf="' + i.confidence + '" href="#' + esc(i.device.id) + '" title="' +
+            esc(P.CONFIDENCE[i.confidence] + ' · ' + P.SOURCES[i.source] + (i.why ? ' · ' + i.why : '') +
+              (i.votes.yes || i.votes.no ? ' · العملاء: ' + i.votes.yes + ' ركب، ' + i.votes.no + ' ما ركب' : '')) + '">' +
+            '<span class="dot" aria-hidden="true"></span><span class="ltr">' + esc(i.device.name) + '</span>' +
+            (i.source === 'customers' ? '<span class="tag">عملاء ✓</span>' : '') +
+            (i.rejected ? '<span class="tag bad">عملاء ✗</span>' : '') +
+            '<span class="sr">(' + esc(P.CONFIDENCE[i.confidence]) + ')</span></a>').join('') + '</div>' +
+          (c.notes.length ? '<div class="note">' + c.notes.map(esc).join(' · ') + '</div>' : '') +
+          (c.items.some(i => i.source === 'combo' && i.confidence === 'high')
+            ? '<p class="combo-note"><span class="conf" data-conf="high"><span class="dot"></span></span>الأخضر هون: حسب قوائم الكومبو</p>' : '') +
+          // نفس التنبيه لأكتر من جهاز ← سطر واحد
+          [...c.items.filter(i => i.note).reduce((m, i) => m.set(i.note, (m.get(i.note) || []).concat(i.device.name)), new Map())]
+            .map(([note, names]) => '<p class="warn-try">⚠ ' + esc(note) + ': <span class="ltr">' + names.map(esc).join('، ') + '</span></p>').join('') +
+          (rejected.length ? '<p class="warn-try">⚠ عملاء قالوا إنو ' + esc(t.label) + ' ما ركب على: <span class="ltr">' +
+            rejected.map(i => esc(i.device.name)).join('، ') + '</span></p>' : '') +
+          (weak ? '<p class="warn-try">⚠ جرّب قبل البيع: الأجهزة باللون الأصفر (محتمل) والبرتقالي (ضعيف) مش مؤكدة.</p>' : '') +
+          (V ? '<button type="button" class="btn small vote-toggle" data-type="' + type + '" aria-expanded="' + open + '">' +
+            (open ? 'سكّر' : 'جرّبت وحدة منهن؟ قلّنا إذا ركبت') + '</button>' +
+            '<div class="vote-list"' + (open ? '' : ' hidden') + '>' + c.items.map(i => voteRow(type, d, i)).join('') +
+            '<p class="note">لما ' + rules.confirm + ' عملاء يأكّدوا توافق بيصير أخضر، ولما ' + rules.reject + ' يقولوا ما ركب بيصير برتقالي.</p>' +
+            (voteMsg[type] ? '<p class="vote-thanks" role="status">' + esc(voteMsg[type]) + '</p>' : '') + '</div>' : '');
+      } else if (type === 'frame') {
+        body = '<p class="none">إطار خاص بهاد الجهاز.</p>';
+      } else {
+        body = '<p class="none">ما في جهاز تاني مسجّل عنا بيشاركه ' + esc(t.label) + '. اطلب ' + esc(t.label) + (type === 'case' ? ' المخصص' : ' المخصصة') + ' لـ<span class="ltr">' + esc(d.name) + '</span> بالاسم.</p>';
+      }
+      return '<article class="part" data-type="' + type + '">' +
+        '<div class="part-title"><div class="part-icon">' + ICONS[type] + '</div><h3>' + esc(t.plural) + '</h3>' +
+        '<span class="count">' + (c.items.length ? c.items.length + ' ' + (c.items.length === 1 ? 'جهاز' : 'أجهزة') : '—') + '</span></div>' +
+        (type === 'battery' ? batteryInfo(d) : '') + body + '</article>';
+    }).join('');
+    const icHtml = deviceChips(d) + deviceICs(d);
+    const icCount = (index.icsByDevice.get(d.id) || []).length + (index.chipsByDevice.get(d.id) || []).length;
+    const conns = (data.connectors || []).filter(c => c.devices.includes(d.id));
+    const tabs = [['parts', 'القطع', ''], ['ics', 'الآيسيات', icCount || ''], ['conns', 'الكونكترات', conns.length || '']];
+    $result.innerHTML =
+      '<div class="device-head"><div><div class="eyebrow">' + esc(d.brand) + '</div><h2 class="ltr">' + esc(d.name) + '</h2>' + codes + cpuLine(d) + '</div>' +
+      '<button class="btn small" id="copyLink" type="button">نسخ رابط الصفحة</button></div>' +
+      devicePhotos(d) +
+      '<div class="dev-tabs" role="tablist" aria-label="أقسام الجهاز">' + tabs.map(([k, label, n]) =>
+        '<button type="button" role="tab" id="tab-' + k + '" data-tab="' + k + '" aria-controls="panel-' + k + '" aria-selected="' + (devTab === k) + '"' +
+        (devTab === k ? '' : ' tabindex="-1"') + '>' + label + (n !== '' ? ' <span class="tab-n">' + n + '</span>' : '') + '</button>').join('') + '</div>' +
+      '<div role="tabpanel" id="panel-parts" aria-labelledby="tab-parts"' + (devTab === 'parts' ? '' : ' hidden') + '>' +
+      '<div class="legend" aria-label="دليل الألوان">' +
+      ['high', 'medium', 'low'].map(k => '<span class="conf" data-conf="' + k + '"><span class="dot"></span>' + esc(P.CONFIDENCE[k]) + '</span>').join('') +
+      '</div>' +
+      '<div class="parts">' + parts + '</div></div>' +
+      '<div role="tabpanel" id="panel-ics" aria-labelledby="tab-ics"' + (devTab === 'ics' ? '' : ' hidden') + '>' +
+      (icHtml || '<p class="none">ما في آيسيات مسجّلة لهالجهاز لسا.</p>') + '</div>' +
+      '<div role="tabpanel" id="panel-conns" aria-labelledby="tab-conns"' + (devTab === 'conns' ? '' : ' hidden') + '>' +
+      deviceConnectors(d, conns) + '</div>';
+    $result.hidden = false;
+    if (document.activeElement !== $q) $q.value = d.name;
+    document.title = d.name + ' — ZIKEH STORE';
+    selectBrand(d.brand, false);
+  }
+
+  // ---------- الآيسيات ----------
+  const IC_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 3v3M12 3v3M15 3v3M9 18v3M12 18v3M15 18v3M3 9h3M3 12h3M3 15h3M18 9h3M18 12h3M18 15h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9.5" cy="9.5" r="1" fill="currentColor"/></svg>';
+
+  function icChip(ic) {
+    return '<a class="chip conf" data-conf="' + ic.confidence + '" href="#' + esc(ic.id) + '" title="' +
+      esc(P.CONFIDENCE[ic.confidence] + ' · ' + P.SOURCES[ic.source]) + '"><span class="dot" aria-hidden="true"></span>' +
+      '<span class="ltr mono">' + esc(ic.code) + '</span></a>';
+  }
+
+  const CHIPSET_WARN = '⚠ نفس المعالج – تأكد من رقم الآيسي قبل التركيب';
+
+  function deviceChip(x, conf) {
+    return '<a class="chip conf" data-conf="' + conf + '" href="#' + esc(x.id) + '"><span class="dot" aria-hidden="true"></span><span class="ltr">' + esc(x.name) + '</span></a>';
+  }
+
+  // قائمة أجهزة طويلة: منعرض أول 40 وزر «اعرض الكل»
+  function chipList(list, conf) {
+    const LIMIT = 40;
+    const head = list.slice(0, LIMIT).map(x => deviceChip(x, conf)).join('');
+    const rest = list.slice(LIMIT);
+    return '<div class="chips">' + head +
+      (rest.length ? '<span class="more-chips" hidden>' + rest.map(x => deviceChip(x, conf)).join('') + '</span>' +
+        '<button type="button" class="btn small show-more">اعرض الكل (+' + rest.length + ')</button>' : '') + '</div>';
+  }
+
+  // قسم الآيسيات بصفحة الجهاز: مجمّعة حسب النوع، ورقم كل آيسي جنبه
+  function deviceICs(d) {
+    const list = index.icsByDevice.get(d.id) || [];
+    const mates = P.sameChipset(index, d.id);
+    if (!list.length && !mates.length) return '';
+    const kinds = Object.keys(P.IC_KINDS).filter(k => list.some(ic => ic.kind === k));
+    const rows = kinds.map(k => {
+      const ics = list.filter(ic => ic.kind === k).sort((a, b) => a.code.localeCompare(b.code, 'en', { numeric: true }));
+      return '<div class="ic-row"><span class="ic-kind">' + esc(P.IC_KINDS[k]) + '</span><span class="ic-codes">' +
+        ics.map(ic => {
+          if (ic.label_only) {
+            return '<span class="chip ic-label ltr mono" title="اسم الشركة المصنّعة، مش رقم آيسي">' + esc(ic.code) + '</span>' +
+              '<span class="ic-others">الشركة المصنّعة (مش رقم آيسي)</span>';
+          }
+          const others = ic.devices.filter(x => x !== d.id && index.byId.has(x)).length;
+          return icChip(ic) + '<span class="ic-others">' + (others ? '+' + others + ' ' + (others === 1 ? 'جهاز' : 'أجهزة') : 'بس هالجهاز') + '</span>';
+        }).join('') + '</span></div>';
+    }).join('');
+    return '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + IC_ICON + '</div>' +
+      '<h3>الآيسيات بهالجهاز</h3><span class="count">' + (list.length || '—') + '</span></div>' +
+      (list.length ? '<p class="lead">اضغط على رقم الآيسي لتشوف بأي أجهزة تانية راكب نفسه:</p><div class="ic-rows">' + rows + '</div>'
+        : '<p class="none">ما في آيسيات مسجّلة لهالجهاز لسا.</p>') +
+      (mates.length ? '<div class="chipset-block"><p class="lead">أجهزة بنفس المعالج <span class="ltr mono">' + esc(d.chipset) + '</span> (' + mates.length + '):</p>' +
+        chipList(mates, 'medium') + '<p class="warn-try">' + CHIPSET_WARN + '</p></div>' : '') +
+      '</article>';
+  }
+
+  // أجهزة مش بالقائمة بس إلها نفس معالج جهاز من القائمة ← محتمل
+  function probableByChipset(ic) {
+    const listed = new Set(ic.devices);
+    const seen = new Set();
+    const out = [];
+    ic.devices.forEach(id => P.sameChipset(index, id).forEach(x => {
+      if (!listed.has(x.id) && !seen.has(x.id)) { seen.add(x.id); out.push(x); }
+    }));
+    if (!out.length) return '';
+    out.sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name, 'en', { numeric: true }));
+    return '<div class="chipset-block"><p class="lead">محتمل كمان – أجهزة إلها نفس معالج أجهزة من القائمة (' + out.length + '):</p>' +
+      chipList(out, 'medium') + '<p class="warn-try">' + CHIPSET_WARN + '</p></div>';
+  }
+
+  // صفحة الآيسي: بأي أجهزة راكب
+  function showIC(id) {
+    const ic = index.icById.get(id);
+    if (!ic) { $result.hidden = true; return; }
+    currentId = null;
+    const devs = ic.devices.map(x => index.byId.get(x)).filter(Boolean)
+      .sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name, 'en', { numeric: true }));
+    const byBrand = {};
+    devs.forEach(x => { (byBrand[x.brand] = byBrand[x.brand] || []).push(x); });
+    const weak = ic.confidence !== 'high';
+    $result.innerHTML =
+      '<div class="device-head"><div><div class="eyebrow">' + esc(P.IC_KINDS[ic.kind]) + '</div>' +
+      '<h2 class="ltr mono ic-title">' + esc(ic.code) + '</h2>' +
+      ((ic.aliases || []).length ? '<div class="codes">أرقام تانية لنفس الآيسي: <span class="ltr mono">' + ic.aliases.map(esc).join(' · ') + '</span></div>' : '') +
+      '</div><button class="btn small" id="copyLink" type="button">نسخ رابط الصفحة</button></div>' +
+      '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + IC_ICON + '</div>' +
+      '<h3>راكب بهالأجهزة</h3><span class="count">' + devs.length + ' ' + (devs.length === 1 ? 'جهاز' : 'أجهزة') + '</span></div>' +
+      '<p class="lead">نفس الآيسي راكب بكل هالأجهزة، يعني فيك تاخده من أي واحد فيهن للتاني:</p>' +
+      Object.keys(byBrand).map(b => '<div class="ic-brand"><span class="ic-kind">' + esc(b) + ' (' + byBrand[b].length + ')</span>' +
+        chipList(byBrand[b], ic.confidence) + '</div>').join('') +
+      probableByChipset(ic) +
+      // نفس الآيسي بجدول المعالجات والمساطر ← المسطرة يلي بتركب عليه
+      (index.chipsByIc.get(ic.id) || []).map(c => '<div class="chipset-block"><p class="lead">المسطرة يلي بتركب على <a class="ltr mono" href="#' + esc(c.id) + '">' + esc(c.code) + '</a>:</p>' +
+        stencilList(c) + '</div>').join('') +
+      (ic.note ? '<div class="note">' + esc(ic.note) + '</div>' : '') +
+      '<p class="note">المصدر: ' + esc(P.SOURCES[ic.source]) + ' · ' + esc(P.CONFIDENCE[ic.confidence]) + '</p>' +
+      (weak ? '<p class="warn-try">⚠ جرّب قبل البيع: هالمعلومة مش مؤكدة 100%.</p>' : '') +
+      '<p class="warn-try" style="color:var(--muted);font-weight:400">قبل التركيب قارن الرقم المكتوب على الآيسي نفسه، لأنو أحياناً نفس الجهاز بيجي بأكتر من نسخة لوحة.</p>' +
+      '</article>';
+    $result.hidden = false;
+    if (document.activeElement !== $q) $q.value = ic.code;
+    document.title = ic.code + ' — ZIKEH STORE';
+  }
+
+  // ---------- الكونكترات ----------
+  let devTab = 'parts';
+  const CONN_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="8" width="16" height="8" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+
+  // تفاصيل القطعة من نص الإعلان: "(charge connector, with microphone, Original (PRC))"
+  // كلمات الإعلان ← عربي (أرقام الموديل بتضل متل ما هي)
+  const CONN_AR = {
+    'charge connector': 'سوكيت شحن', 'charging board': 'بورد شحن', 'with microphone': 'مع مايك', 'microphone': 'مايك',
+    'with components': 'مع القطع الإلكترونية', 'original (prc)': 'أصلي (صيني)', 'original': 'أصلي',
+    'high copy': 'نسخة درجة أولى', 'copy': 'نسخة تجارية', 'refurbished': 'مجدّد',
+    'headphone connector': 'مع منفذ سماعة', 'for mainboard': 'للبورد الرئيسي', 'with sim-connector': 'مع سوكيت سيم',
+    'for sim connector': 'لسوكيت السيم', 'with connector': 'مع كونكتر', 'with flat cable': 'مع فلات',
+    'with memory card connector': 'مع سوكيت كرت ذاكرة', 'with vibro': 'مع هزاز', 'menu button': 'زر القائمة',
+    'narrow': 'ضيق', 'wide': 'عريض', 'european version': 'نسخة أوروبية', 'lte version': 'نسخة LTE', '3g version': 'نسخة 3G',
+    'black': 'أسود', 'white': 'أبيض', 'gray': 'رمادي', 'grey': 'رمادي', 'golden': 'ذهبي', 'gold': 'ذهبي', 'green': 'أخضر',
+    'dark blue': 'كحلي', 'blue': 'أزرق', 'red': 'أحمر', 'silver': 'فضي', 'pink': 'زهري', 'purple': 'بنفسجي',
+    'deep purple': 'بنفسجي غامق', 'graphite': 'رمادي غامق', 'yellow': 'أصفر', 'black titanium': 'تيتانيوم أسود',
+    'natural titanium': 'تيتانيوم طبيعي', 'white titanium': 'تيتانيوم أبيض', 'starlight': 'ستارلايت', 'midnight': 'ميدنايت',
+    'lcd': 'شاشة', 'all': 'كل النسخ'
+  };
+
+  // آخر قوس بالإعلان (مش أول واحد): "... Galaxy A10 (A105), (charge connector, black, Original (PRC))"
+  function lastParen(s) {
+    s = String(s || '').trim();
+    if (!s.endsWith(')')) return '';
+    let depth = 0;
+    for (let i = s.length - 1; i >= 0; i--) {
+      if (s[i] === ')') depth++;
+      else if (s[i] === '(' && --depth === 0) return s.slice(i + 1, -1);
+    }
+    return '';
+  }
+
+  // تفاصيل القطعة بالعربي: "(charge connector, with microphone, Original (PRC))" ← "سوكيت شحن، مع مايك، أصلي (صيني)"
+  function connDetail(c) {
+    const inner = lastParen(c.listing);
+    if (!inner) return '';
+    const parts = [];
+    let depth = 0, cur = '';
+    for (const ch of inner) {                       // فاصلة بس برا الأقواس
+      if (ch === '(') depth++; else if (ch === ')') depth--;
+      if (ch === ',' && depth === 0) { parts.push(cur); cur = ''; } else cur += ch;
+    }
+    parts.push(cur);
+    return parts.map(s => s.trim()).filter(s => s && !/\bpin\b|USB|Lightning/i.test(s)) // البنات والمنفذ بيبينوا لحالهن
+      .map(s => CONN_AR[s.toLowerCase()] || s).join('، ');
+  }
+
+  // تبويب «كونكترات» بصفحة الجهاز: مقسم حسب النوع، وجنب السوكيت عدد البنات ونوع المنفذ
+  function deviceConnectors(d, conns) {
+    if (!conns.length) return '<p class="none">ما في كونكترات مسجّلة لهالجهاز لسا.</p>';
+    const kinds = Object.keys(P.CONN_KINDS).filter(k => conns.some(c => c.kind === k));
+    return '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + CONN_ICON + '</div>' +
+      '<h3>الكونكترات والفلاتات</h3><span class="count">' + conns.length + '</span></div>' +
+      '<p class="lead">كل قطعة مع الأجهزة التانية يلي بتاخد نفسها:</p><div class="ic-rows">' +
+      kinds.map(k => '<div class="ic-row conn-row"><span class="ic-kind">' + esc(P.CONN_KINDS[k]) + '</span><div class="conn-list">' +
+        conns.filter(c => c.kind === k).map(c => {
+          const others = c.devices.filter(x => x !== d.id).map(x => index.byId.get(x)).filter(Boolean)
+            .sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name, 'en', { numeric: true }));
+          const specs = [c.pins ? c.pins + ' pin' : '', c.port || ''].filter(Boolean);
+          const detail = connDetail(c);
+          return '<div class="conn-item">' +
+            (specs.length ? '<span class="conn-specs ltr">' + specs.map(s => '<span class="spec">' + esc(s) + '</span>').join('') + '</span>' : '') +
+            (others.length ? chipList(others, c.confidence || 'high')
+              : '<span class="ic-others">بس هالجهاز</span>') +
+            (detail ? '<span class="conn-detail" dir="auto" title="' + esc(c.listing) + '">' + esc(detail) + '</span>' : '') +
+            '</div>';
+        }).join('') + '</div></div>').join('') + '</div>' +
+      '<p class="warn-try" style="color:var(--muted);font-weight:400">قارن شكل القطعة وعدد البنات قبل التركيب، لأنو أحياناً نفس الجهاز إله أكتر من نسخة.</p>' +
+      '</article>';
+  }
+
+  // ---------- البطاريات ----------
+  // بصفحة الجهاز: كود البطارية وسعتها
+  function batteryInfo(d) {
+    const list = index.batsByDevice.get(d.id) || [];
+    if (!list.length) return '';
+    return '<div class="bat-info">' + list.map(b => {
+      const others = b.devices.filter(x => x !== d.id && index.byId.has(x)).length;
+      return '<div class="bat-row">' +
+        (b.code
+          ? '<a class="chip conf bat-code" data-conf="high" href="#' + esc(b.id) + '" title="اضغط لتشوف كل الأجهزة يلي بتاخد هالبطارية">' +
+            '<span class="dot" aria-hidden="true"></span><span class="ltr mono">' + esc(b.code) + '</span></a>'
+          : '<span class="bat-nocode">بطارية بدون كود معروف</span>') +
+        (b.mah ? '<span class="bat-mah ltr">' + esc(mahText(b)) + '</span>' : '') +
+        ((b.aliases || []).length ? '<span class="ic-others">كمان: <span class="ltr mono">' + b.aliases.map(esc).join(' · ') + '</span></span>' : '') +
+        (b.code ? '<span class="ic-others">' + (others ? '+' + others + ' ' + (others === 1 ? 'جهاز' : 'أجهزة') : 'بس هالجهاز') + '</span>' : '') +
+        '</div>';
+    }).join('') +
+      (list.length > 1 ? '<p class="warn-try">⚠ هالجهاز إله أكتر من بطارية بالقوائم. قارن الكود المكتوب على البطارية القديمة قبل ما تبدّل.</p>' : '') +
+      '</div>';
+  }
+
+  // صفحة البطارية: كل الأجهزة يلي بتاخدها
+  function showBattery(id) {
+    const b = index.batById.get(id);
+    if (!b) { $result.hidden = true; return; }
+    currentId = null;
+    const devs = b.devices.map(x => index.byId.get(x)).filter(Boolean)
+      .sort((a, c) => a.brand.localeCompare(c.brand) || a.name.localeCompare(c.name, 'en', { numeric: true }));
+    const byBrand = {};
+    devs.forEach(x => { (byBrand[x.brand] = byBrand[x.brand] || []).push(x); });
+    $result.innerHTML =
+      '<div class="device-head"><div><div class="eyebrow">بطارية' + (b.mah ? ' · <span class="ltr">' + esc(mahText(b)) + '</span>' : '') + '</div>' +
+      '<h2 class="ltr mono ic-title">' + esc(b.code || 'بدون كود') + '</h2>' +
+      ((b.aliases || []).length ? '<div class="codes">أكواد تانية لنفس البطارية: <span class="ltr mono">' + b.aliases.map(esc).join(' · ') + '</span></div>' : '') +
+      '</div><button class="btn small" id="copyLink" type="button">نسخ رابط الصفحة</button></div>' +
+      '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + ICONS.battery + '</div>' +
+      '<h3>بتركب على هالأجهزة</h3><span class="count">' + devs.length + ' ' + (devs.length === 1 ? 'جهاز' : 'أجهزة') + '</span></div>' +
+      '<p class="lead">نفس البطارية بتركب على كل هالأجهزة:</p>' +
+      Object.keys(byBrand).map(br => '<div class="ic-brand"><span class="ic-kind">' + esc(br) + ' (' + byBrand[br].length + ')</span>' +
+        chipList(byBrand[br], b.confidence || 'high') + '</div>').join('') +
+      '<p class="note">المصدر: ' + esc(P.SOURCES[b.source] || '') + ' · ' + esc(P.CONFIDENCE[b.confidence || 'high']) + '</p>' +
+      '<p class="warn-try" style="color:var(--muted);font-weight:400">قبل التركيب تأكد إنو الكود والسعة المكتوبين على البطارية نفسهن، وإنو الفيشة (الكونكتور) نفسها.</p>' +
+      '</article>';
+    $result.hidden = false;
+    if (document.activeElement !== $q) $q.value = b.code;
+    document.title = (b.code || 'بطارية') + ' — ZIKEH STORE';
+  }
+
+  // ---------- المعالجات والمساطر ----------
+  const STN_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><g fill="currentColor"><circle cx="8" cy="10" r="1"/><circle cx="12" cy="10" r="1"/><circle cx="16" cy="10" r="1"/><circle cx="8" cy="14" r="1"/><circle cx="12" cy="14" r="1"/><circle cx="16" cy="14" r="1"/></g></svg>';
+  // اسم الشريحة: إذا الجهاز معطى، الاسم المكتوب بمواصفاته (MT6769 = Helio G70 / G80 / G85)
+  const chipLabel = (c, d) => {
+    const cs = P.normalize(d && d.chipset);
+    return (cs && [c.short].concat(c.alt || []).find(n => n && cs.includes(P.normalize(n)))) || c.short || c.code;
+  };
+
+  // سطر مسطرة: الكود + السماكة + اسمها الكامل + رابط المصدر
+  function stencilRow(s) {
+    const id = s.code ? 'stn-' + P.slugify(s.code) : '';
+    return '<div class="stn-row">' +
+      (s.code ? '<a class="chip conf stn-code" data-conf="high" href="#' + esc(id) + '" title="كل الشرايح يلي بتركب عليها هالمسطرة">' +
+        '<span class="dot" aria-hidden="true"></span><span class="ltr mono">' + esc(s.code) + '</span></a>' : '') +
+      (s.mm ? '<span class="spec ltr" title="سماكة المسطرة">' + esc(s.mm) + ' mm</span>' : '') +
+      '<span class="stn-name ltr">' + esc(s.name) + '</span>' +
+      (s.url ? '<a class="stn-src" href="' + esc(s.url) + '" target="_blank" rel="noopener">المصدر</a>'
+        : s.src ? '<span class="stn-src ltr">' + esc(s.src) + '</span>' : '') +
+      '</div>';
+  }
+  function stencilList(c) {
+    return (c.stencils || []).length ? '<div class="stn-list">' + c.stencils.map(stencilRow).join('') + '</div>'
+      : '<p class="none">ما في مسطرة مسجّلة لهالشريحة لسا.</p>';
+  }
+
+  // كل شرايح الجهاز: المعالج من الجدول، والباور يلي آيسيها بجدول الآيسيات
+  function chipsOfDevice(d) {
+    const out = [...(index.chipsByDevice.get(d.id) || [])];
+    (index.icsByDevice.get(d.id) || []).forEach(ic => (index.chipsByIc.get(ic.id) || []).forEach(c => { if (!out.includes(c)) out.push(c); }));
+    const order = Object.keys(P.CHIP_TYPES);
+    return out.sort((a, b) => order.indexOf(a.type) - order.indexOf(b.type));
+  }
+
+  // سطر تحت اسم الجهاز: المعالج والمسطرة
+  function cpuLine(d) {
+    const cpus = chipsOfDevice(d).filter(c => c.type === 'cpu');
+    if (!cpus.length) return '';
+    return '<div class="cpu-line">' + cpus.map(c => {
+      const codes = [...new Set((c.stencils || []).map(s => s.code).filter(Boolean))];
+      const label = chipLabel(c, d);
+      return '<span>المعالج: <a href="#' + esc(c.id) + '" class="ltr">' + esc(label) +
+        (label !== c.code ? ' <span class="mono">(' + esc(c.code) + ')</span>' : '') + '</a>' +
+        (codes.length ? ' · المسطرة: ' + codes.map(k => '<a class="ltr mono" href="#stn-' + esc(P.slugify(k)) + '">' + esc(k) + '</a>').join('، ') : '') +
+        '</span>';
+    }).join('<span class="sep">أو</span>') + '</div>';
+  }
+
+  // بتبويب «الآيسيات» بصفحة الجهاز: المعالج والباور مع كل المساطر
+  function deviceChips(d) {
+    const list = chipsOfDevice(d);
+    if (!list.length) return '';
+    return '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + STN_ICON + '</div>' +
+      '<h3>المعالج والمساطر</h3><span class="count">' + list.length + '</span></div>' +
+      (list.filter(c => c.type === 'cpu').length > 1 ? '<p class="warn-try">⚠ هالجهاز بيجي بأكتر من معالج حسب النسخة. شوف الرقم المكتوب على المعالج قبل ما تختار المسطرة.</p>' : '') +
+      list.map(c => '<div class="chip-block"><div class="chip-head"><span class="ic-kind">' + esc(P.CHIP_TYPES[c.type] || '') + '</span>' +
+        '<a class="chip conf" data-conf="high" href="#' + esc(c.id) + '"><span class="dot" aria-hidden="true"></span><span class="ltr mono">' + esc(c.code) + '</span></a>' +
+        (chipLabel(c, d) !== c.code ? '<span class="ltr chip-name">' + esc(chipLabel(c, d)) + '</span>' : '') + '</div>' +
+        stencilList(c) + '</div>').join('') +
+      '<p class="warn-try" style="color:var(--muted);font-weight:400">قبل الريبولينغ قارن الرقم المكتوب على الشريحة نفسها مع المسطرة.</p>' +
+      '</article>';
+  }
+
+  function devicesByBrand(ids, conf) {
+    const devs = ids.map(x => index.byId.get(x)).filter(Boolean)
+      .sort((a, b) => a.brand.localeCompare(b.brand) || a.name.localeCompare(b.name, 'en', { numeric: true }));
+    const byBrand = {};
+    devs.forEach(x => { (byBrand[x.brand] = byBrand[x.brand] || []).push(x); });
+    return { count: devs.length, html: Object.keys(byBrand).map(b => '<div class="ic-brand"><span class="ic-kind">' + esc(b) + ' (' + byBrand[b].length + ')</span>' +
+      chipList(byBrand[b], conf) + '</div>').join('') };
+  }
+
+  // صفحة الشريحة: اسمها ونوعها، المساطر مع السماكة، والأجهزة يلي فيها
+  function showChip(id) {
+    const c = index.chipById.get(id);
+    if (!c) { $result.hidden = true; return; }
+    currentId = null;
+    const devs = devicesByBrand(c.devices || [], 'high');
+    const ics = (c.ics || []).map(x => index.icById.get(x)).filter(Boolean);
+    $result.innerHTML =
+      '<div class="device-head"><div><div class="eyebrow">' + esc(P.CHIP_TYPES[c.type] || '') + '</div>' +
+      '<h2 class="ltr mono ic-title">' + esc(c.code) + '</h2>' +
+      (c.name ? '<div class="chip-market ltr">' + esc(c.name) + '</div>' : '') +
+      ((c.alt || []).length ? '<div class="codes">أسماء تانية لنفس الشريحة: <span class="ltr">' + c.alt.map(esc).join(' · ') + '</span></div>' : '') +
+      ((c.aliases || []).length ? '<div class="codes">أرقام تانية لنفس الشريحة: <span class="ltr mono">' + c.aliases.map(esc).join(' · ') + '</span></div>' : '') +
+      '</div><button class="btn small" id="copyLink" type="button">نسخ رابط الصفحة</button></div>' +
+      '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + STN_ICON + '</div>' +
+      '<h3>المساطر يلي بتركب عليها</h3><span class="count">' + (c.stencils || []).length + '</span></div>' + stencilList(c) + '</article>' +
+      (ics.length ? '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + IC_ICON + '</div><h3>بجدول الآيسيات</h3></div>' +
+        '<p class="lead">نفس الرقم بجدول الآيسيات (مع الأجهزة يلي راكب فيها):</p><div class="chips">' + ics.map(icChip).join('') + '</div></article>' : '') +
+      (devs.count || (c.phones || []).length ? '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + PHONE_ICON + '</div>' +
+        '<h3>أجهزة فيها هالشريحة</h3><span class="count">' + (devs.count + (c.phones || []).length) + '</span></div>' + devs.html +
+        ((c.phones || []).length ? '<p class="note">كمان (مش مسجّلين عنا): <span class="ltr">' + c.phones.map(esc).join('، ') + '</span></p>' : '') +
+        '</article>' : '');
+    $result.hidden = false;
+    if (document.activeElement !== $q) $q.value = c.code;
+    document.title = c.code + (c.short ? ' ' + c.short : '') + ' — ZIKEH STORE';
+  }
+
+  // صفحة المسطرة: كل الشرايح يلي بتركب عليها
+  function showStencil(id) {
+    const s = index.stencilById.get(id);
+    if (!s) { $result.hidden = true; return; }
+    currentId = null;
+    const mm = [...new Set(s.items.map(x => x.stencil.mm).filter(Boolean))];
+    const names = [...new Set(s.items.map(x => x.stencil.name))].sort((a, b) => b.length - a.length);
+    const order = Object.keys(P.CHIP_TYPES);
+    const items = [...s.items].sort((a, b) => order.indexOf(a.chip.type) - order.indexOf(b.chip.type) || a.chip.code.localeCompare(b.chip.code, 'en', { numeric: true }));
+    const url = (s.items.find(x => x.stencil.url) || {}).stencil;
+    $result.innerHTML =
+      '<div class="device-head"><div><div class="eyebrow">مسطرة (Stencil)' + (mm.length ? ' · <span class="ltr">' + mm.map(esc).join(' / ') + ' mm</span>' : '') + '</div>' +
+      '<h2 class="ltr mono ic-title">' + esc(s.code) + '</h2>' +
+      '<div class="codes ltr">' + esc(names[0]) + '</div>' +
+      '</div><button class="btn small" id="copyLink" type="button">نسخ رابط الصفحة</button></div>' +
+      '<article class="part ic-part"><div class="part-title"><div class="part-icon">' + STN_ICON + '</div>' +
+      '<h3>الشرايح يلي بتركب عليها</h3><span class="count">' + items.length + '</span></div>' +
+      '<div class="ic-rows">' + items.map(x => '<div class="ic-row"><span class="ic-kind">' + esc(P.CHIP_TYPES[x.chip.type] || '') + '</span><span class="ic-codes">' +
+        '<a class="chip conf" data-conf="high" href="#' + esc(x.chip.id) + '"><span class="dot" aria-hidden="true"></span><span class="ltr mono">' + esc(x.chip.code) + '</span></a>' +
+        (x.chip.short ? '<span class="ic-others ltr">' + esc(x.chip.short) + '</span>' : '') +
+        '<span class="ic-others">' + ((x.chip.devices || []).length ? (x.chip.devices.length + ' ' + (x.chip.devices.length === 1 ? 'جهاز' : 'أجهزة')) : '') + '</span>' +
+        '</span></div>').join('') + '</div>' +
+      (url ? '<p class="note">المصدر: <a href="' + esc(url.url) + '" target="_blank" rel="noopener">' + esc(url.src || 'رابط') + '</a></p>' : '') +
+      '<p class="warn-try" style="color:var(--muted);font-weight:400">المسطرة الوحدة فيها أكتر من شريحة. قارن الرقم المكتوب على الشريحة مع اسم الفتحة على المسطرة.</p>' +
+      '</article>';
+    $result.hidden = false;
+    if (document.activeElement !== $q) $q.value = s.code;
+    document.title = 'مسطرة ' + s.code + ' — ZIKEH STORE';
+  }
+
+  function selectTab(k, focus) {
+    devTab = k;
+    $result.querySelectorAll('.dev-tabs [role="tab"]').forEach(t => {
+      const on = t.dataset.tab === k;
+      t.setAttribute('aria-selected', String(on));
+      if (on) { t.removeAttribute('tabindex'); if (focus) t.focus(); } else t.setAttribute('tabindex', '-1');
+    });
+    $result.querySelectorAll('[role="tabpanel"]').forEach(p => { p.hidden = p.id !== 'panel-' + k; });
+  }
+  $result.addEventListener('keydown', e => {
+    const t = e.target.closest('.dev-tabs [role="tab"]');
+    if (!t || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+    e.preventDefault();
+    const all = [...$result.querySelectorAll('.dev-tabs [role="tab"]')];
+    let i = all.indexOf(t);
+    // الصفحة من اليمين لليسار: السهم اليسار = التبويب الجاي
+    if (e.key === 'ArrowLeft') i = (i + 1) % all.length;
+    else if (e.key === 'ArrowRight') i = (i - 1 + all.length) % all.length;
+    else if (e.key === 'Home') i = 0; else i = all.length - 1;
+    selectTab(all[i].dataset.tab, true);
+  });
+
+  $result.addEventListener('click', async e => {
+    if (e.target.closest('#copyLink')) { copyLink({ currentTarget: e.target.closest('#copyLink') }); return; }
+    const tab = e.target.closest('.dev-tabs [role="tab"]');
+    if (tab) { selectTab(tab.dataset.tab, false); return; }
+    const more = e.target.closest('.show-more');
+    if (more) {
+      const hidden = more.parentElement.querySelector('.more-chips');
+      if (hidden) { hidden.hidden = false; hidden.style.display = 'contents'; }
+      more.remove();
+      return;
+    }
+    const tog = e.target.closest('.vote-toggle');
+    if (tog) {
+      const type = tog.dataset.type;
+      if (openVotes.has(type)) openVotes.delete(type); else openVotes.add(type);
+      delete voteMsg[type];
+      render();
+      return;
+    }
+    const btn = e.target.closest('button.vote');
+    if (!btn) return;
+    const key = btn.dataset.key;
+    const type = key.split('|')[0];
+    // نفس الزر مرة تانية = إلغاء الصوت
+    const value = myVotes[key] === btn.dataset.vote ? null : btn.dataset.vote;
+    btn.disabled = true;
+    try {
+      voteCounts[key] = await V.vote(key, value);
+      if (value) myVotes[key] = value; else delete myVotes[key];
+      voteMsg[type] = value ? 'شكراً! انسجّل رأيك.' : 'انلغى صوتك.';
+    } catch (err) {
+      voteMsg[type] = 'ما قدرنا نسجّل رأيك. جرّب مرة تانية.';
+    }
+    render();
+  });
+
+  function copyLink(e) {
+    const btn = e.currentTarget;
+    const url = location.href;
+    const done = () => { btn.textContent = 'انتسخ الرابط ✓'; setTimeout(() => { btn.textContent = 'نسخ رابط الصفحة'; }, 1800); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(done).catch(() => fallbackCopy(url, done));
+    } else fallbackCopy(url, done);
+  }
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) { /* ignore */ }
+    ta.remove();
+  }
+
+  function route() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (id && index.byId.has(id)) {
+      show(id);
+      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (id && index.icById.has(id)) {
+      showIC(id);
+      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (id && index.batById.has(id)) {
+      showBattery(id);
+      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (id && index.chipById.has(id)) {
+      showChip(id);
+      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (id && index.stencilById.has(id)) {
+      showStencil(id);
+      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      $result.hidden = true;
+      document.title = 'ZIKEH STORE توافقيات';
+    }
+  }
+  window.addEventListener('hashchange', route);
+
+  // ---------- التصفح حسب الماركة ----------
+  const brands = [...new Set(data.devices.map(d => d.brand))];
+  const $tabs = document.getElementById('brandTabs');
+  const $models = document.getElementById('brandModels');
+  const $mode = document.getElementById('browseMode');
+  let browseMode = 'devices';
+  const icKinds = Object.keys(P.IC_KINDS).filter(k => (data.ics || []).some(ic => ic.kind === k));
+
+  function drawTabs() {
+    if (browseMode === 'ics') {
+      $tabs.setAttribute('aria-label', 'أنواع الآيسيات');
+      $tabs.innerHTML = icKinds.map(k =>
+        '<button class="tab" role="tab" type="button" data-kind="' + k + '" aria-selected="false">' + esc(P.IC_KINDS[k]) + '</button>').join('');
+    } else {
+      $tabs.setAttribute('aria-label', 'الماركات');
+      $tabs.innerHTML = brands.map(b =>
+        '<button class="tab" role="tab" type="button" data-brand="' + esc(b) + '" aria-selected="false">' + esc(b) + '</button>').join('');
+    }
+  }
+  function selectKind(kind, focus) {
+    $tabs.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.kind === kind)));
+    const list = data.ics.filter(ic => ic.kind === kind && !ic.label_only).sort((a, b) => a.code.localeCompare(b.code, 'en', { numeric: true }));
+    $models.innerHTML = cappedChips(list.map(icChip), 'آيسيات ' + P.IC_KINDS[kind]);
+    if (focus) { const t = $tabs.querySelector('[aria-selected="true"]'); if (t) t.focus(); }
+  }
+
+  // قوائم التصفح الطويلة: أول 60 وزر «اعرض الكل»
+  function cappedChips(chips, label) {
+    const LIMIT = window.innerWidth < 600 ? 24 : 60;
+    if (chips.length <= LIMIT) return chips.join('');
+    return chips.slice(0, LIMIT).join('') +
+      '<span class="more-chips" hidden>' + chips.slice(LIMIT).join('') + '</span>' +
+      '<button type="button" class="btn small show-more browse-more">اعرض كل ' + esc(label) + ' (' + chips.length + ')</button>';
+  }
+  $models.addEventListener('click', e => {
+    const more = e.target.closest('.show-more');
+    if (!more) return;
+    const hidden = $models.querySelector('.more-chips');
+    if (hidden) { hidden.hidden = false; hidden.style.display = 'contents'; }
+    more.remove();
+  });
+  if (icKinds.length) {
+    $mode.hidden = false;
+    $mode.addEventListener('click', e => {
+      const b = e.target.closest('button[data-mode]');
+      if (!b || b.dataset.mode === browseMode) return;
+      browseMode = b.dataset.mode;
+      $mode.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+      drawTabs();
+      if (browseMode === 'ics') selectKind(icKinds[0], false);
+      else selectBrand(brands.includes('Samsung') ? 'Samsung' : brands[0], false);
+    });
+  }
+  drawTabs();
+  $tabs.addEventListener('click', e => {
+    const b = e.target.closest('.tab');
+    if (!b) return;
+    if (b.dataset.kind) selectKind(b.dataset.kind, true);
+    else selectBrand(b.dataset.brand, true);
+  });
+  function selectBrand(brand, focus) {
+    if (browseMode !== 'devices') return;
+    $tabs.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.brand === brand)));
+    const list = data.devices.filter(d => d.brand === brand)
+      .sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
+    $models.innerHTML = cappedChips(list.map(d => '<a class="chip ltr" href="#' + esc(d.id) + '">' + esc(d.name) + '</a>'), 'أجهزة ' + brand);
+    if (focus) { const t = $tabs.querySelector('[aria-selected="true"]'); if (t) t.focus(); }
+  }
+  if (brands.length) selectBrand(brands.includes('Samsung') ? 'Samsung' : brands[0], false);
+
+  // ---------- الأكثر بحثاً ----------
+  const popular = ['galaxy-a12', 'iphone-13', 'redmi-note-10', 'galaxy-a52', 'iphone-11']
+    .filter(id => index.byId.has(id));
+  document.getElementById('quick').insertAdjacentHTML('beforeend',
+    popular.map(id => '<a class="chip ltr" href="#' + id + '">' + esc(index.byId.get(id).name) + '</a>').join(''));
+  if (!popular.length) document.getElementById('quick').hidden = true;
+
+  if (data.updated) document.getElementById('updated').textContent = 'آخر تحديث: ' + data.updated;
+
+  // ---------- أرقام سريعة بالواجهة ----------
+  const fmt = n => n.toLocaleString('en-US');
+  // بالملفات المقسمة الأرقام محسوبة سلفاً بـ data/index.js
+  const st = data.stats || {};
+  const pairs = st.pairs != null ? st.pairs
+    : data.links.length + data.groups.reduce((s, g) => s + g.devices.length * (g.devices.length - 1) / 2, 0);
+  const stats = [
+    [st.devices != null ? st.devices : data.devices.length, 'جهاز'],
+    [pairs, 'توافق'],
+    [st.ics != null ? st.ics : (data.ics || []).filter(ic => !ic.label_only).length, 'آيسي'],
+    [st.batteries != null ? st.batteries : (data.batteries || []).filter(b => b.code).length, 'بطارية'],
+    [st.connectors != null ? st.connectors : (data.connectors || []).length, 'كونكتر'],
+    [(data.chips || []).length, 'معالج وآيسي مع مساطر']
+  ].filter(s => s[0] > 0);
+  document.getElementById('stats').innerHTML = stats.map(s => '<div><dt>' + s[1] + '</dt><dd>' + fmt(Math.round(s[0])) + '</dd></div>').join('');
+
+  // ---------- الدعم ----------
+  document.getElementById('copyNumber').addEventListener('click', e => {
+    const btn = e.currentTarget;
+    const done = () => { btn.textContent = 'انتسخ ✓'; setTimeout(() => { btn.textContent = 'نسخ الرقم'; }, 1800); };
+    const num = '0935959558';
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(num).then(done).catch(() => fallbackCopy(num, done));
+    else fallbackCopy(num, done);
+  });
+
+  route();
+})();
+</script>
+</body>
+</html>

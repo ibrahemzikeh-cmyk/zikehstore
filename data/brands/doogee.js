@@ -1,0 +1,2 @@
+/* ملف مولّد تلقائياً من data.js بـ tools/build_site.py — لا تعدّله بإيدك */
+window.PhoneFitAddBrand("Doogee",{"groups":[{"type":"battery","devices":["doogee-x20","doogee-x20l"],"source":"imported","confidence":"high","battery":"bat-bat17582580","k":199},{"type":"battery","devices":["doogee-x50","doogee-x50l"],"source":"imported","confidence":"high","battery":"bat-bat18702000","k":200},{"type":"battery","devices":["doogee-x96","doogee-x96-pro"],"source":"imported","confidence":"high","battery":"bat-bat20x965400","k":201}],"links":[],"denials":[],"connectors":[]});

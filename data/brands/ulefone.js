@@ -1,0 +1,2 @@
+/* ملف مولّد تلقائياً من data.js بـ tools/build_site.py — لا تعدّله بإيدك */
+window.PhoneFitAddBrand("Ulefone",{"groups":[],"links":[],"denials":[],"connectors":[{"id":"con-p1215","part_id":"P1215","kind":"board","devices":["ulefone-armor-24"],"listing":"Flat Cable compatible with Ulefone Armor 24, (charge connector, with components, High Copy, charging board)","source":"imported","confidence":"high","note":"مصدر: gsmserver.com","k":1213}]});

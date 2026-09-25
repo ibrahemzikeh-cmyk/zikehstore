@@ -1,0 +1,14 @@
+{
+  "name": "ZIKEH STORE توافقيات",
+  "short_name": "ZIKEH STORE",
+  "description": "اعرف شو بيركب على جهازك من لصاقات وكفرات وشاشات وآيسيات",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F4F6FA",
+  "theme_color": "#0055AA",
+  "icons": [
+    { "src": "logo.jpg", "sizes": "776x774", "type": "image/jpeg", "purpose": "any" }
+  ]
+}
