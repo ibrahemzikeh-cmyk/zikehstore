@@ -546,3 +546,57 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
 .install-btn { white-space: nowrap; }
 .install-btn .lbl-short { display: none; }
 @media (max-width: 560px) { .install-btn .lbl-long { display: none; } .install-btn .lbl-short { display: inline; } }
+
+/* ---------- الحسابات والاشتراكات ---------- */
+.account-btn[hidden] { display: none; }
+.account-btn { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+.auth-main, .subs-main { padding-block: 24px 48px; display: grid; gap: 16px; }
+.auth-card { max-width: 460px; width: 100%; margin-inline: auto; }
+.auth-title { font-family: 'Readex Pro', inherit; font-size: 1.35rem; margin: 0; }
+.auth-seg { justify-self: stretch; display: flex; }
+.auth-seg button { flex: 1; }
+.auth-seg button[aria-selected="true"] { background: var(--brand-blue); color: #fff; font-weight: 600; }
+.auth-card .field input { min-height: 44px; }
+.link-btn { justify-self: start; padding-inline: 0; color: var(--brand-blue); }
+.auth-ok { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--conf-high-bg); color: var(--conf-high); font-size: .92rem; }
+.cust-box { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 14px; border-radius: 12px; background: var(--surface-2); border: 1px dashed var(--brand-blue); }
+.cust-label { color: var(--muted); font-size: .9rem; flex-basis: 100%; }
+.cust-no { font-size: 1.9rem; letter-spacing: .04em; color: var(--brand-blue); }
+.sub-state { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); }
+.sub-state .dot { width: 11px; height: 11px; border-radius: 50%; margin-top: 7px; flex: none; background: var(--muted); }
+.sub-state[data-state="active"] { background: var(--conf-high-bg); border-color: var(--conf-high); }
+.sub-state[data-state="active"] .dot { background: var(--conf-high); }
+.sub-state[data-state="soon"] { background: var(--conf-low-bg); border-color: var(--conf-low); }
+.sub-state[data-state="soon"] .dot { background: var(--conf-low); }
+.sub-state[data-state="expired"] { background: var(--danger-bg); border-color: var(--danger); }
+.sub-state[data-state="expired"] .dot { background: var(--danger); }
+.acc-meta { display: grid; gap: 6px; margin: 0; font-size: .92rem; }
+.acc-meta div { display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.acc-meta dt { color: var(--muted); min-width: 92px; }
+.acc-meta dd { margin: 0; overflow-wrap: anywhere; }
+.sub-cards { display: grid; gap: 10px; }
+.sub-card { display: grid; gap: 10px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); }
+.sub-card[data-state="soon"] { border-color: var(--conf-low); background: var(--conf-low-bg); }
+.sub-card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; }
+.cust-no-sm { font-size: 1.15rem; color: var(--brand-blue); }
+.sub-pill { font-size: .82rem; padding: 2px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); font-weight: 600; }
+.sub-pill[data-state="active"] { background: var(--conf-high-bg); color: var(--conf-high); }
+.sub-pill[data-state="soon"] { background: var(--conf-low); color: #fff; }
+.sub-pill[data-state="expired"] { background: var(--danger-bg); color: var(--danger); }
+.sub-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.custom-date { display: inline-flex; gap: 4px; align-items: center; }
+.custom-date input { min-height: 32px; padding: 2px 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; }
+.notes-field textarea { resize: vertical; }
+.notes-field .btn { justify-self: start; }
+.card-msg { margin: 0; font-size: .88rem; }
+.card-msg[data-ok="1"] { color: var(--ok); }
+.card-msg[data-ok="0"] { color: var(--danger); }
+.acc-body { display: grid; gap: 14px; }
+.acc-body .sub { margin-top: -6px; }
+.acc-body > .btn { justify-self: start; }
+.topnav .btn.primary[hidden] { display: none; }
+.custom-date input[type="date"] { direction: rtl; }
+@media (max-width: 560px) {
+  .account-btn { padding-inline: 8px; }
+  .account-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}

@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تسجيل الدخول — ZIKEH STORE</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0055AA">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
+<link rel="stylesheet" href="styles.css?v=4a48b386">
+</head>
+<body>
+<header class="topbar is-sticky">
+  <div class="wrap topbar-in">
+    <a class="brandmark" href="./" aria-label="ZIKEH STORE توافقيات — الصفحة الرئيسية">
+      <img src="logo.jpg" alt="" width="46" height="46" class="logo">
+      <div class="brand-text">
+        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
+        <span>توافقيات القطع · Mobile services &amp; tools</span>
+      </div>
+    </a>
+    <nav class="topnav" aria-label="أقسام الموقع">
+      <a href="./">الرئيسية</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap auth-main">
+  <section class="panel auth-card" aria-labelledby="authTitle">
+    <h1 id="authTitle" class="auth-title">حساب ZIKEH STORE</h1>
+
+    <p class="banner" id="notConfigured" hidden>الحسابات لسا ما انربطت بالموقع. رجاع بعدين.</p>
+
+    <div class="seg auth-seg" role="tablist" aria-label="نوع العملية" id="modeTabs">
+      <button type="button" role="tab" data-mode="login" aria-selected="true">تسجيل الدخول</button>
+      <button type="button" role="tab" data-mode="signup" aria-selected="false">حساب جديد</button>
+    </div>
+
+    <!-- تسجيل الدخول -->
+    <form id="loginForm" class="form-row" novalidate data-mode="login">
+      <div class="field">
+        <label for="loginEmail">الإيميل</label>
+        <input id="loginEmail" type="email" class="ltr" autocomplete="email" inputmode="email" required>
+      </div>
+      <div class="field">
+        <label for="loginPass">كلمة السر</label>
+        <input id="loginPass" type="password" class="ltr" autocomplete="current-password" required>
+      </div>
+      <button class="btn primary" type="submit">دخول</button>
+      <button class="btn ghost link-btn" type="button" data-go="forgot">نسيت كلمة السر؟</button>
+    </form>
+
+    <!-- حساب جديد -->
+    <form id="signupForm" class="form-row" novalidate data-mode="signup" hidden>
+      <div class="field">
+        <label for="signupEmail">الإيميل</label>
+        <input id="signupEmail" type="email" class="ltr" autocomplete="email" inputmode="email" required>
+      </div>
+      <div class="field">
+        <label for="signupPass">كلمة السر (6 أحرف أو أكتر)</label>
+        <input id="signupPass" type="password" class="ltr" autocomplete="new-password" minlength="6" required>
+      </div>
+      <div class="field">
+        <label for="signupPass2">أعد كتابة كلمة السر</label>
+        <input id="signupPass2" type="password" class="ltr" autocomplete="new-password" minlength="6" required>
+      </div>
+      <button class="btn primary" type="submit">إنشاء الحساب</button>
+      <p class="sub">بعد ما تعمل الحساب بياخد رقم زبون خاص فيك، بتلاقيه بصفحة «حسابي».</p>
+    </form>
+
+    <!-- نسيت كلمة السر -->
+    <form id="forgotForm" class="form-row" novalidate data-mode="forgot" hidden>
+      <p class="sub">اكتب إيميلك، ومنبعتلك رابط لتعمل كلمة سر جديدة.</p>
+      <div class="field">
+        <label for="forgotEmail">الإيميل</label>
+        <input id="forgotEmail" type="email" class="ltr" autocomplete="email" inputmode="email" required>
+      </div>
+      <button class="btn primary" type="submit">ابعتلي الرابط</button>
+      <button class="btn ghost link-btn" type="button" data-go="login">رجوع لتسجيل الدخول</button>
+    </form>
+
+    <!-- كلمة سر جديدة (بعد رابط الإيميل) -->
+    <form id="resetForm" class="form-row" novalidate data-mode="reset" hidden>
+      <p class="sub">اكتب كلمة السر الجديدة.</p>
+      <div class="field">
+        <label for="resetPass">كلمة السر الجديدة (6 أحرف أو أكتر)</label>
+        <input id="resetPass" type="password" class="ltr" autocomplete="new-password" minlength="6" required>
+      </div>
+      <div class="field">
+        <label for="resetPass2">أعد كتابتها</label>
+        <input id="resetPass2" type="password" class="ltr" autocomplete="new-password" minlength="6" required>
+      </div>
+      <button class="btn primary" type="submit">احفظ كلمة السر</button>
+    </form>
+
+    <p class="err" id="authErr" role="alert" hidden></p>
+    <p class="auth-ok" id="authOk" role="status" hidden></p>
+  </section>
+</main>
+
+<script src="auth-config.js?v=4a48b386"></script>
+<script src="auth.js?v=4a48b386"></script>
+<script>
+(function () {
+  const A = window.ZikehAuth;
+  const $err = document.getElementById('authErr');
+  const $ok = document.getElementById('authOk');
+  const forms = [...document.querySelectorAll('form[data-mode]')];
+  const tabs = document.getElementById('modeTabs');
+  const next = new URLSearchParams(location.search).get('next') || 'account.html';
+  const safeNext = /^[a-z0-9_-]+\.html$/i.test(next) ? next : 'account.html';
+
+  function msg(ok, text) {
+    $err.hidden = ok || !text; $ok.hidden = !ok || !text;
+    (ok ? $ok : $err).textContent = text || '';
+  }
+  function setMode(mode) {
+    forms.forEach(f => { f.hidden = f.dataset.mode !== mode; });
+    tabs.hidden = !(mode === 'login' || mode === 'signup');
+    tabs.querySelectorAll('button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.mode === mode)));
+    msg(false, '');
+    const first = document.querySelector('form[data-mode="' + mode + '"] input');
+    if (first) first.focus();
+  }
+  tabs.addEventListener('click', e => { const b = e.target.closest('button[data-mode]'); if (b) setMode(b.dataset.mode); });
+  document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b) setMode(b.dataset.go); });
+  if (location.hash === '#signup') setMode('signup');
+
+  if (!A.enabled) {
+    document.getElementById('notConfigured').hidden = false;
+    forms.forEach(f => f.querySelectorAll('input,button').forEach(x => { x.disabled = true; }));
+    return;
+  }
+
+  async function busy(form, fn) {
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    try { await fn(); } catch (e) { msg(false, A.arError(e)); } finally { btn.disabled = false; }
+  }
+  const val = id => document.getElementById(id).value.trim();
+  const emailOk = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+  let recovering = /type=recovery/.test(location.hash);
+  if (recovering) setMode('reset');
+  // رابط الإيميل انفتح بنفس الصفحة (بيتغيّر بس الـ #): منعيد التحميل حتى تنقرا الجلسة الجديدة
+  window.addEventListener('hashchange', () => { if (/access_token=|type=recovery/.test(location.hash)) location.reload(); });
+
+  A.client().then(async sb => {
+    sb.auth.onAuthStateChange(event => {
+      if (event === 'PASSWORD_RECOVERY') { recovering = true; setMode('reset'); }
+    });
+    const { data } = await sb.auth.getSession();
+    // فايت أصلاً (ومش جاي من رابط كلمة السر) ← على «حسابي»
+    if (data.session && !recovering) location.replace(safeNext);
+  }).catch(e => msg(false, A.arError(e)));
+
+  document.getElementById('loginForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = val('loginEmail'), password = document.getElementById('loginPass').value;
+    if (!emailOk(email)) return msg(false, 'اكتب إيميل صحيح.');
+    if (!password) return msg(false, 'اكتب كلمة السر.');
+    busy(e.target, async () => {
+      const sb = await A.client();
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) throw error;
+      location.replace(safeNext);
+    });
+  });
+
+  document.getElementById('signupForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = val('signupEmail'), p1 = document.getElementById('signupPass').value, p2 = document.getElementById('signupPass2').value;
+    if (!emailOk(email)) return msg(false, 'اكتب إيميل صحيح.');
+    if (p1.length < 6) return msg(false, 'كلمة السر لازم تكون 6 أحرف أو أكتر.');
+    if (p1 !== p2) return msg(false, 'كلمتين السر مش متطابقين.');
+    busy(e.target, async () => {
+      const sb = await A.client();
+      const { data, error } = await sb.auth.signUp({ email, password: p1, options: { emailRedirectTo: A.siteUrl('account.html') } });
+      if (error) throw error;
+      if (data.session) return location.replace('account.html');
+      // Supabase بيرجّع مستخدم بلا هويات إذا الإيميل مسجّل من قبل (حماية من كشف الإيميلات)
+      if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+        return msg(false, 'في حساب بهالإيميل. سجّل دخول، أو استعمل «نسيت كلمة السر».');
+      }
+      e.target.reset();
+      msg(true, 'تمام! بعتنالك رسالة على ' + email + '. افتحها واضغط الرابط لتأكّد حسابك، وبعدين سجّل دخول. (إذا ما لقيتها شوف بالـ Spam)');
+    });
+  });
+
+  document.getElementById('forgotForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = val('forgotEmail');
+    if (!emailOk(email)) return msg(false, 'اكتب إيميل صحيح.');
+    busy(e.target, async () => {
+      const sb = await A.client();
+      const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: A.siteUrl('login.html') });
+      if (error) throw error;
+      msg(true, 'إذا في حساب بهالإيميل، رح توصلك رسالة فيها رابط لكلمة سر جديدة. (شوف كمان بالـ Spam)');
+    });
+  });
+
+  document.getElementById('resetForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const p1 = document.getElementById('resetPass').value, p2 = document.getElementById('resetPass2').value;
+    if (p1.length < 6) return msg(false, 'كلمة السر لازم تكون 6 أحرف أو أكتر.');
+    if (p1 !== p2) return msg(false, 'كلمتين السر مش متطابقين.');
+    busy(e.target, async () => {
+      const sb = await A.client();
+      const { error } = await sb.auth.updateUser({ password: p1 });
+      if (error) throw error;
+      msg(true, 'انحفظت كلمة السر الجديدة ✓ عم نحولك لحسابك…');
+      history.replaceState(null, '', 'login.html');
+      setTimeout(() => location.replace('account.html'), 1200);
+    });
+  });
+})();
+</script>
+</body>
+</html>

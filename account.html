@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حسابي — ZIKEH STORE</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0055AA">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="logo.jpg" type="image/jpeg">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
+<link rel="stylesheet" href="styles.css?v=4a48b386">
+</head>
+<body>
+<header class="topbar is-sticky">
+  <div class="wrap topbar-in">
+    <a class="brandmark" href="./" aria-label="ZIKEH STORE توافقيات — الصفحة الرئيسية">
+      <img src="logo.jpg" alt="" width="46" height="46" class="logo">
+      <div class="brand-text">
+        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
+        <span>توافقيات القطع · Mobile services &amp; tools</span>
+      </div>
+    </a>
+    <nav class="topnav" aria-label="أقسام الموقع">
+      <a href="./">الرئيسية</a>
+      <a class="btn small primary" href="subs.html" id="adminLink" hidden>إدارة الاشتراكات</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap auth-main">
+  <section class="panel auth-card" aria-labelledby="accTitle">
+    <h1 id="accTitle" class="auth-title">حسابي</h1>
+    <p class="loading" id="accLoading" role="status">عم نجيب معلومات حسابك…</p>
+    <p class="err" id="accErr" role="alert" hidden></p>
+
+    <div id="accBody" class="acc-body" hidden>
+      <div class="cust-box">
+        <span class="cust-label">رقم الزبون تبعك</span>
+        <b class="cust-no ltr mono" id="custNo">—</b>
+        <button class="btn small" id="copyNo" type="button">نسخ الرقم</button>
+      </div>
+      <p class="sub">ابعت هالرقم لما بدك تفعّل أو تجدّد اشتراكك.</p>
+
+      <div class="sub-state" id="subState" data-state="none">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <b id="subLabel">غير مشترك</b>
+          <span id="subDetail"></span>
+        </div>
+      </div>
+
+      <a class="btn wa" id="waBtn" href="#" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+        <span id="waLabel">تفعيل الاشتراك عبر واتساب</span>
+      </a>
+
+      <dl class="acc-meta">
+        <div><dt>الإيميل</dt><dd class="ltr" id="accEmail"></dd></div>
+        <div><dt>تاريخ التسجيل</dt><dd class="ltr" id="accSince"></dd></div>
+      </dl>
+
+      <button class="btn" id="logoutBtn" type="button">تسجيل خروج</button>
+    </div>
+  </section>
+</main>
+
+<script src="auth-config.js?v=4a48b386"></script>
+<script src="auth.js?v=4a48b386"></script>
+<script>
+(function () {
+  const A = window.ZikehAuth;
+  const $ = id => document.getElementById(id);
+  const fail = text => { $('accLoading').hidden = true; $('accErr').hidden = false; $('accErr').textContent = text; };
+  if (!A.enabled) return fail('الحسابات لسا ما انربطت بالموقع.');
+
+  A.client().then(async sb => {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return location.replace('login.html?next=account.html');
+    const uid = session.user.id;
+
+    const { data: p, error } = await sb.from('profiles').select('customer_no, email, created_at, sub_expires_at').eq('id', uid).maybeSingle();
+    if (error) throw error;
+    if (!p) return fail('ما لقينا ملف حسابك. تواصل معنا عالواتساب.');
+
+    $('custNo').textContent = p.customer_no;
+    $('accEmail').textContent = p.email || session.user.email || '';
+    $('accSince').textContent = A.fmtDate(p.created_at);
+
+    const st = A.subStatus(p.sub_expires_at);
+    $('subState').dataset.state = st.key;
+    $('subLabel').textContent = st.key === 'none' ? 'غير مشترك' : st.key === 'expired' ? 'الاشتراك منتهي' : 'الاشتراك ساري';
+    $('subDetail').textContent = st.key === 'none' ? ' — فعّل اشتراكك لتشوف كل الأقسام.'
+      : st.key === 'expired' ? ' — انتهى بـ ' + A.fmtDate(st.end) + '. جدّد لترجع تشوف كل الأقسام.'
+      : ' لحد ' + A.fmtDate(st.end) + (st.days <= 7 ? ' (باقي ' + A.daysText(st.days) + ')' : '');
+    const renew = st.key === 'active' || st.key === 'soon';
+    $('waLabel').textContent = renew ? 'تجديد الاشتراك عبر واتساب' : 'تفعيل الاشتراك عبر واتساب';
+    const text = 'مرحبا ZIKEH STORE، بدي ' + (renew ? 'جدّد' : 'فعّل') + ' اشتراكي بموقع التوافقيات.\nرقم الزبون: ' + p.customer_no;
+    $('waBtn').href = 'https://wa.me/' + String(A.cfg.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(text);
+
+    $('accLoading').hidden = true;
+    $('accBody').hidden = false;
+
+    // رابط صفحة الأدمن بس للأدمن
+    const { data: isAdmin } = await sb.rpc('is_admin');
+    if (isAdmin) $('adminLink').hidden = false;
+  }).catch(e => fail(A.arError(e)));
+
+  $('copyNo').addEventListener('click', e => {
+    const no = $('custNo').textContent;
+    const btn = e.currentTarget;
+    const done = () => { btn.textContent = 'انتسخ ✓'; setTimeout(() => { btn.textContent = 'نسخ الرقم'; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(no).then(done).catch(() => fallback(no, done));
+    else fallback(no, done);
+  });
+  function fallback(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); done(); } catch (err) { /* ignore */ }
+    ta.remove();
+  }
+
+  $('logoutBtn').addEventListener('click', async () => {
+    $('logoutBtn').disabled = true;
+    try { const sb = await A.client(); await sb.auth.signOut(); } catch (e) { /* حتى بلا نت منطلع */ }
+    try { Object.keys(localStorage).filter(k => /^sb-.*-auth-token$/.test(k)).forEach(k => localStorage.removeItem(k)); } catch (e) { /* ignore */ }
+    location.replace('./');
+  });
+})();
+</script>
+</body>
+</html>

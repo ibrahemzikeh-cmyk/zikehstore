@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>إدارة الاشتراكات — ZIKEH STORE</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0055AA">
+<link rel="icon" href="logo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
+<link rel="stylesheet" href="styles.css?v=4a48b386">
+</head>
+<body>
+<header class="topbar is-sticky">
+  <div class="wrap topbar-in">
+    <a class="brandmark" href="./" aria-label="ZIKEH STORE توافقيات — الصفحة الرئيسية">
+      <img src="logo.jpg" alt="" width="46" height="46" class="logo">
+      <div class="brand-text">
+        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
+        <span>إدارة الاشتراكات</span>
+      </div>
+    </a>
+    <nav class="topnav" aria-label="أقسام الموقع">
+      <a href="./">الرئيسية</a>
+      <a href="account.html">حسابي</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap subs-main">
+  <p class="loading" id="gateMsg" role="status">عم نتأكد من صلاحياتك…</p>
+  <p class="err" id="gateErr" role="alert" hidden></p>
+
+  <div id="adminBody" hidden>
+    <section class="panel" aria-labelledby="findTitle">
+      <h2 id="findTitle">بحث عن زبون</h2>
+      <form class="toolbar" id="findForm" novalidate>
+        <div class="field">
+          <label for="findQ">رقم الزبون أو الإيميل</label>
+          <input id="findQ" class="ltr" placeholder="مثلاً ZK-4821 أو name@gmail.com" autocomplete="off">
+        </div>
+        <button class="btn primary" type="submit">بحث</button>
+      </form>
+      <p class="err" id="findErr" role="alert" hidden></p>
+      <div id="findResults" class="sub-cards"></div>
+    </section>
+
+    <section class="panel" aria-labelledby="listTitle">
+      <h2 id="listTitle">المشتركين <span class="sub" id="listCount"></span></h2>
+      <p class="sub">مرتّبين حسب تاريخ الانتهاء. يلي باقيلهن أقل من 7 أيام معلّمين بالبرتقالي.</p>
+      <div id="subsList" class="sub-cards"></div>
+    </section>
+  </div>
+</main>
+
+<script src="auth-config.js?v=4a48b386"></script>
+<script src="auth.js?v=4a48b386"></script>
+<script>
+(function () {
+  const A = window.ZikehAuth;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const COLS = 'id, customer_no, email, created_at, sub_expires_at, admin_notes';
+  let sb = null;
+  const cards = new Map();                       // id ← آخر نسخة من الزبون
+
+  function gate(text) { $('gateMsg').hidden = true; $('gateErr').hidden = false; $('gateErr').textContent = text; }
+  if (!A.enabled) return gate('الحسابات لسا ما انربطت بالموقع.');
+
+  function statusText(p) {
+    const st = A.subStatus(p.sub_expires_at);
+    if (st.key === 'none') return { st, text: 'غير مشترك' };
+    if (st.key === 'expired') return { st, text: 'منتهي من ' + A.fmtDate(st.end) };
+    return { st, text: 'ساري لحد ' + A.fmtDate(st.end) + ' (باقي ' + A.daysText(st.days) + ')' };
+  }
+
+  function card(p) {
+    cards.set(p.id, p);
+    const { st, text } = statusText(p);
+    return '<article class="sub-card" data-id="' + esc(p.id) + '" data-state="' + st.key + '">' +
+      '<div class="sub-card-head"><b class="ltr mono cust-no-sm">' + esc(p.customer_no) + '</b>' +
+      '<span class="sub-pill" data-state="' + st.key + '">' + esc(text) + '</span></div>' +
+      '<dl class="acc-meta"><div><dt>الإيميل</dt><dd class="ltr">' + esc(p.email) + '</dd></div>' +
+      '<div><dt>تاريخ التسجيل</dt><dd class="ltr">' + esc(A.fmtDate(p.created_at)) + '</dd></div></dl>' +
+      '<div class="sub-actions">' +
+        '<button class="btn small primary" type="button" data-act="m1">+ شهر</button>' +
+        '<button class="btn small primary" type="button" data-act="m3">+ 3 أشهر</button>' +
+        '<button class="btn small primary" type="button" data-act="m12">+ سنة</button>' +
+        '<span class="custom-date"><input type="date" aria-label="تاريخ انتهاء مخصص">' +
+        '<button class="btn small" type="button" data-act="date">حفظ التاريخ</button></span>' +
+        '<button class="btn small danger" type="button" data-act="cancel"' + (st.key === 'none' ? ' disabled' : '') + '>إلغاء الاشتراك</button>' +
+      '</div>' +
+      '<div class="field notes-field"><label>ملاحظات (بتبين إلك بس)</label>' +
+      '<textarea rows="2">' + esc(p.admin_notes || '') + '</textarea>' +
+      '<button class="btn small" type="button" data-act="notes">حفظ الملاحظات</button></div>' +
+      '<p class="card-msg" role="status" hidden></p>' +
+      '</article>';
+  }
+
+  async function loadList() {
+    const { data, error } = await sb.from('profiles').select(COLS)
+      .gt('sub_expires_at', new Date().toISOString()).order('sub_expires_at', { ascending: true }).limit(1000);
+    if (error) throw error;
+    $('listCount').textContent = '(' + data.length + ')';
+    $('subsList').innerHTML = data.length ? data.map(card).join('') : '<p class="sub">ما في مشتركين لهلأ.</p>';
+  }
+
+  async function find(q) {
+    $('findErr').hidden = true;
+    // بس أحرف الإيميل ورقم الزبون (حتى ما ينكسر فلتر البحث)
+    const clean = q.trim().replace(/[^A-Za-z0-9@._+-]/g, '');
+    if (clean.length < 2) { $('findErr').hidden = false; $('findErr').textContent = 'اكتب رقم الزبون أو جزء من الإيميل (حرفين أو أكتر).'; return; }
+    const num = clean.replace(/^zk-?/i, '');
+    let query = sb.from('profiles').select(COLS);
+    query = /^\d{2,5}$/.test(num)
+      ? query.or('customer_no.ilike.%' + num + '%,email.ilike.%' + clean + '%')
+      : query.ilike('email', '%' + clean + '%');
+    const { data, error } = await query.order('created_at', { ascending: false }).limit(50);
+    if (error) throw error;
+    $('findResults').innerHTML = data.length ? data.map(card).join('') : '<p class="sub">ما لقينا زبون بهالرقم أو الإيميل.</p>';
+  }
+
+  $('findForm').addEventListener('submit', e => {
+    e.preventDefault();
+    find($('findQ').value).catch(err => { $('findErr').hidden = false; $('findErr').textContent = A.arError(err); });
+  });
+
+  // أزرار كل زبون
+  document.addEventListener('click', async e => {
+    const btn = e.target.closest('.sub-card [data-act]');
+    if (!btn) return;
+    const el = btn.closest('.sub-card');
+    const id = el.dataset.id;
+    const p = cards.get(id);
+    const out = el.querySelector('.card-msg');
+    const say = (ok, t) => { out.hidden = false; out.textContent = t; out.dataset.ok = ok ? '1' : '0'; };
+    let call;
+    const act = btn.dataset.act;
+    if (act === 'm1' || act === 'm3' || act === 'm12') {
+      call = sb.rpc('admin_extend', { p_user: id, p_months: { m1: 1, m3: 3, m12: 12 }[act] });
+    } else if (act === 'date') {
+      const v = el.querySelector('input[type="date"]').value;
+      if (!v) return say(false, 'اختار التاريخ أول شي.');
+      const until = new Date(v + 'T23:59:59');
+      call = sb.rpc('admin_set_expiry', { p_user: id, p_until: until.toISOString() });
+    } else if (act === 'cancel') {
+      if (!confirm('أكيد بدك تلغي اشتراك ' + p.customer_no + '؟')) return;
+      call = sb.rpc('admin_set_expiry', { p_user: id, p_until: null });
+    } else if (act === 'notes') {
+      call = sb.from('profiles').update({ admin_notes: el.querySelector('textarea').value.trim() || null }).eq('id', id).select(COLS).single();
+    }
+    el.querySelectorAll('button').forEach(b => { b.disabled = true; });
+    try {
+      const { data, error } = await call;
+      if (error) throw error;
+      const fresh = Array.isArray(data) ? data[0] : data;
+      // نفس الزبون ممكن يكون بنتيجة البحث وبالقائمة: منحدّث التنين
+      document.querySelectorAll('.sub-card[data-id="' + id + '"]').forEach(c => { c.outerHTML = card(fresh); });
+      await loadList();
+      const again = document.querySelector('#findResults .sub-card[data-id="' + id + '"]') || document.querySelector('.sub-card[data-id="' + id + '"]');
+      if (again) {
+        const m = again.querySelector('.card-msg');
+        m.hidden = false; m.dataset.ok = '1';
+        m.textContent = act === 'notes' ? 'انحفظت الملاحظات ✓' : act === 'cancel' ? 'انلغى الاشتراك ✓' : 'تمام ✓ ' + statusText(fresh).text;
+      }
+    } catch (err) {
+      say(false, A.arError(err));
+      el.querySelectorAll('button').forEach(b => { b.disabled = false; });
+    }
+  });
+
+  A.client().then(async client => {
+    sb = client;
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return location.replace('login.html?next=subs.html');
+    const { data: isAdmin, error } = await sb.rpc('is_admin');
+    if (error) throw error;
+    if (!isAdmin) return gate('هالصفحة للأدمن بس.');
+    $('gateMsg').hidden = true;
+    $('adminBody').hidden = false;
+    await loadList();
+  }).catch(e => gate(A.arError(e)));
+})();
+</script>
+</body>
+</html>

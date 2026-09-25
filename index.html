@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=467a72ff">
+<link rel="stylesheet" href="styles.css?v=4a48b386">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -33,6 +33,10 @@
         <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span class="lbl-long">ثبّت التطبيق</span><span class="lbl-short">تثبيت</span>
       </button>
+      <a class="btn small account-btn" id="accountBtn" href="login.html" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span>تسجيل الدخول</span>
+      </a>
       <a href="#browse">تصفّح</a>
       <a href="#support">الدعم</a>
       <a class="btn wa small" href="https://wa.me/963935959558" target="_blank" rel="noopener">
@@ -145,9 +149,11 @@
 </a>
 
 <!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
-<script src="data/index.js?v=467a72ff"></script>
-<script src="core.js?v=467a72ff"></script>
-<script src="votes.js?v=467a72ff"></script>
+<script src="data/index.js?v=4a48b386"></script>
+<script src="core.js?v=4a48b386"></script>
+<script src="votes.js?v=4a48b386"></script>
+<script src="auth-config.js?v=4a48b386"></script>
+<script src="auth.js?v=4a48b386"></script>
 <script>
 (function () {
   const P = window.PhoneFit;
