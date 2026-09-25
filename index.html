@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=b9213d76">
+<link rel="stylesheet" href="styles.css?v=c59f73a3">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -137,9 +137,9 @@
 </a>
 
 <!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
-<script src="data/index.js?v=b9213d76"></script>
-<script src="core.js?v=b9213d76"></script>
-<script src="votes.js?v=b9213d76"></script>
+<script src="data/index.js?v=c59f73a3"></script>
+<script src="core.js?v=c59f73a3"></script>
+<script src="votes.js?v=c59f73a3"></script>
 <script>
 (function () {
   const P = window.PhoneFit;
@@ -563,7 +563,9 @@
   // بصفحة الجهاز: كود البطارية وسعتها
   function batteryInfo(d) {
     const list = index.batsByDevice.get(d.id) || [];
-    if (!list.length) return '';
+    // سعة بطارية الجهاز من المواصفات (حتى لو ما في كود بطارية معروف)
+    if (!list.length) return d.mah ? '<div class="bat-info"><div class="bat-row"><span class="bat-nocode">سعة بطارية الجهاز:</span>' +
+      '<span class="bat-mah ltr">' + esc(d.mah + ' mAh') + '</span></div></div>' : '';
     return '<div class="bat-info">' + list.map(b => {
       const others = b.devices.filter(x => x !== d.id && index.byId.has(x)).length;
       return '<div class="bat-row">' +
