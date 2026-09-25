@@ -4,8 +4,8 @@
    - ⚠ مفتاح service_role ممنوع ينحط هون أو بأي ملف بالموقع.
    - إذا الحقلين فاضيين، الحسابات مطفية والموقع بيشتغل متل قبل. */
 window.ZIKEH_AUTH = {
-  supabaseUrl: '',
-  supabaseAnonKey: '',
+  supabaseUrl: 'https://betexmjhvlcinbpjglkt.supabase.co',
+  supabaseAnonKey: 'sb_publishable_RgK8JEHVEMjUC1bx9sktRQ_K3KQvANr',
   // رقم واتساب لتفعيل الاشتراك (بدون + وبدون صفر البداية: 963 وبعدين الرقم)
   whatsapp: '963935959558',
   // عنوان الموقع (للروابط يلي بتنبعت بالإيميل: تأكيد الحساب، ونسيت كلمة السر)
