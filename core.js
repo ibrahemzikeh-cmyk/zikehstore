@@ -12,7 +12,9 @@
 
   // كلمات عربية شائعة يكتبها الزبون ← مقابلها الإنكليزي
   const AR_WORDS = [
-    [/[آأإا]ي ?فون/g, 'iphone'],
+    // أسماء الحروف بالموديلات ("جالكسي اس 2"، "ايه 12"، "ام 31") ككلمة لحالها بس
+    [/(^|\s)[اإ]س(?=\s|\d|$)/g, ' s'], [/(^|\s)[اإأ]يه(?=\s|\d|$)/g, ' a'], [/(^|\s)[اإ]م(?=\s|\d|$)/g, ' m'],
+    [/[آأإا]ي ?فون/g, 'iphone'], [/زي?ن ?فون/g, 'zenfone'],
     [/سامسون[جغك]|سامسن[جغ]/g, 'samsung'],
     [/[جغقك]الكسي|[جغ]لاكسي/g, 'galaxy'],
     [/ش[يا]?[اأ]?ومي|ش[يا]?[اأ]?ومى/g, 'xiaomi'],
@@ -120,6 +122,15 @@
       const add = k => { if (k) { keys.add(k); keys.add(stripBrand(k)); } };
       add(normalize(d.name));
       add(normalize(d.brand + ' ' + d.name));
+      // "Samsung I9100 Galaxy S II" (نسخة برقم موديل) ← كمان "Galaxy S II"
+      const names = [d.name];
+      const noCode = d.name.match(/^(?:Samsung\s+)?[A-Z]{1,3}\d{3,5}[A-Z]{0,3}\s+(Galaxy\b.*)$/);
+      if (noCode) { names.push(noCode[1]); add(normalize(noCode[1])); }
+      // "Galaxy S II" ← الزبون بيكتب "S2" (بس بعد كلمة، مش "Xperia 1 II")
+      names.forEach(n => {
+        const arabicNum = n.replace(/(^|[A-Za-z]\s)(IV|III|II)\b/g, (m, pre, r) => pre + { II: '2', III: '3', IV: '4' }[r]);
+        if (arabicNum !== n) { add(normalize(arabicNum)); add(normalize(d.brand + ' ' + arabicNum)); }
+      });
       (d.codes || []).forEach(c => {
         add(normalize(c));
         // سامسونج: الفني بيكتب "SM-A165F" والرقم محفوظ "A165"

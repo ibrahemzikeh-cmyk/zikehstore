@@ -16,7 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=8313f047">
+<link rel="stylesheet" href="styles.css?v=467a72ff">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -145,9 +145,9 @@
 </a>
 
 <!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
-<script src="data/index.js?v=8313f047"></script>
-<script src="core.js?v=8313f047"></script>
-<script src="votes.js?v=8313f047"></script>
+<script src="data/index.js?v=467a72ff"></script>
+<script src="core.js?v=467a72ff"></script>
+<script src="votes.js?v=467a72ff"></script>
 <script>
 (function () {
   const P = window.PhoneFit;
@@ -292,7 +292,11 @@
         loadVotes(id);
       }).catch(() => {
         if (currentId !== id) return;
-        $result.innerHTML = '<p class="banner">ما قدرنا نحمّل بيانات ' + esc(dev.brand) + '. تأكد إنو مجلد data موجود جنب الصفحة، وجرّب تحدّث الصفحة.</p>';
+        // بدون إنترنت (التطبيق): ماركة ما انفتحت قبل هيك ما بتكون محفوظة عالموبايل
+        $result.innerHTML = '<p class="banner">' + (navigator.onLine === false || location.protocol.startsWith('http')
+          ? 'ما قدرنا نجيب توافقات <span class="ltr">' + esc(dev.name) + '</span>. شكلو ما في إنترنت هلأ، والأجهزة يلي ما فتحتها قبل بتحتاج إنترنت أول مرة. اتصل بالإنترنت وجرّب مرة تانية.'
+          : 'ما قدرنا نحمّل بيانات ' + esc(dev.brand) + '. تأكد إنو مجلد data موجود جنب الصفحة، وجرّب تحدّث الصفحة.') +
+          ' <button type="button" class="btn small" onclick="location.reload()">جرّب مرة تانية</button></p>';
       });
       return;
     }
