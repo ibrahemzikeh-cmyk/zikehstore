@@ -1,14 +1,20 @@
 {
+  "id": "./",
   "name": "ZIKEH STORE توافقيات",
   "short_name": "ZIKEH STORE",
-  "description": "اعرف شو بيركب على جهازك من لصاقات وكفرات وشاشات وآيسيات",
+  "description": "اعرف شو بيركب على جهازك من لصاقات وكفرات وشاشات وبطاريات وآيسيات ومساطر",
   "lang": "ar",
   "dir": "rtl",
-  "start_url": "./index.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#F4F6FA",
+  "orientation": "portrait",
+  "background_color": "#F3F5F9",
   "theme_color": "#0055AA",
+  "categories": ["utilities", "shopping"],
   "icons": [
-    { "src": "logo.jpg", "sizes": "776x774", "type": "image/jpeg", "purpose": "any" }
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }

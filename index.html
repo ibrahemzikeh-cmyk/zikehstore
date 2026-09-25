@@ -8,11 +8,15 @@
 <meta name="theme-color" content="#0055AA">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="logo.jpg" type="image/jpeg">
-<link rel="apple-touch-icon" href="logo.jpg">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ZIKEH STORE">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=b0f1c671">
+<link rel="stylesheet" href="styles.css?v=8313f047">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -25,6 +29,10 @@
       </div>
     </a>
     <nav class="topnav" aria-label="أقسام الموقع">
+      <button class="btn small install-btn" id="installBtn" type="button" hidden>
+        <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="lbl-long">ثبّت التطبيق</span><span class="lbl-short">تثبيت</span>
+      </button>
       <a href="#browse">تصفّح</a>
       <a href="#support">الدعم</a>
       <a class="btn wa small" href="https://wa.me/963935959558" target="_blank" rel="noopener">
@@ -137,9 +145,9 @@
 </a>
 
 <!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
-<script src="data/index.js?v=b0f1c671"></script>
-<script src="core.js?v=b0f1c671"></script>
-<script src="votes.js?v=b0f1c671"></script>
+<script src="data/index.js?v=8313f047"></script>
+<script src="core.js?v=8313f047"></script>
+<script src="votes.js?v=8313f047"></script>
 <script>
 (function () {
   const P = window.PhoneFit;
@@ -937,6 +945,28 @@
     const num = '0935959558';
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(num).then(done).catch(() => fallbackCopy(num, done));
     else fallbackCopy(num, done);
+  });
+
+  // ---------- التطبيق (تثبيت + بدون إنترنت) ----------
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && !isPreview) {
+    window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  }
+  const $install = document.getElementById('installBtn');
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  let installEvt = null;
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvt = e; $install.hidden = false; });
+  window.addEventListener('appinstalled', () => { $install.hidden = true; installEvt = null; });
+  // آيفون ما فيه زر تثبيت تلقائي: منشرح الطريقة
+  if (isIOS && !standalone) $install.hidden = false;
+  $install.addEventListener('click', async () => {
+    if (installEvt) {
+      installEvt.prompt();
+      try { await installEvt.userChoice; } catch (err) { /* ignore */ }
+      installEvt = null; $install.hidden = true;
+    } else if (isIOS) {
+      alert('لتثبيت التطبيق على الآيفون:\n1. اضغط زر المشاركة (المربع مع السهم لفوق) تحت بسفاري\n2. اختار «إضافة إلى الشاشة الرئيسية»\n3. اضغط «إضافة»');
+    }
   });
 
   route();

@@ -539,3 +539,10 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
 .stn-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 6px 8px; border-radius: 8px; background: var(--surface-2); }
 .stn-name { flex: 1 1 240px; min-width: 0; font-size: .85rem; color: var(--muted); overflow-wrap: anywhere; }
 .stn-src { font-size: .8rem; color: var(--muted); }
+
+/* ---------- زر تثبيت التطبيق ---------- */
+.install-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--brand-red); color: #fff; border-color: var(--brand-red); }
+.install-btn[hidden] { display: none; }
+.install-btn { white-space: nowrap; }
+.install-btn .lbl-short { display: none; }
+@media (max-width: 560px) { .install-btn .lbl-long { display: none; } .install-btn .lbl-short { display: inline; } }
