@@ -5,77 +5,92 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>حسابي — ZIKEH STORE</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0055AA">
+<meta name="theme-color" content="#062A57">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="logo.jpg" type="image/jpeg">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=682a59dc">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=9e3ce677">
 </head>
-<body>
-<header class="topbar is-sticky">
-  <div class="wrap topbar-in">
-    <a class="brandmark" href="./" aria-label="ZIKEH STORE توافقيات — الصفحة الرئيسية">
-      <img src="logo.jpg" alt="" width="46" height="46" class="logo">
-      <div class="brand-text">
-        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
-        <span>توافقيات القطع · Mobile services &amp; tools</span>
-      </div>
-    </a>
-    <nav class="topnav" aria-label="أقسام الموقع">
-      <a href="./">الرئيسية</a>
-      <a class="btn small primary" href="subs.html" id="adminLink" hidden>إدارة الاشتراكات</a>
-    </nav>
-  </div>
-</header>
+<body class="auth-page">
+<div class="auth-bg" aria-hidden="true"></div>
 
-<main class="wrap auth-main">
-  <section class="panel auth-card" aria-labelledby="accTitle">
-    <h1 id="accTitle" class="auth-title">حسابي</h1>
-    <p class="loading" id="accLoading" role="status">عم نجيب معلومات حسابك…</p>
-    <p class="err" id="accErr" role="alert" hidden></p>
+<main class="acc-shell">
+  <a class="acc-top" href="./" aria-label="ZIKEH STORE — الصفحة الرئيسية">
+    <span class="auth-logo-ring sm"><img src="icons/icon-192.png" alt="" width="48" height="48"></span>
+    <span class="auth-wordmark sm ltr"><span class="z-red">ZIKEH</span> STORE</span>
+  </a>
+
+  <section class="auth-panel acc-panel" aria-labelledby="accTitle">
+    <header class="auth-panel-head">
+      <h1 id="accTitle">حسابي</h1>
+      <p id="accHello">عم نجيب معلومات حسابك…</p>
+    </header>
+
+    <div class="acc-loading" id="accLoading" role="status"><span class="acc-spinner" aria-hidden="true"></span>لحظة…</div>
+    <p class="auth-msg err" id="accErr" role="alert" hidden></p>
 
     <div id="accBody" class="acc-body" hidden>
-      <div class="cust-box">
-        <span class="cust-label">رقم الزبون تبعك</span>
-        <b class="cust-no ltr mono" id="custNo">—</b>
-        <button class="btn small" id="copyNo" type="button">نسخ الرقم</button>
+      <!-- بطاقة العضوية -->
+      <div class="member-card">
+        <img class="member-mark" src="icons/icon-192.png" alt="" aria-hidden="true">
+        <div class="member-top">
+          <span class="member-brand ltr">ZIKEH STORE</span>
+          <span class="member-chip" aria-hidden="true"></span>
+        </div>
+        <span class="member-label">رقم الزبون</span>
+        <b class="member-no ltr" id="custNo">—</b>
+        <div class="member-foot">
+          <span>عضو من <b class="ltr" id="accSince"></b></span>
+          <button class="member-copy" id="copyNo" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
+            <span>نسخ</span>
+          </button>
+        </div>
       </div>
-      <p class="sub">ابعت هالرقم لما بدك تفعّل أو تجدّد اشتراكك.</p>
+      <p class="auth-hint">ابعت رقم الزبون لما بدك تفعّل أو تجدّد اشتراكك.</p>
 
-      <div class="sub-state" id="subState" data-state="none">
-        <span class="dot" aria-hidden="true"></span>
-        <div>
+      <!-- حالة الاشتراك -->
+      <div class="acc-status" id="subState" data-state="none">
+        <span class="acc-status-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+        </span>
+        <div class="acc-status-txt">
           <b id="subLabel">غير مشترك</b>
           <span id="subDetail"></span>
         </div>
       </div>
 
-      <a class="btn wa" id="waBtn" href="#" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
+      <a class="acc-wa" id="waBtn" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 2s.8 2.3 1 2.5c.1.2 1.6 2.5 4 3.5 1.5.6 2 .7 2.8.6.4-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3z"/></svg>
         <span id="waLabel">تفعيل الاشتراك عبر واتساب</span>
       </a>
 
-      <dl class="acc-meta">
-        <div><dt>الإيميل</dt><dd class="ltr" id="accEmail"></dd></div>
-        <div><dt>تاريخ التسجيل</dt><dd class="ltr" id="accSince"></dd></div>
-      </dl>
+      <a class="auth-submit acc-enter" href="./"><span>ادخل عالموقع</span></a>
 
-      <a class="btn primary" href="./">ادخل عالموقع ←</a>
-      <button class="btn" id="logoutBtn" type="button">تسجيل خروج</button>
+      <div class="acc-actions">
+        <a class="acc-ghost" href="subs.html" id="adminLink" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          <span>إدارة الاشتراكات</span>
+        </a>
+        <button class="acc-ghost danger" id="logoutBtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5M20 12H9M11 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/></svg>
+          <span>تسجيل خروج</span>
+        </button>
+      </div>
     </div>
   </section>
 </main>
 
-<script src="auth-config.js?v=682a59dc"></script>
-<script src="auth.js?v=682a59dc"></script>
+<script src="auth-config.js?v=9e3ce677"></script>
+<script src="auth.js?v=9e3ce677"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
   const $ = id => document.getElementById(id);
-  const fail = text => { $('accLoading').hidden = true; $('accErr').hidden = false; $('accErr').textContent = text; };
+  const fail = text => { $('accLoading').hidden = true; $('accHello').textContent = ''; $('accErr').hidden = false; $('accErr').textContent = text; };
   if (!A.enabled) return fail('الحسابات لسا ما انربطت بالموقع.');
 
   A.client().then(async sb => {
@@ -88,15 +103,15 @@
     if (!p) return fail('ما لقينا ملف حسابك. تواصل معنا عالواتساب.');
 
     $('custNo').textContent = p.customer_no;
-    $('accEmail').textContent = p.email || session.user.email || '';
+    $('accHello').textContent = p.email || session.user.email || '';
     $('accSince').textContent = A.fmtDate(p.created_at);
 
     const st = A.subStatus(p.sub_expires_at);
     $('subState').dataset.state = st.key;
     $('subLabel').textContent = st.key === 'none' ? 'غير مشترك' : st.key === 'expired' ? 'الاشتراك منتهي' : 'الاشتراك ساري';
-    $('subDetail').textContent = st.key === 'none' ? ' — فعّل اشتراكك لتشوف كل الأقسام.'
-      : st.key === 'expired' ? ' — انتهى بـ ' + A.fmtDate(st.end) + '. جدّد لترجع تشوف كل الأقسام.'
-      : ' لحد ' + A.fmtDate(st.end) + (st.days <= 7 ? ' (باقي ' + A.daysText(st.days) + ')' : '');
+    $('subDetail').textContent = st.key === 'none' ? 'لما بدك تشترك، راسلنا عالواتساب برقم الزبون.'
+      : st.key === 'expired' ? 'انتهى بـ ' + A.fmtDate(st.end) + '. جدّد اشتراكك عالواتساب.'
+      : 'لحد ' + A.fmtDate(st.end) + (st.days <= 7 ? ' · باقي ' + A.daysText(st.days) : '');
     const renew = st.key === 'active' || st.key === 'soon';
     $('waLabel').textContent = renew ? 'تجديد الاشتراك عبر واتساب' : 'تفعيل الاشتراك عبر واتساب';
     const text = 'مرحبا ZIKEH STORE، بدي ' + (renew ? 'جدّد' : 'فعّل') + ' اشتراكي بموقع التوافقيات.\nرقم الزبون: ' + p.customer_no;
@@ -112,8 +127,8 @@
 
   $('copyNo').addEventListener('click', e => {
     const no = $('custNo').textContent;
-    const btn = e.currentTarget;
-    const done = () => { btn.textContent = 'انتسخ ✓'; setTimeout(() => { btn.textContent = 'نسخ الرقم'; }, 1600); };
+    const label = e.currentTarget.querySelector('span');
+    const done = () => { label.textContent = 'انتسخ ✓'; setTimeout(() => { label.textContent = 'نسخ'; }, 1600); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(no).then(done).catch(() => fallback(no, done));
     else fallback(no, done);
   });

@@ -710,3 +710,78 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .auth-panel-head { text-align: center; }
   .auth-panel-head h1 { font-size: 1.4rem; }
 }
+
+/* ================= صفحة «حسابي» (فخمة) ================= */
+.acc-shell { position: relative; z-index: 1; width: min(520px, 100%); margin: 0 auto; padding: 26px 16px 40px; box-sizing: border-box; display: grid; gap: 18px; }
+.acc-top { display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; }
+.auth-logo-ring.sm { width: 58px; height: 58px; box-shadow: 0 0 0 4px rgba(255, 255, 255, .12), 0 10px 30px rgba(0, 0, 0, .4); }
+.auth-logo-ring.sm img { width: 48px; height: 48px; }
+.auth-wordmark.sm { font-size: 1.45rem; }
+.acc-panel { gap: 16px; }
+.acc-panel .auth-panel-head { text-align: center; }
+.acc-panel .auth-panel-head p { direction: ltr; unicode-bidi: plaintext; overflow-wrap: anywhere; }
+.acc-body { display: grid; gap: 14px; }
+.acc-body[hidden] { display: none; }
+.acc-loading { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 26px; color: var(--muted); }
+.acc-loading[hidden] { display: none; }
+.acc-spinner { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--line); border-top-color: #0A6BD6; animation: auth-spin .7s linear infinite; }
+
+/* بطاقة العضوية */
+.member-card { position: relative; overflow: hidden; border-radius: 20px; padding: 20px 22px 18px; color: #fff; display: grid; gap: 4px;
+  background: radial-gradient(420px 220px at 110% -20%, rgba(30, 136, 255, .55), transparent 60%),
+              radial-gradient(360px 200px at -20% 120%, rgba(217, 22, 39, .45), transparent 60%),
+              linear-gradient(135deg, #0B3D7A 0%, #062A57 55%, #041B3A 100%);
+  box-shadow: 0 18px 40px rgba(4, 27, 58, .45), inset 0 1px 0 rgba(255, 255, 255, .15); }
+.member-card::after { content: ""; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .08) 50%, transparent 60%); pointer-events: none; }
+.member-mark { position: absolute; left: -24px; bottom: -30px; width: 150px; height: 150px; opacity: .08; border-radius: 50%; filter: grayscale(1) brightness(3); pointer-events: none; }
+.member-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.member-brand { font-family: 'Readex Pro', sans-serif; font-weight: 700; letter-spacing: .14em; font-size: .85rem; color: rgba(255, 255, 255, .85); }
+.member-chip { width: 38px; height: 28px; border-radius: 6px; background: linear-gradient(135deg, #F6D78B, #C9A04A); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .15); }
+.member-label { font-size: .82rem; color: rgba(255, 255, 255, .7); }
+.member-no { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 2.3rem; letter-spacing: .12em; line-height: 1.15; text-shadow: 0 2px 12px rgba(0, 0, 0, .35); }
+.member-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 10px; font-size: .85rem; color: rgba(255, 255, 255, .75); }
+.member-foot b { color: #fff; font-weight: 600; }
+.member-copy { display: inline-flex; align-items: center; gap: 6px; border: 1px solid rgba(255, 255, 255, .28); background: rgba(255, 255, 255, .12);
+  color: #fff; border-radius: 999px; padding: 6px 14px; font: 600 .85rem 'IBM Plex Sans Arabic', sans-serif; cursor: pointer; backdrop-filter: blur(6px); }
+.member-copy:hover { background: rgba(255, 255, 255, .2); }
+.member-copy svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* حالة الاشتراك */
+.acc-status { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-2); }
+.acc-status-ic { width: 42px; height: 42px; flex: none; border-radius: 12px; display: grid; place-items: center; background: var(--surface); border: 1px solid var(--line); }
+.acc-status-ic svg { width: 22px; height: 22px; fill: none; stroke: var(--muted); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.acc-status-txt { display: grid; gap: 2px; }
+.acc-status-txt b { font-size: 1rem; }
+.acc-status-txt span { font-size: .88rem; color: var(--muted); }
+.acc-status[data-state="active"] { background: var(--conf-high-bg); border-color: rgba(29, 122, 62, .35); }
+.acc-status[data-state="active"] .acc-status-ic { background: var(--conf-high); border-color: transparent; }
+.acc-status[data-state="active"] .acc-status-ic svg { stroke: #fff; }
+.acc-status[data-state="active"] b { color: var(--conf-high); }
+.acc-status[data-state="soon"] { background: var(--conf-low-bg); border-color: rgba(180, 81, 15, .35); }
+.acc-status[data-state="soon"] .acc-status-ic { background: var(--conf-low); border-color: transparent; }
+.acc-status[data-state="soon"] .acc-status-ic svg { stroke: #fff; }
+.acc-status[data-state="soon"] b { color: var(--conf-low); }
+.acc-status[data-state="expired"] { background: var(--danger-bg); border-color: rgba(179, 38, 30, .3); }
+.acc-status[data-state="expired"] b { color: var(--danger); }
+
+/* الأزرار */
+.acc-wa { display: flex; align-items: center; justify-content: center; gap: 10px; height: 52px; border-radius: 15px; text-decoration: none; color: #fff;
+  font: 700 1rem 'Readex Pro', sans-serif; background: linear-gradient(135deg, #25D366, #1DA851 60%, #128C7E);
+  box-shadow: 0 10px 24px rgba(29, 168, 81, .32), inset 0 1px 0 rgba(255, 255, 255, .25); transition: filter .2s, transform .15s; }
+.acc-wa:hover { filter: brightness(1.06); }
+.acc-wa:active { transform: translateY(1px); }
+.acc-wa svg { width: 22px; height: 22px; }
+.acc-enter { display: flex; align-items: center; justify-content: center; text-decoration: none; margin-top: 0; }
+.acc-enter span::after { content: "  ←"; }
+.acc-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding-top: 6px; border-top: 1px solid var(--line); }
+.acc-ghost { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface);
+  color: var(--ink); text-decoration: none; font: 600 .9rem 'IBM Plex Sans Arabic', sans-serif; cursor: pointer; transition: border-color .2s, background .2s; }
+.acc-ghost[hidden] { display: none; }
+.acc-ghost:hover { border-color: #0A6BD6; background: var(--surface-2); }
+.acc-ghost svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.acc-ghost.danger { color: var(--danger); }
+.acc-ghost.danger:hover { border-color: var(--danger); background: var(--danger-bg); }
+@media (max-width: 420px) {
+  .member-no { font-size: 1.9rem; }
+  .member-card { padding: 18px 18px 16px; }
+}
