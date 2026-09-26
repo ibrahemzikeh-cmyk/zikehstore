@@ -877,3 +877,37 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .adm-panel { padding: 20px 16px 16px; }
   .adm-search-btn { padding: 0 20px; }
 }
+
+/* ---------- إحصائيات الموقع (لوحة الأدمن) ---------- */
+#statsBody { display: grid; gap: 16px; }
+#statsBody[hidden] { display: none; }
+.st-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.st-tile { display: grid; gap: 2px; padding: 14px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); }
+.st-tile span { font-size: .82rem; color: var(--muted); }
+.st-tile b { font-family: 'Readex Pro', sans-serif; font-size: 1.7rem; line-height: 1.15; color: #0055AA; }
+.st-tile small { font-size: .78rem; color: var(--muted); }
+.st-chart-wrap { padding: 14px; border-radius: 16px; border: 1px solid var(--line); display: grid; gap: 10px; }
+.st-chart-head { display: flex; align-items: center; justify-content: space-between; font-size: .9rem; }
+.st-legend { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: .8rem; }
+.st-legend i { width: 10px; height: 10px; border-radius: 3px; background: linear-gradient(180deg, #1E88FF, #0046A0); }
+.st-chart { display: grid; grid-template-columns: repeat(14, 1fr); gap: 6px; height: 160px; align-items: end; direction: ltr; }
+.st-bar { position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 4px; }
+.st-fill { width: 100%; max-width: 30px; min-height: 3px; border-radius: 7px 7px 3px 3px; background: linear-gradient(180deg, #1E88FF, #0046A0); box-shadow: 0 4px 10px rgba(0, 85, 170, .25); transition: height .5s ease; }
+.st-val { font-size: .7rem; font-weight: 600; color: var(--ink); min-height: 1em; }
+.st-day { font-size: .62rem; color: var(--muted); white-space: nowrap; }
+.st-top { display: grid; gap: 8px; }
+.st-top b { font-size: .9rem; }
+.st-top ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; counter-reset: st; }
+.st-top li { counter-increment: st; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 12px; background: var(--surface-2); font-size: .9rem; }
+.st-top li::before { content: counter(st); flex: none; width: 24px; height: 24px; border-radius: 8px; display: grid; place-items: center; font: 700 .78rem 'Readex Pro', sans-serif; color: #fff; background: linear-gradient(135deg, #0A6BD6, #0046A0); }
+.st-top li:nth-child(1)::before { background: linear-gradient(135deg, #F6D78B, #C9A04A); color: #3A2A00; }
+.st-top li a { flex: 1; color: var(--ink); text-decoration: none; font-weight: 600; overflow-wrap: anywhere; }
+.st-top li a:hover { color: #0055AA; }
+.st-top li span { color: var(--muted); font-size: .8rem; white-space: nowrap; }
+.st-top li.st-none { justify-content: center; color: var(--muted); }
+.st-top li.st-none::before { display: none; }
+@media (max-width: 760px) {
+  .st-tiles { grid-template-columns: repeat(2, 1fr); }
+  .st-chart { height: 130px; gap: 3px; }
+  .st-day { font-size: .55rem; writing-mode: vertical-rl; transform: rotate(180deg); }
+}

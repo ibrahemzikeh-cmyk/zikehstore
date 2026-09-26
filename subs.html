@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=0c5da90c">
+<link rel="stylesheet" href="styles.css?v=ec3b0203">
 </head>
 <body class="auth-page">
 <div class="auth-bg" aria-hidden="true"></div>
@@ -45,6 +45,34 @@
         <span class="adm-stat-txt"><b id="statSoon">0</b><span>بيخلصوا خلال 7 أيام</span></span>
       </div>
     </div>
+
+    <!-- إحصائيات الموقع -->
+    <section class="auth-panel adm-panel" aria-labelledby="statsTitle">
+      <header class="adm-panel-head row">
+        <div>
+          <h2 id="statsTitle">إحصائيات الموقع</h2>
+          <p>زيارات الزباين (كل زيارة = مرة فتح فيها الزبون الموقع)</p>
+        </div>
+        <button class="adm-mini" type="button" id="statsReload">تحديث</button>
+      </header>
+      <p class="auth-msg err" id="statsErr" role="alert" hidden></p>
+      <div id="statsBody" hidden>
+        <div class="st-tiles">
+          <div class="st-tile"><span>اليوم</span><b id="stToday">0</b><small id="stTodayU"></small></div>
+          <div class="st-tile"><span>آخر 7 أيام</span><b id="stWeek">0</b><small id="stWeekU"></small></div>
+          <div class="st-tile"><span>آخر 30 يوم</span><b id="stMonth">0</b><small id="stMonthU"></small></div>
+          <div class="st-tile"><span>الحسابات</span><b id="stAcc">0</b><small id="stAccNew"></small></div>
+        </div>
+        <div class="st-chart-wrap">
+          <div class="st-chart-head"><b>الزيارات آخر 14 يوم</b><span class="st-legend"><i></i>زيارات</span></div>
+          <div class="st-chart" id="stChart" role="img" aria-label="رسم الزيارات آخر 14 يوم"></div>
+        </div>
+        <div class="st-top">
+          <b>الأجهزة الأكتر فتحاً (آخر 30 يوم)</b>
+          <ol id="stTop"></ol>
+        </div>
+      </div>
+    </section>
 
     <!-- بحث -->
     <section class="auth-panel adm-panel" aria-labelledby="findTitle">
@@ -81,8 +109,8 @@
   </div>
 </main>
 
-<script src="auth-config.js?v=0c5da90c"></script>
-<script src="auth.js?v=0c5da90c"></script>
+<script src="auth-config.js?v=ec3b0203"></script>
+<script src="auth.js?v=ec3b0203"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -229,6 +257,40 @@
     }
   });
 
+  // إحصائيات الزيارات (دالة admin_stats بـ Supabase)
+  async function loadStats() {
+    $('statsErr').hidden = true;
+    const { data: s, error } = await sb.rpc('admin_stats');
+    if (error) {
+      $('statsErr').hidden = false;
+      $('statsErr').textContent = /admin_stats|function|schema cache|404/i.test(error.message || '')
+        ? 'الإحصائيات لسا مش مفعّلة: شغّل ملف supabase/analytics.sql بـ Supabase (SQL Editor).'
+        : A.arError(error);
+      return;
+    }
+    const n = x => Number(x || 0).toLocaleString('en');
+    $('stToday').textContent = n(s.today); $('stTodayU').textContent = n(s.today_users) + ' زبون';
+    $('stWeek').textContent = n(s.week); $('stWeekU').textContent = n(s.week_users) + ' زبون';
+    $('stMonth').textContent = n(s.month); $('stMonthU').textContent = n(s.month_users) + ' زبون';
+    $('stAcc').textContent = n(s.accounts); $('stAccNew').textContent = '+' + n(s.accounts_week) + ' هالأسبوع';
+    const daily = s.daily || [];
+    const max = Math.max(1, ...daily.map(d => d.visits));
+    $('stChart').innerHTML = daily.map(d => {
+      const dd = String(d.day).slice(5).split('-').reverse().join('/');
+      return '<div class="st-bar" title="' + esc(d.day) + ': ' + d.visits + ' زيارة، ' + d.users + ' زبون">' +
+        '<span class="st-val">' + (d.visits || '') + '</span>' +
+        '<span class="st-fill" style="height:' + Math.round(d.visits / max * 100) + '%"></span>' +
+        '<span class="st-day ltr">' + esc(dd) + '</span></div>';
+    }).join('');
+    const top = s.top_devices || [];
+    $('stTop').innerHTML = top.length ? top.map(t =>
+      '<li><a class="ltr" href="./#' + esc(t.id) + '" target="_blank" rel="noopener">' + esc(t.name || t.id) + '</a>' +
+      '<span>' + n(t.views) + ' فتحة · ' + n(t.users) + ' زبون</span></li>').join('')
+      : '<li class="st-none">لسا ما في بيانات. بتبين لما الزباين يفتحوا صفحات أجهزة.</li>';
+    $('statsBody').hidden = false;
+  }
+  $('statsReload').addEventListener('click', () => loadStats().catch(e => { $('statsErr').hidden = false; $('statsErr').textContent = A.arError(e); }));
+
   A.client().then(async client => {
     sb = client;
     const { data: { session } } = await sb.auth.getSession();
@@ -238,6 +300,7 @@
     if (!isAdmin) return gate('هالصفحة للأدمن بس.');
     $('gateMsg').hidden = true;
     $('adminBody').hidden = false;
+    loadStats().catch(e => { $('statsErr').hidden = false; $('statsErr').textContent = A.arError(e); });
     await loadList();
   }).catch(e => gate(A.arError(e)));
 })();

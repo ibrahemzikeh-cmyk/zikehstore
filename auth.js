@@ -103,9 +103,33 @@
     return true;
   }
 
-  window.ZikehAuth = { enabled, cfg, client, hasStoredSession, mountHeaderButton, arError, subStatus, fmtDate, daysText, siteUrl };
+  // إحصائيات: زيارة وحدة لكل جلسة، وفتحة كل جهاز مرة وحدة بالجلسة (جدول visits بـ Supabase)
+  function track(kind, deviceId, deviceName) {
+    if (!enabled || !hasStoredSession()) return;
+    const key = 'zk_t_' + kind + '_' + (deviceId || '');
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) { /* ignore */ }
+    const row = kind === 'device' ? { kind, device_id: String(deviceId).slice(0, 120), device_name: String(deviceName || '').slice(0, 160) } : { kind };
+    // بعد ما تخلص الصفحة تحميل، حتى ما تبطّئها
+    setTimeout(() => { client().then(sb => sb.from('visits').insert(row)).catch(() => { /* مش ضروري */ }); }, 1500);
+  }
+  // بالصفحة الرئيسية بس (يلي فيها بيانات الأجهزة)
+  function autoTrack() {
+    if (!enabled || !window.PHONE_DATA || !hasStoredSession()) return;
+    track('visit');
+    const onHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      const d = id && (window.PHONE_DATA.devices || []).find(x => x.id === id);
+      if (d) track('device', d.id, (d.brand && !d.name.startsWith(d.brand) ? d.brand + ' ' : '') + d.name);
+    };
+    window.addEventListener('hashchange', onHash);
+    onHash();
+  }
+
+  window.ZikehAuth = { enabled, cfg, client, hasStoredSession, mountHeaderButton, arError, subStatus, fmtDate, daysText, siteUrl, track };
   if (!routeAuthLink()) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mountHeaderButton);
     else mountHeaderButton();
+    if (document.readyState === 'complete') autoTrack();
+    else window.addEventListener('load', autoTrack);
   }
 })();
