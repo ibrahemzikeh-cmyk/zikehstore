@@ -600,3 +600,113 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .account-btn { padding-inline: 8px; }
   .account-btn span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
+
+/* ================= صفحة الدخول (فخمة) ================= */
+.auth-page { min-height: 100vh; min-height: 100dvh; margin: 0; background: #041B3A; color: var(--ink); overflow-x: hidden; }
+.auth-bg { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(900px 520px at 85% -10%, rgba(0, 110, 230, .55), transparent 60%),
+    radial-gradient(700px 480px at -10% 110%, rgba(217, 22, 39, .38), transparent 60%),
+    radial-gradient(600px 400px at 50% 50%, rgba(255, 255, 255, .05), transparent 70%),
+    linear-gradient(160deg, #062A57 0%, #041B3A 55%, #020E22 100%); }
+.auth-bg::after { content: ""; position: absolute; inset: 0; opacity: .07;
+  background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 22px 22px; }
+.auth-shell { position: relative; z-index: 1; min-height: 100vh; min-height: 100dvh; width: min(1040px, 100%); margin: 0 auto;
+  padding: 32px 16px; box-sizing: border-box; display: grid; grid-template-columns: 1.05fr 1fr; gap: 48px; align-items: center; }
+
+/* جهة الماركة */
+.auth-brand { color: #fff; display: grid; justify-items: start; gap: 14px; }
+.auth-logo-ring { width: 112px; height: 112px; border-radius: 50%; background: #fff; display: grid; place-items: center;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, .12), 0 0 0 14px rgba(255, 255, 255, .05), 0 18px 50px rgba(0, 0, 0, .45); }
+.auth-logo-ring img { width: 92px; height: 92px; border-radius: 50%; display: block; }
+.auth-wordmark { font-family: 'Readex Pro', sans-serif; font-weight: 700; font-size: 2.3rem; letter-spacing: .06em; line-height: 1.1; color: #fff; }
+.auth-wordmark .z-red { color: #FF4B5C; }
+.auth-tagline { margin: -6px 0 6px; font-size: 1.1rem; color: rgba(255, 255, 255, .78); }
+.auth-perks { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 12px; }
+.auth-perks li { display: flex; align-items: center; gap: 12px; font-size: 1rem; color: rgba(255, 255, 255, .9); }
+.auth-perks b { color: #fff; }
+.perk-ic { width: 38px; height: 38px; flex: none; border-radius: 12px; display: grid; place-items: center;
+  background: rgba(255, 255, 255, .1); border: 1px solid rgba(255, 255, 255, .16); backdrop-filter: blur(6px); }
+.perk-ic svg { width: 20px; height: 20px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* البطاقة */
+.auth-panel { background: var(--surface); border-radius: 26px; padding: 34px 32px 22px; display: grid; gap: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, .45), 0 0 0 1px rgba(255, 255, 255, .08); position: relative; overflow: hidden; }
+.auth-panel::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 5px;
+  background: linear-gradient(90deg, #D91627, #0055AA 55%, #1E88FF); }
+.auth-panel-head h1 { margin: 0; font-family: 'Readex Pro', sans-serif; font-size: 1.65rem; font-weight: 700; color: var(--ink); }
+.auth-panel-head p { margin: 6px 0 0; color: var(--muted); font-size: .98rem; }
+.auth-note { margin: 0; padding: 12px 14px; border-radius: 14px; font-size: .92rem; line-height: 1.7;
+  background: linear-gradient(135deg, rgba(0, 85, 170, .08), rgba(0, 85, 170, .03)); border: 1px solid rgba(0, 85, 170, .18); color: var(--ink); }
+.auth-note.warn { background: var(--warn-bg); border-color: transparent; color: var(--warn-ink); }
+.auth-note[hidden] { display: none; }
+
+/* تبويبات بفقاعة متحركة */
+.auth-tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 5px; border-radius: 16px; background: var(--surface-2); border: 1px solid var(--line); }
+.auth-tabs[hidden] { display: none; }
+.auth-tabs button { position: relative; z-index: 1; border: 0; background: transparent; padding: 11px 8px; border-radius: 12px;
+  font: 600 .98rem 'IBM Plex Sans Arabic', sans-serif; color: var(--muted); cursor: pointer; transition: color .25s; }
+.auth-tabs button[aria-selected="true"] { color: #fff; }
+.auth-tabs-pill { position: absolute; z-index: 0; top: 5px; bottom: 5px; width: calc(50% - 5px); inset-inline-start: 5px; border-radius: 12px;
+  background: linear-gradient(135deg, #0A6BD6, #0046A0); box-shadow: 0 6px 18px rgba(0, 85, 170, .4); transition: inset-inline-start .3s cubic-bezier(.4, 0, .2, 1); }
+.auth-tabs[data-active="signup"] .auth-tabs-pill { inset-inline-start: 50%; }
+
+/* الخانات */
+.auth-form { display: grid; gap: 14px; }
+.auth-form[hidden] { display: none; }
+.auth-field { display: grid; gap: 7px; }
+.auth-label { font-size: .9rem; font-weight: 600; color: var(--ink); }
+.auth-label small { font-weight: 400; color: var(--muted); }
+.auth-input { position: relative; display: block; }
+.auth-input input { width: 100%; box-sizing: border-box; height: 52px; border-radius: 14px; border: 1.5px solid var(--line);
+  background: var(--surface-2); color: var(--ink); font: 1rem 'IBM Plex Sans Arabic', sans-serif; padding: 0 46px;
+  transition: border-color .2s, box-shadow .2s, background .2s; direction: ltr; text-align: left; }
+.auth-input input::placeholder { color: #9AA6BA; }
+.auth-input input:focus { outline: none; border-color: #0A6BD6; background: var(--surface); box-shadow: 0 0 0 4px rgba(10, 107, 214, .15); }
+.in-ic { position: absolute; left: 15px; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); pointer-events: none;
+  fill: none; stroke: #8391A8; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.auth-input:focus-within .in-ic { stroke: #0A6BD6; }
+.pw-toggle { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 36px; height: 36px; border: 0; border-radius: 10px;
+  background: transparent center / 20px no-repeat; cursor: pointer; opacity: .75;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238391A8' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3C/svg%3E"); }
+.pw-toggle.on { opacity: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230A6BD6' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z'/%3E%3Ccircle cx='12' cy='12' r='3'/%3E%3Cpath d='M4 4l16 16'/%3E%3C/svg%3E"); }
+.pw-toggle:hover { background-color: var(--surface-2); opacity: 1; }
+
+/* الأزرار */
+.auth-submit { position: relative; height: 54px; border: 0; border-radius: 15px; cursor: pointer; color: #fff;
+  font: 700 1.05rem 'Readex Pro', sans-serif; letter-spacing: .01em; margin-top: 4px;
+  background: linear-gradient(135deg, #0A6BD6 0%, #0055AA 50%, #003C82 100%);
+  box-shadow: 0 10px 26px rgba(0, 85, 170, .38), inset 0 1px 0 rgba(255, 255, 255, .25); transition: transform .15s, box-shadow .2s, filter .2s; }
+.auth-submit:hover { filter: brightness(1.07); box-shadow: 0 14px 32px rgba(0, 85, 170, .45), inset 0 1px 0 rgba(255, 255, 255, .25); }
+.auth-submit:active { transform: translateY(1px); }
+.auth-submit:disabled { cursor: progress; filter: saturate(.7); }
+.auth-submit.is-busy span { visibility: hidden; }
+.auth-submit.is-busy::after { content: ""; position: absolute; inset: 0; margin: auto; width: 22px; height: 22px; border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, .35); border-top-color: #fff; animation: auth-spin .7s linear infinite; }
+@keyframes auth-spin { to { transform: rotate(360deg); } }
+.auth-link { justify-self: start; border: 0; background: none; padding: 2px 0; cursor: pointer; color: #0A6BD6; font: 600 .95rem 'IBM Plex Sans Arabic', sans-serif; }
+.auth-link.small { font-size: .88rem; margin-top: -4px; }
+.auth-link:hover { text-decoration: underline; }
+.auth-hint { margin: 0; font-size: .86rem; color: var(--muted); text-align: center; line-height: 1.7; }
+.auth-msg { margin: 0; padding: 12px 14px; border-radius: 14px; font-size: .92rem; line-height: 1.7; }
+.auth-msg.err { background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(179, 38, 30, .2); }
+.auth-msg.ok { background: var(--conf-high-bg); color: var(--conf-high); border: 1px solid rgba(29, 122, 62, .2); }
+.auth-msg[hidden] { display: none; }
+.auth-help { margin-top: 2px; padding-top: 14px; border-top: 1px solid var(--line); text-align: center; font-size: .88rem; color: var(--muted); }
+.auth-help a { color: #1DA851; font-weight: 600; text-decoration: none; }
+.auth-help a:hover { text-decoration: underline; }
+
+/* موبايل: الماركة فوق مصغّرة والبطاقة تحتها */
+@media (max-width: 860px) {
+  .auth-shell { grid-template-columns: 1fr; gap: 22px; align-content: start; padding-top: 28px; }
+  .auth-brand { justify-items: center; text-align: center; gap: 8px; }
+  .auth-logo-ring { width: 84px; height: 84px; }
+  .auth-logo-ring img { width: 70px; height: 70px; }
+  .auth-wordmark { font-size: 1.7rem; }
+  .auth-tagline { font-size: .98rem; margin: 0; }
+  .auth-perks { display: none; }
+  .auth-panel { padding: 26px 20px 18px; border-radius: 22px; }
+  .auth-panel-head { text-align: center; }
+  .auth-panel-head h1 { font-size: 1.4rem; }
+}
