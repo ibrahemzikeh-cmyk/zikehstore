@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=36ced53c">
+<link rel="stylesheet" href="styles.css?v=2471ccb0">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -35,6 +35,7 @@
     <h1 id="authTitle" class="auth-title">حساب ZIKEH STORE</h1>
 
     <p class="banner" id="notConfigured" hidden>الحسابات لسا ما انربطت بالموقع. رجاع بعدين.</p>
+    <p class="auth-ok" id="gateNote" hidden>أهلاً فيك بـ ZIKEH STORE 👋 سجّل دخول، أو اعمل حساب مجاني بدقيقة، لتستعمل الموقع.</p>
 
     <div class="seg auth-seg" role="tablist" aria-label="نوع العملية" id="modeTabs">
       <button type="button" role="tab" data-mode="login" aria-selected="true">تسجيل الدخول</button>
@@ -103,8 +104,8 @@
   </section>
 </main>
 
-<script src="auth-config.js?v=36ced53c"></script>
-<script src="auth.js?v=36ced53c"></script>
+<script src="auth-config.js?v=2471ccb0"></script>
+<script src="auth.js?v=2471ccb0"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -114,6 +115,13 @@
   const tabs = document.getElementById('modeTabs');
   const next = new URLSearchParams(location.search).get('next') || 'account.html';
   const safeNext = /^[a-z0-9_-]+\.html$/i.test(next) ? next : 'account.html';
+  // بعد الدخول: على الصفحة يلي كان بدو ياها (ومع الجهاز يلي كان فاتحو)
+  function go(target) {
+    let h = '';
+    try { h = sessionStorage.getItem('zk_after_login') || ''; sessionStorage.removeItem('zk_after_login'); } catch (e) { /* ignore */ }
+    location.replace(target + (/^index\.html$/.test(target) ? h : ''));
+  }
+  if (new URLSearchParams(location.search).get('gate')) document.getElementById('gateNote').hidden = false;
 
   function msg(ok, text) {
     $err.hidden = ok || !text; $ok.hidden = !ok || !text;
@@ -166,7 +174,7 @@
     });
     const { data } = await sb.auth.getSession();
     // فايت أصلاً (ومش جاي من رابط كلمة السر) ← على «حسابي»
-    if (data.session && !recovering) location.replace(safeNext);
+    if (data.session && !recovering) go(safeNext);
   }).catch(e => msg(false, A.arError(e)));
 
   document.getElementById('loginForm').addEventListener('submit', e => {
@@ -178,7 +186,7 @@
       const sb = await A.client();
       const { error } = await sb.auth.signInWithPassword({ email, password });
       if (error) throw error;
-      location.replace(safeNext);
+      go(safeNext);
     });
   });
 

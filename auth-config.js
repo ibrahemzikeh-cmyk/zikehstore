@@ -6,6 +6,8 @@
 window.ZIKEH_AUTH = {
   supabaseUrl: 'https://betexmjhvlcinbpjglkt.supabase.co',
   supabaseAnonKey: 'sb_publishable_RgK8JEHVEMjUC1bx9sktRQ_K3KQvANr',
+  // true = الموقع ما بيفتح إلا بعد تسجيل الدخول (بحساب مجاني). false = مفتوح للكل.
+  requireLogin: false,
   // رقم واتساب لتفعيل الاشتراك (بدون + وبدون صفر البداية: 963 وبعدين الرقم)
   whatsapp: '963935959558',
   // عنوان الموقع (للروابط يلي بتنبعت بالإيميل: تأكيد الحساب، ونسيت كلمة السر)
