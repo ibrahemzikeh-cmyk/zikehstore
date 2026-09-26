@@ -97,7 +97,7 @@
     power: 'باور (Power / PMIC)', smallpower: 'باور صغير (Small power)', charging: 'شحن (Charging)',
     wifi: 'واي فاي وبلوتوث (WiFi/BT)', gps: 'جي بي اس (GPS)', rf: 'شبكة (PA / RF)', audio: 'صوت (Audio)',
     memory: 'ذاكرة (eMMC / UFS)', cpu: 'معالج (CPU)', backlight: 'إضاءة (Backlight)', display: 'شاشة (Display)',
-    baseband: 'بيسباند (Baseband)', touch: 'تاتش (Touch)', usb: 'USB وحماية', nfc: 'NFC', other: 'آيسيات تانية (Other)'
+    baseband: 'بيسباند (Baseband)', touch: 'تاتش (Touch)', usb: 'USB وحماية', nfc: 'NFC', other: 'آيسيات أخرى (Other)'
   };
   // أنواع الكونكترات (بنفس ترتيب العرض بتبويب «كونكترات»)
   const CONN_KINDS = {
@@ -345,7 +345,7 @@
   const SOURCES = {
     manual: 'مؤكد يدوياً',
     customers: 'مؤكد من العملاء',
-    web: 'متأكد عبر الإنترنت',
+    web: 'مؤكد عبر الإنترنت',
     supplier: 'قائمة مورّد',
     combo: 'حسب قوائم الكومبو',
     imported: 'قائمة توافق مستوردة',
@@ -355,7 +355,7 @@
   const CONFIDENCE = {
     high: 'مؤكد',
     medium: 'محتمل',
-    low: 'ضعيف – بحاجة تأكيد'
+    low: 'ضعيف – يحتاج إلى تأكيد'
   };
   const CONF_RANK = { high: 3, medium: 2, low: 1 };
   const SRC_RANK = { manual: 8, customers: 7, web: 6, supplier: 5, combo: 4, imported: 3, seed: 2, computed: 1 };

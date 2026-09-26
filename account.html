@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=ec3b0203">
+<link rel="stylesheet" href="styles.css?v=70ea464f">
 </head>
 <body class="auth-page">
 <div class="auth-bg" aria-hidden="true"></div>
@@ -26,10 +26,10 @@
   <section class="auth-panel acc-panel" aria-labelledby="accTitle">
     <header class="auth-panel-head">
       <h1 id="accTitle">حسابي</h1>
-      <p id="accHello">عم نجيب معلومات حسابك…</p>
+      <p id="accHello">جارٍ جلب معلومات حسابك…</p>
     </header>
 
-    <div class="acc-loading" id="accLoading" role="status"><span class="acc-spinner" aria-hidden="true"></span>لحظة…</div>
+    <div class="acc-loading" id="accLoading" role="status"><span class="acc-spinner" aria-hidden="true"></span>لحظة من فضلك…</div>
     <p class="auth-msg err" id="accErr" role="alert" hidden></p>
 
     <div id="accBody" class="acc-body" hidden>
@@ -43,14 +43,14 @@
         <span class="member-label">رقم الزبون</span>
         <b class="member-no ltr" id="custNo">—</b>
         <div class="member-foot">
-          <span>عضو من <b class="ltr" id="accSince"></b></span>
+          <span>عضو منذ <b class="ltr" id="accSince"></b></span>
           <button class="member-copy" id="copyNo" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
             <span>نسخ</span>
           </button>
         </div>
       </div>
-      <p class="auth-hint">ابعت رقم الزبون لما بدك تفعّل أو تجدّد اشتراكك.</p>
+      <p class="auth-hint">أرسل رقم الزبون عندما تريد تفعيل اشتراكك أو تجديده.</p>
 
       <!-- حالة الاشتراك -->
       <div class="acc-status" id="subState" data-state="none">
@@ -68,7 +68,7 @@
         <span id="waLabel">تفعيل الاشتراك عبر واتساب</span>
       </a>
 
-      <a class="auth-submit acc-enter" href="./"><span>ادخل عالموقع</span></a>
+      <a class="auth-submit acc-enter" href="./"><span>الدخول إلى الموقع</span></a>
 
       <div class="acc-actions">
         <a class="acc-ghost" href="subs.html" id="adminLink" hidden>
@@ -77,21 +77,21 @@
         </a>
         <button class="acc-ghost danger" id="logoutBtn" type="button">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 17l5-5-5-5M20 12H9M11 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/></svg>
-          <span>تسجيل خروج</span>
+          <span>تسجيل الخروج</span>
         </button>
       </div>
     </div>
   </section>
 </main>
 
-<script src="auth-config.js?v=ec3b0203"></script>
-<script src="auth.js?v=ec3b0203"></script>
+<script src="auth-config.js?v=70ea464f"></script>
+<script src="auth.js?v=70ea464f"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
   const $ = id => document.getElementById(id);
   const fail = text => { $('accLoading').hidden = true; $('accHello').textContent = ''; $('accErr').hidden = false; $('accErr').textContent = text; };
-  if (!A.enabled) return fail('الحسابات لسا ما انربطت بالموقع.');
+  if (!A.enabled) return fail('لم تُربط الحسابات بالموقع بعد.');
 
   A.client().then(async sb => {
     const { data: { session } } = await sb.auth.getSession();
@@ -100,7 +100,7 @@
 
     const { data: p, error } = await sb.from('profiles').select('customer_no, email, created_at, sub_expires_at').eq('id', uid).maybeSingle();
     if (error) throw error;
-    if (!p) return fail('ما لقينا ملف حسابك. تواصل معنا عالواتساب.');
+    if (!p) return fail('لم نعثر على ملف حسابك. تواصل معنا عبر واتساب.');
 
     $('custNo').textContent = p.customer_no;
     $('accHello').textContent = p.email || session.user.email || '';
@@ -108,13 +108,13 @@
 
     const st = A.subStatus(p.sub_expires_at);
     $('subState').dataset.state = st.key;
-    $('subLabel').textContent = st.key === 'none' ? 'غير مشترك' : st.key === 'expired' ? 'الاشتراك منتهي' : 'الاشتراك ساري';
-    $('subDetail').textContent = st.key === 'none' ? 'لما بدك تشترك، راسلنا عالواتساب برقم الزبون.'
-      : st.key === 'expired' ? 'انتهى بـ ' + A.fmtDate(st.end) + '. جدّد اشتراكك عالواتساب.'
-      : 'لحد ' + A.fmtDate(st.end) + (st.days <= 7 ? ' · باقي ' + A.daysText(st.days) : '');
+    $('subLabel').textContent = st.key === 'none' ? 'غير مشترك' : st.key === 'expired' ? 'الاشتراك منتهي' : 'الاشتراك سارٍ';
+    $('subDetail').textContent = st.key === 'none' ? 'عندما تريد الاشتراك، راسلنا عبر واتساب مع رقم الزبون.'
+      : st.key === 'expired' ? 'انتهى في ' + A.fmtDate(st.end) + '. جدّد اشتراكك عبر واتساب.'
+      : 'حتى ' + A.fmtDate(st.end) + (st.days <= 7 ? ' · متبقٍّ ' + A.daysText(st.days) : '');
     const renew = st.key === 'active' || st.key === 'soon';
     $('waLabel').textContent = renew ? 'تجديد الاشتراك عبر واتساب' : 'تفعيل الاشتراك عبر واتساب';
-    const text = 'مرحبا ZIKEH STORE، بدي ' + (renew ? 'جدّد' : 'فعّل') + ' اشتراكي بموقع التوافقيات.\nرقم الزبون: ' + p.customer_no;
+    const text = 'مرحباً ZIKEH STORE، أريد ' + (renew ? 'تجديد' : 'تفعيل') + ' اشتراكي في موقع التوافقيات.\nرقم الزبون: ' + p.customer_no;
     $('waBtn').href = 'https://wa.me/' + String(A.cfg.whatsapp || '').replace(/\D/g, '') + '?text=' + encodeURIComponent(text);
 
     $('accLoading').hidden = true;
@@ -128,7 +128,7 @@
   $('copyNo').addEventListener('click', e => {
     const no = $('custNo').textContent;
     const label = e.currentTarget.querySelector('span');
-    const done = () => { label.textContent = 'انتسخ ✓'; setTimeout(() => { label.textContent = 'نسخ'; }, 1600); };
+    const done = () => { label.textContent = 'تم النسخ ✓'; setTimeout(() => { label.textContent = 'نسخ'; }, 1600); };
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(no).then(done).catch(() => fallback(no, done));
     else fallback(no, done);
   });

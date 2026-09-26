@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=ec3b0203">
+<link rel="stylesheet" href="styles.css?v=70ea464f">
 </head>
 <body class="auth-page">
 <div class="auth-bg" aria-hidden="true"></div>
@@ -30,7 +30,7 @@
     </nav>
   </header>
 
-  <div class="acc-loading adm-glass" id="gateMsg" role="status"><span class="acc-spinner" aria-hidden="true"></span>عم نتأكد من صلاحياتك…</div>
+  <div class="acc-loading adm-glass" id="gateMsg" role="status"><span class="acc-spinner" aria-hidden="true"></span>جارٍ التحقق من صلاحياتك…</div>
   <p class="auth-msg err" id="gateErr" role="alert" hidden></p>
 
   <div id="adminBody" class="adm-body" hidden>
@@ -38,11 +38,11 @@
     <div class="adm-stats">
       <div class="adm-stat">
         <span class="adm-stat-ic ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
-        <span class="adm-stat-txt"><b id="statActive">0</b><span>مشترك ساري</span></span>
+        <span class="adm-stat-txt"><b id="statActive">0</b><span>اشتراك سارٍ</span></span>
       </div>
       <div class="adm-stat">
         <span class="adm-stat-ic soon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></span>
-        <span class="adm-stat-txt"><b id="statSoon">0</b><span>بيخلصوا خلال 7 أيام</span></span>
+        <span class="adm-stat-txt"><b id="statSoon">0</b><span>تنتهي خلال 7 أيام</span></span>
       </div>
     </div>
 
@@ -51,7 +51,7 @@
       <header class="adm-panel-head row">
         <div>
           <h2 id="statsTitle">إحصائيات الموقع</h2>
-          <p>زيارات الزباين (كل زيارة = مرة فتح فيها الزبون الموقع)</p>
+          <p>زيارات الزبائن (كل زيارة = مرة فتح فيها الزبون الموقع)</p>
         </div>
         <button class="adm-mini" type="button" id="statsReload">تحديث</button>
       </header>
@@ -60,15 +60,15 @@
         <div class="st-tiles">
           <div class="st-tile"><span>اليوم</span><b id="stToday">0</b><small id="stTodayU"></small></div>
           <div class="st-tile"><span>آخر 7 أيام</span><b id="stWeek">0</b><small id="stWeekU"></small></div>
-          <div class="st-tile"><span>آخر 30 يوم</span><b id="stMonth">0</b><small id="stMonthU"></small></div>
+          <div class="st-tile"><span>آخر 30 يوماً</span><b id="stMonth">0</b><small id="stMonthU"></small></div>
           <div class="st-tile"><span>الحسابات</span><b id="stAcc">0</b><small id="stAccNew"></small></div>
         </div>
         <div class="st-chart-wrap">
-          <div class="st-chart-head"><b>الزيارات آخر 14 يوم</b><span class="st-legend"><i></i>زيارات</span></div>
-          <div class="st-chart" id="stChart" role="img" aria-label="رسم الزيارات آخر 14 يوم"></div>
+          <div class="st-chart-head"><b>الزيارات آخر 14 يوماً</b><span class="st-legend"><i></i>زيارات</span></div>
+          <div class="st-chart" id="stChart" role="img" aria-label="رسم الزيارات آخر 14 يوماً"></div>
         </div>
         <div class="st-top">
-          <b>الأجهزة الأكتر فتحاً (آخر 30 يوم)</b>
+          <b>الأجهزة الأكثر فتحاً (آخر 30 يوماً)</b>
           <ol id="stTop"></ol>
         </div>
       </div>
@@ -78,12 +78,12 @@
     <section class="auth-panel adm-panel" aria-labelledby="findTitle">
       <header class="adm-panel-head">
         <h2 id="findTitle">بحث عن زبون</h2>
-        <p>اكتب رقم الزبون أو جزء من الإيميل</p>
+        <p>اكتب رقم الزبون أو جزءاً من البريد الإلكتروني</p>
       </header>
       <form class="adm-search" id="findForm" novalidate>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
-          <input id="findQ" class="ltr" placeholder="ZK-4821  أو  name@gmail.com" autocomplete="off" aria-label="رقم الزبون أو الإيميل">
+          <input id="findQ" class="ltr" placeholder="ZK-4821  أو  name@gmail.com" autocomplete="off" aria-label="رقم الزبون أو البريد الإلكتروني">
         </span>
         <button class="auth-submit adm-search-btn" type="submit"><span>بحث</span></button>
       </form>
@@ -95,13 +95,13 @@
     <section class="auth-panel adm-panel" aria-labelledby="listTitle">
       <header class="adm-panel-head row">
         <div>
-          <h2 id="listTitle">المشتركين <span class="adm-count" id="listCount"></span></h2>
-          <p>مرتّبين حسب تاريخ الانتهاء</p>
+          <h2 id="listTitle">المشتركون <span class="adm-count" id="listCount"></span></h2>
+          <p>مرتّبون حسب تاريخ الانتهاء</p>
         </div>
         <div class="auth-tabs adm-filter" role="tablist" aria-label="تصفية" id="listFilter" data-active="all">
           <span class="auth-tabs-pill" aria-hidden="true"></span>
           <button type="button" role="tab" data-f="all" aria-selected="true">الكل</button>
-          <button type="button" role="tab" data-f="soon" aria-selected="false">قرّبوا يخلصوا</button>
+          <button type="button" role="tab" data-f="soon" aria-selected="false">قاربت على الانتهاء</button>
         </div>
       </header>
       <div id="subsList" class="adm-cards"></div>
@@ -109,8 +109,8 @@
   </div>
 </main>
 
-<script src="auth-config.js?v=ec3b0203"></script>
-<script src="auth.js?v=ec3b0203"></script>
+<script src="auth-config.js?v=70ea464f"></script>
+<script src="auth.js?v=70ea464f"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -123,13 +123,13 @@
   const cards = new Map();                       // id ← آخر نسخة من الزبون
 
   function gate(text) { $('gateMsg').hidden = true; $('gateErr').hidden = false; $('gateErr').textContent = text; }
-  if (!A.enabled) return gate('الحسابات لسا ما انربطت بالموقع.');
+  if (!A.enabled) return gate('لم تُربط الحسابات بالموقع بعد.');
 
   function statusText(p) {
     const st = A.subStatus(p.sub_expires_at);
     if (st.key === 'none') return { st, text: 'غير مشترك' };
-    if (st.key === 'expired') return { st, text: 'منتهي من ' + A.fmtDate(st.end) };
-    return { st, text: 'ساري لحد ' + A.fmtDate(st.end) + ' · باقي ' + A.daysText(st.days) };
+    if (st.key === 'expired') return { st, text: 'منتهٍ منذ ' + A.fmtDate(st.end) };
+    return { st, text: 'سارٍ حتى ' + A.fmtDate(st.end) + ' · متبقٍّ ' + A.daysText(st.days) };
   }
 
   function card(p) {
@@ -142,7 +142,7 @@
       '</div>' +
       '<div class="adm-meta">' +
         '<span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg><span class="ltr">' + esc(p.email) + '</span></span>' +
-        '<span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>سجّل بـ <span class="ltr">' + esc(A.fmtDate(p.created_at)) + '</span></span>' +
+        '<span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>سجّل في <span class="ltr">' + esc(A.fmtDate(p.created_at)) + '</span></span>' +
       '</div>' +
       '<div class="adm-actions">' +
         '<button class="adm-add" type="button" data-act="m1">+ شهر</button>' +
@@ -154,8 +154,8 @@
         '<button class="adm-mini" type="button" data-act="date">حفظ التاريخ</button></span>' +
         '<button class="adm-mini danger" type="button" data-act="cancel"' + (st.key === 'none' ? ' disabled' : '') + '>إلغاء الاشتراك</button>' +
       '</div>' +
-      '<details class="adm-notes"' + (p.admin_notes ? ' open' : '') + '><summary>ملاحظات (بتبين إلك بس)</summary>' +
-        '<textarea rows="2" placeholder="مثلاً: دفع 10$ كاش">' + esc(p.admin_notes || '') + '</textarea>' +
+      '<details class="adm-notes"' + (p.admin_notes ? ' open' : '') + '><summary>ملاحظات (تظهر لك فقط)</summary>' +
+        '<textarea rows="2" placeholder="مثال: دفع 10$ نقداً">' + esc(p.admin_notes || '') + '</textarea>' +
         '<button class="adm-mini" type="button" data-act="notes">حفظ الملاحظات</button></details>' +
       '<p class="card-msg" role="status" hidden></p>' +
       '</article>';
@@ -168,7 +168,7 @@
     const rows = listFilter === 'soon' ? soon : listRows;
     $('listCount').textContent = rows.length;
     $('subsList').innerHTML = rows.length ? rows.map(card).join('')
-      : '<p class="adm-empty">' + (listFilter === 'soon' ? 'ما حدا اشتراكو قرّب يخلص 👌' : 'ما في مشتركين لهلأ.') + '</p>';
+      : '<p class="adm-empty">' + (listFilter === 'soon' ? 'لا توجد اشتراكات قاربت على الانتهاء 👌' : 'لا يوجد مشتركون حتى الآن.') + '</p>';
   }
 
   async function loadList() {
@@ -193,7 +193,7 @@
     $('findErr').hidden = true;
     // بس أحرف الإيميل ورقم الزبون (حتى ما ينكسر فلتر البحث)
     const clean = q.trim().replace(/[^A-Za-z0-9@._+-]/g, '');
-    if (clean.length < 2) { $('findErr').hidden = false; $('findErr').textContent = 'اكتب رقم الزبون أو جزء من الإيميل (حرفين أو أكتر).'; return; }
+    if (clean.length < 2) { $('findErr').hidden = false; $('findErr').textContent = 'اكتب رقم الزبون أو جزءاً من البريد الإلكتروني (حرفان أو أكثر).'; return; }
     const num = clean.replace(/^zk-?/i, '');
     let query = sb.from('profiles').select(COLS);
     query = /^\d{2,5}$/.test(num)
@@ -201,7 +201,7 @@
       : query.ilike('email', '%' + clean + '%');
     const { data, error } = await query.order('created_at', { ascending: false }).limit(50);
     if (error) throw error;
-    $('findResults').innerHTML = data.length ? data.map(card).join('') : '<p class="adm-empty">ما لقينا زبون بهالرقم أو الإيميل.</p>';
+    $('findResults').innerHTML = data.length ? data.map(card).join('') : '<p class="adm-empty">لم نجد زبوناً بهذا الرقم أو البريد الإلكتروني.</p>';
   }
 
   $('findForm').addEventListener('submit', e => {
@@ -228,11 +228,11 @@
       call = sb.rpc('admin_extend', { p_user: id, p_months: { m1: 1, m3: 3, m12: 12 }[act] });
     } else if (act === 'date') {
       const v = el.querySelector('input[type="date"]').value;
-      if (!v) return say(false, 'اختار التاريخ أول شي.');
+      if (!v) return say(false, 'اختر التاريخ أولاً.');
       const until = new Date(v + 'T23:59:59');
       call = sb.rpc('admin_set_expiry', { p_user: id, p_until: until.toISOString() });
     } else if (act === 'cancel') {
-      if (!confirm('أكيد بدك تلغي اشتراك ' + p.customer_no + '؟')) return;
+      if (!confirm('هل أنت متأكد من إلغاء اشتراك ' + p.customer_no + '؟')) return;
       call = sb.rpc('admin_set_expiry', { p_user: id, p_until: null });
     } else if (act === 'notes') {
       call = sb.from('profiles').update({ admin_notes: el.querySelector('textarea').value.trim() || null }).eq('id', id).select(COLS).single();
@@ -249,7 +249,7 @@
       if (again) {
         const m = again.querySelector('.card-msg');
         m.hidden = false; m.dataset.ok = '1';
-        m.textContent = act === 'notes' ? 'انحفظت الملاحظات ✓' : act === 'cancel' ? 'انلغى الاشتراك ✓' : 'تمام ✓ ' + statusText(fresh).text;
+        m.textContent = act === 'notes' ? 'تم حفظ الملاحظات ✓' : act === 'cancel' ? 'تم إلغاء الاشتراك ✓' : 'تم ✓ ' + statusText(fresh).text;
       }
     } catch (err) {
       say(false, A.arError(err));
@@ -264,7 +264,7 @@
     if (error) {
       $('statsErr').hidden = false;
       $('statsErr').textContent = /admin_stats|function|schema cache|404/i.test(error.message || '')
-        ? 'الإحصائيات لسا مش مفعّلة: شغّل ملف supabase/analytics.sql بـ Supabase (SQL Editor).'
+        ? 'الإحصائيات غير مفعّلة بعد: شغّل ملف supabase/analytics.sql في Supabase (SQL Editor).'
         : A.arError(error);
       return;
     }
@@ -272,7 +272,7 @@
     $('stToday').textContent = n(s.today); $('stTodayU').textContent = n(s.today_users) + ' زبون';
     $('stWeek').textContent = n(s.week); $('stWeekU').textContent = n(s.week_users) + ' زبون';
     $('stMonth').textContent = n(s.month); $('stMonthU').textContent = n(s.month_users) + ' زبون';
-    $('stAcc').textContent = n(s.accounts); $('stAccNew').textContent = '+' + n(s.accounts_week) + ' هالأسبوع';
+    $('stAcc').textContent = n(s.accounts); $('stAccNew').textContent = '+' + n(s.accounts_week) + ' هذا الأسبوع';
     const daily = s.daily || [];
     const max = Math.max(1, ...daily.map(d => d.visits));
     $('stChart').innerHTML = daily.map(d => {
@@ -286,7 +286,7 @@
     $('stTop').innerHTML = top.length ? top.map(t =>
       '<li><a class="ltr" href="./#' + esc(t.id) + '" target="_blank" rel="noopener">' + esc(t.name || t.id) + '</a>' +
       '<span>' + n(t.views) + ' فتحة · ' + n(t.users) + ' زبون</span></li>').join('')
-      : '<li class="st-none">لسا ما في بيانات. بتبين لما الزباين يفتحوا صفحات أجهزة.</li>';
+      : '<li class="st-none">لا توجد بيانات بعد. ستظهر عندما يفتح الزبائن صفحات الأجهزة.</li>';
     $('statsBody').hidden = false;
   }
   $('statsReload').addEventListener('click', () => loadStats().catch(e => { $('statsErr').hidden = false; $('statsErr').textContent = A.arError(e); }));
@@ -297,7 +297,7 @@
     if (!session) return location.replace('login.html?next=subs.html');
     const { data: isAdmin, error } = await sb.rpc('is_admin');
     if (error) throw error;
-    if (!isAdmin) return gate('هالصفحة للأدمن بس.');
+    if (!isAdmin) return gate('هذه الصفحة للمشرف فقط.');
     $('gateMsg').hidden = true;
     $('adminBody').hidden = false;
     loadStats().catch(e => { $('statsErr').hidden = false; $('statsErr').textContent = A.arError(e); });

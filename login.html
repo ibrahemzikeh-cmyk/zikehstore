@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=ec3b0203">
+<link rel="stylesheet" href="styles.css?v=70ea464f">
 </head>
 <body class="auth-page">
 <div class="auth-bg" aria-hidden="true"></div>
@@ -26,7 +26,7 @@
     <ul class="auth-perks">
       <li>
         <span class="perk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 18.5h3"/></svg></span>
-        <span><b>أكتر من 9000 جهاز</b> من كل الماركات</span>
+        <span><b>أكثر من 9000 جهاز</b> من كل الماركات</span>
       </li>
       <li>
         <span class="perk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg></span>
@@ -42,12 +42,12 @@
   <!-- البطاقة -->
   <section class="auth-panel" aria-labelledby="authTitle">
     <header class="auth-panel-head">
-      <h1 id="authTitle">أهلاً فيك من جديد</h1>
-      <p id="authSub">سجّل دخولك لتكمّل على الموقع</p>
+      <h1 id="authTitle">مرحباً بعودتك</h1>
+      <p id="authSub">سجّل الدخول لمتابعة استخدام الموقع</p>
     </header>
 
-    <p class="auth-note warn" id="notConfigured" hidden>الحسابات لسا ما انربطت بالموقع. رجاع بعدين.</p>
-    <p class="auth-note" id="gateNote" hidden>👋 أهلاً فيك بـ ZIKEH STORE. سجّل دخول، أو اعمل حساب مجاني بدقيقة، لتستعمل الموقع.</p>
+    <p class="auth-note warn" id="notConfigured" hidden>لم تُربط الحسابات بالموقع بعد. عُد لاحقاً.</p>
+    <p class="auth-note" id="gateNote" hidden>👋 أهلاً بك في ZIKEH STORE. سجّل الدخول، أو أنشئ حساباً مجانياً خلال دقيقة، لاستخدام الموقع.</p>
 
     <div class="auth-tabs" role="tablist" aria-label="نوع العملية" id="modeTabs">
       <span class="auth-tabs-pill" aria-hidden="true"></span>
@@ -58,74 +58,74 @@
     <!-- تسجيل الدخول -->
     <form id="loginForm" class="auth-form" novalidate data-mode="login">
       <label class="auth-field">
-        <span class="auth-label">الإيميل</span>
+        <span class="auth-label">البريد الإلكتروني</span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>
           <input id="loginEmail" type="email" class="ltr" autocomplete="email" inputmode="email" placeholder="name@gmail.com" required>
         </span>
       </label>
       <label class="auth-field">
-        <span class="auth-label">كلمة السر</span>
+        <span class="auth-label">كلمة المرور</span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
           <input id="loginPass" type="password" class="ltr" autocomplete="current-password" placeholder="••••••••" required>
-          <button type="button" class="pw-toggle" aria-label="إظهار كلمة السر"></button>
+          <button type="button" class="pw-toggle" aria-label="إظهار كلمة المرور"></button>
         </span>
       </label>
-      <button class="auth-link small" type="button" data-go="forgot">نسيت كلمة السر؟</button>
+      <button class="auth-link small" type="button" data-go="forgot">نسيت كلمة المرور؟</button>
       <button class="auth-submit" type="submit"><span>دخول</span></button>
     </form>
 
     <!-- حساب جديد -->
     <form id="signupForm" class="auth-form" novalidate data-mode="signup" hidden>
       <label class="auth-field">
-        <span class="auth-label">الإيميل</span>
+        <span class="auth-label">البريد الإلكتروني</span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>
           <input id="signupEmail" type="email" class="ltr" autocomplete="email" inputmode="email" placeholder="name@gmail.com" required>
         </span>
       </label>
       <label class="auth-field">
-        <span class="auth-label">كلمة السر <small>(6 أحرف أو أكتر)</small></span>
+        <span class="auth-label">كلمة المرور <small>(6 أحرف أو أكثر)</small></span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
           <input id="signupPass" type="password" class="ltr" autocomplete="new-password" minlength="6" placeholder="••••••••" required>
-          <button type="button" class="pw-toggle" aria-label="إظهار كلمة السر"></button>
+          <button type="button" class="pw-toggle" aria-label="إظهار كلمة المرور"></button>
         </span>
       </label>
       <label class="auth-field">
-        <span class="auth-label">أعد كتابة كلمة السر</span>
+        <span class="auth-label">أعد كتابة كلمة المرور</span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
           <input id="signupPass2" type="password" class="ltr" autocomplete="new-password" minlength="6" placeholder="••••••••" required>
-          <button type="button" class="pw-toggle" aria-label="إظهار كلمة السر"></button>
+          <button type="button" class="pw-toggle" aria-label="إظهار كلمة المرور"></button>
         </span>
       </label>
       <button class="auth-submit" type="submit"><span>إنشاء الحساب</span></button>
-      <p class="auth-hint">بعد ما تأكّد إيميلك بيطلعلك <b>رقم زبون</b> خاص فيك بصفحة «حسابي».</p>
+      <p class="auth-hint">بعد تأكيد بريدك الإلكتروني ستحصل على <b>رقم زبون</b> خاص بك في صفحة «حسابي».</p>
     </form>
 
-    <!-- نسيت كلمة السر -->
+    <!-- نسيت كلمة المرور -->
     <form id="forgotForm" class="auth-form" novalidate data-mode="forgot" hidden>
       <label class="auth-field">
-        <span class="auth-label">الإيميل</span>
+        <span class="auth-label">البريد الإلكتروني</span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>
           <input id="forgotEmail" type="email" class="ltr" autocomplete="email" inputmode="email" placeholder="name@gmail.com" required>
         </span>
       </label>
-      <button class="auth-submit" type="submit"><span>ابعتلي الرابط</span></button>
-      <button class="auth-link" type="button" data-go="login">← رجوع لتسجيل الدخول</button>
+      <button class="auth-submit" type="submit"><span>أرسل لي الرابط</span></button>
+      <button class="auth-link" type="button" data-go="login">← العودة إلى تسجيل الدخول</button>
     </form>
 
     <!-- كلمة سر جديدة (بعد رابط الإيميل) -->
     <form id="resetForm" class="auth-form" novalidate data-mode="reset" hidden>
       <label class="auth-field">
-        <span class="auth-label">كلمة السر الجديدة <small>(6 أحرف أو أكتر)</small></span>
+        <span class="auth-label">كلمة المرور الجديدة <small>(6 أحرف أو أكثر)</small></span>
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
           <input id="resetPass" type="password" class="ltr" autocomplete="new-password" minlength="6" placeholder="••••••••" required>
-          <button type="button" class="pw-toggle" aria-label="إظهار كلمة السر"></button>
+          <button type="button" class="pw-toggle" aria-label="إظهار كلمة المرور"></button>
         </span>
       </label>
       <label class="auth-field">
@@ -133,23 +133,23 @@
         <span class="auth-input">
           <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>
           <input id="resetPass2" type="password" class="ltr" autocomplete="new-password" minlength="6" placeholder="••••••••" required>
-          <button type="button" class="pw-toggle" aria-label="إظهار كلمة السر"></button>
+          <button type="button" class="pw-toggle" aria-label="إظهار كلمة المرور"></button>
         </span>
       </label>
-      <button class="auth-submit" type="submit"><span>احفظ كلمة السر</span></button>
+      <button class="auth-submit" type="submit"><span>احفظ كلمة المرور</span></button>
     </form>
 
     <p class="auth-msg err" id="authErr" role="alert" hidden></p>
     <p class="auth-msg ok" id="authOk" role="status" hidden></p>
 
     <footer class="auth-help">
-      محتاج مساعدة؟ <a href="https://wa.me/963935959558" target="_blank" rel="noopener">راسلنا عالواتساب</a>
+      تحتاج إلى مساعدة؟ <a href="https://wa.me/963935959558" target="_blank" rel="noopener">راسلنا عبر واتساب</a>
     </footer>
   </section>
 </main>
 
-<script src="auth-config.js?v=ec3b0203"></script>
-<script src="auth.js?v=ec3b0203"></script>
+<script src="auth-config.js?v=70ea464f"></script>
+<script src="auth.js?v=70ea464f"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -161,10 +161,10 @@
   const safeNext = /^[a-z0-9_-]+\.html$/i.test(next) ? next : 'account.html';
   // عنوان البطاقة حسب الخطوة
   const HEAD = {
-    login: ['أهلاً فيك من جديد', 'سجّل دخولك لتكمّل على الموقع'],
-    signup: ['افتح حسابك المجاني', 'دقيقة وحدة وبتصير جاهز'],
-    forgot: ['نسيت كلمة السر؟', 'اكتب إيميلك ومنبعتلك رابط لكلمة سر جديدة'],
-    reset: ['كلمة سر جديدة', 'اختار كلمة سر ما بتنساها']
+    login: ['مرحباً بعودتك', 'سجّل الدخول لمتابعة استخدام الموقع'],
+    signup: ['أنشئ حسابك المجاني', 'دقيقة واحدة وتكون جاهزاً'],
+    forgot: ['نسيت كلمة المرور؟', 'اكتب بريدك الإلكتروني وسنرسل لك رابطاً لتعيين كلمة مرور جديدة'],
+    reset: ['كلمة مرور جديدة', 'اختر كلمة مرور لا تنساها']
   };
   // بعد الدخول: على الصفحة يلي كان بدو ياها (ومع الجهاز يلي كان فاتحو)
   function go(target) {
@@ -193,14 +193,14 @@
   tabs.addEventListener('click', e => { const b = e.target.closest('button[data-mode]'); if (b) setMode(b.dataset.mode); });
   document.addEventListener('click', e => {
     const b = e.target.closest('[data-go]'); if (b) setMode(b.dataset.go);
-    // إظهار / إخفاء كلمة السر
+    // إظهار / إخفاء كلمة المرور
     const t = e.target.closest('.pw-toggle');
     if (t) {
       const inp = t.parentElement.querySelector('input');
       const show = inp.type === 'password';
       inp.type = show ? 'text' : 'password';
       t.classList.toggle('on', show);
-      t.setAttribute('aria-label', show ? 'إخفاء كلمة السر' : 'إظهار كلمة السر');
+      t.setAttribute('aria-label', show ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور');
     }
   });
   if (location.hash === '#signup') setMode('signup');
@@ -224,8 +224,8 @@
   if (hashErr.get('error') || hashErr.get('error_code')) {
     const code = (hashErr.get('error_code') || '') + ' ' + (hashErr.get('error_description') || '');
     msg(false, /expired|invalid/i.test(code)
-      ? 'الرابط يلي فتحتو انتهى أو انستعمل قبل هيك. إذا كان لتأكيد الحساب جرّب سجّل دخول، وإذا كان لكلمة السر اطلب رابط جديد من «نسيت كلمة السر».'
-      : 'ما زبط الرابط: ' + (hashErr.get('error_description') || code));
+      ? 'انتهت صلاحية الرابط الذي فتحته أو استُخدم من قبل. إذا كان لتأكيد الحساب فجرّب تسجيل الدخول، وإذا كان لكلمة المرور فاطلب رابطاً جديداً من «نسيت كلمة المرور».'
+      : 'تعذّر فتح الرابط: ' + (hashErr.get('error_description') || code));
     history.replaceState(null, '', 'login.html');
   }
 
@@ -239,15 +239,15 @@
       if (event === 'PASSWORD_RECOVERY') { recovering = true; setMode('reset'); }
     });
     const { data } = await sb.auth.getSession();
-    // فايت أصلاً (ومش جاي من رابط كلمة السر) ← على «حسابي»
+    // فايت أصلاً (ومش جاي من رابط كلمة المرور) ← على «حسابي»
     if (data.session && !recovering) go(safeNext);
   }).catch(e => msg(false, A.arError(e)));
 
   document.getElementById('loginForm').addEventListener('submit', e => {
     e.preventDefault();
     const email = val('loginEmail'), password = document.getElementById('loginPass').value;
-    if (!emailOk(email)) return msg(false, 'اكتب إيميل صحيح.');
-    if (!password) return msg(false, 'اكتب كلمة السر.');
+    if (!emailOk(email)) return msg(false, 'اكتب بريداً إلكترونياً صحيحاً.');
+    if (!password) return msg(false, 'اكتب كلمة المرور.');
     busy(e.target, async () => {
       const sb = await A.client();
       const { error } = await sb.auth.signInWithPassword({ email, password });
@@ -259,9 +259,9 @@
   document.getElementById('signupForm').addEventListener('submit', e => {
     e.preventDefault();
     const email = val('signupEmail'), p1 = document.getElementById('signupPass').value, p2 = document.getElementById('signupPass2').value;
-    if (!emailOk(email)) return msg(false, 'اكتب إيميل صحيح.');
-    if (p1.length < 6) return msg(false, 'كلمة السر لازم تكون 6 أحرف أو أكتر.');
-    if (p1 !== p2) return msg(false, 'كلمتين السر مش متطابقين.');
+    if (!emailOk(email)) return msg(false, 'اكتب بريداً إلكترونياً صحيحاً.');
+    if (p1.length < 6) return msg(false, 'يجب أن تتكون كلمة المرور من 6 أحرف أو أكثر.');
+    if (p1 !== p2) return msg(false, 'كلمتا المرور غير متطابقتين.');
     busy(e.target, async () => {
       const sb = await A.client();
       const { data, error } = await sb.auth.signUp({ email, password: p1, options: { emailRedirectTo: A.siteUrl('account.html') } });
@@ -269,35 +269,35 @@
       if (data.session) return location.replace('account.html');
       // Supabase بيرجّع مستخدم بلا هويات إذا الإيميل مسجّل من قبل (حماية من كشف الإيميلات)
       if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
-        return msg(false, 'في حساب بهالإيميل. سجّل دخول، أو استعمل «نسيت كلمة السر».');
+        return msg(false, 'يوجد حساب بهذا البريد الإلكتروني. سجّل الدخول، أو استخدم «نسيت كلمة المرور».');
       }
       e.target.reset();
-      msg(true, 'تمام! بعتنالك رسالة على ' + email + '. افتحها واضغط الرابط لتأكّد حسابك، وبعدين سجّل دخول. (إذا ما لقيتها شوف بالـ Spam)');
+      msg(true, 'تم! أرسلنا رسالة إلى ' + email + '. افتحها واضغط على الرابط لتأكيد حسابك، ثم سجّل الدخول. (إن لم تجدها فتحقق من مجلد الرسائل غير المرغوب فيها Spam)');
     });
   });
 
   document.getElementById('forgotForm').addEventListener('submit', e => {
     e.preventDefault();
     const email = val('forgotEmail');
-    if (!emailOk(email)) return msg(false, 'اكتب إيميل صحيح.');
+    if (!emailOk(email)) return msg(false, 'اكتب بريداً إلكترونياً صحيحاً.');
     busy(e.target, async () => {
       const sb = await A.client();
       const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: A.siteUrl('login.html') });
       if (error) throw error;
-      msg(true, 'إذا في حساب بهالإيميل، رح توصلك رسالة فيها رابط لكلمة سر جديدة. (شوف كمان بالـ Spam)');
+      msg(true, 'إذا كان هناك حساب بهذا البريد الإلكتروني، فستصلك رسالة فيها رابط لتعيين كلمة مرور جديدة. (تحقق أيضاً من مجلد Spam)');
     });
   });
 
   document.getElementById('resetForm').addEventListener('submit', e => {
     e.preventDefault();
     const p1 = document.getElementById('resetPass').value, p2 = document.getElementById('resetPass2').value;
-    if (p1.length < 6) return msg(false, 'كلمة السر لازم تكون 6 أحرف أو أكتر.');
-    if (p1 !== p2) return msg(false, 'كلمتين السر مش متطابقين.');
+    if (p1.length < 6) return msg(false, 'يجب أن تتكون كلمة المرور من 6 أحرف أو أكثر.');
+    if (p1 !== p2) return msg(false, 'كلمتا المرور غير متطابقتين.');
     busy(e.target, async () => {
       const sb = await A.client();
       const { error } = await sb.auth.updateUser({ password: p1 });
       if (error) throw error;
-      msg(true, 'انحفظت كلمة السر الجديدة ✓ عم نحولك لحسابك…');
+      msg(true, 'تم حفظ كلمة المرور الجديدة ✓ جارٍ تحويلك إلى حسابك…');
       history.replaceState(null, '', 'login.html');
       setTimeout(() => location.replace('account.html'), 1200);
     });

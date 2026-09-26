@@ -50,18 +50,18 @@
   // رسائل Supabase ← عربي
   function arError(err) {
     const m = String((err && (err.message || err.error_description || err)) || '').toLowerCase();
-    if (m.includes('not-configured')) return 'الحسابات لسا ما انربطت بالموقع.';
-    if (m.includes('lib-load') || m.includes('failed to fetch') || m.includes('network')) return 'ما في اتصال بالإنترنت، أو السيرفر ما ردّ. جرّب مرة تانية.';
-    if (m.includes('invalid login')) return 'الإيميل أو كلمة السر غلط.';
-    if (m.includes('email not confirmed')) return 'لازم تأكّد إيميلك أول شي: افتح الرسالة يلي وصلتك واضغط الرابط.';
-    if (m.includes('already registered') || m.includes('already been registered')) return 'في حساب بهالإيميل. سجّل دخول، أو استعمل «نسيت كلمة السر».';
-    if (m.includes('password should be at least') || m.includes('password is too short')) return 'كلمة السر لازم تكون 6 أحرف أو أكتر.';
-    if (m.includes('rate limit') || m.includes('too many') || m.includes('security purposes')) return 'في طلبات كتير. استنى شوي وجرّب مرة تانية.';
-    if (m.includes('unable to validate email') || m.includes('invalid email') || m.includes('email address') && m.includes('invalid')) return 'الإيميل مش مكتوب صح.';
-    if (m.includes('same password') || m.includes('different from the old')) return 'كلمة السر الجديدة لازم تكون غير القديمة.';
-    if (m.includes('مسموح للأدمن') || m.includes('42501') || m.includes('permission denied')) return 'هالعملية مسموحة للأدمن بس.';
-    if (m.includes('jwt') || m.includes('session')) return 'انتهت الجلسة. سجّل دخول من جديد.';
-    return 'صار خطأ: ' + String((err && err.message) || err);
+    if (m.includes('not-configured')) return 'لم تُربط الحسابات بالموقع بعد.';
+    if (m.includes('lib-load') || m.includes('failed to fetch') || m.includes('network')) return 'لا يوجد اتصال بالإنترنت، أو لم يستجب الخادم. حاول مرة أخرى.';
+    if (m.includes('invalid login')) return 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+    if (m.includes('email not confirmed')) return 'يجب تأكيد بريدك الإلكتروني أولاً: افتح الرسالة التي وصلتك واضغط على الرابط.';
+    if (m.includes('already registered') || m.includes('already been registered')) return 'يوجد حساب بهذا البريد الإلكتروني. سجّل الدخول، أو استخدم «نسيت كلمة المرور».';
+    if (m.includes('password should be at least') || m.includes('password is too short')) return 'يجب أن تتكون كلمة المرور من 6 أحرف أو أكثر.';
+    if (m.includes('rate limit') || m.includes('too many') || m.includes('security purposes')) return 'طلبات كثيرة. انتظر قليلاً ثم حاول مرة أخرى.';
+    if (m.includes('unable to validate email') || m.includes('invalid email') || m.includes('email address') && m.includes('invalid')) return 'البريد الإلكتروني غير صحيح.';
+    if (m.includes('same password') || m.includes('different from the old')) return 'يجب أن تختلف كلمة المرور الجديدة عن القديمة.';
+    if (m.includes('مسموح للأدمن') || m.includes('42501') || m.includes('permission denied')) return 'هذه العملية مسموحة للمشرف فقط.';
+    if (m.includes('jwt') || m.includes('session')) return 'انتهت الجلسة. سجّل الدخول من جديد.';
+    return 'حدث خطأ: ' + String((err && err.message) || err);
   }
 
   // حالة الاشتراك من تاريخ الانتهاء
@@ -70,14 +70,14 @@
     const end = new Date(expires);
     const days = Math.ceil((end - Date.now()) / 86400000);
     if (end <= new Date()) return { key: 'expired', label: 'منتهي', end, days };
-    return { key: days <= 7 ? 'soon' : 'active', label: 'ساري', end, days };
+    return { key: days <= 7 ? 'soon' : 'active', label: 'سارٍ', end, days };
   }
 
   // "يوم واحد" / "يومين" / "3 أيام" / "40 يوم"
   function daysText(n) {
     if (n <= 1) return 'يوم واحد';
-    if (n === 2) return 'يومين';
-    return n + (n <= 10 ? ' أيام' : ' يوم');
+    if (n === 2) return 'يومان';
+    return n + (n <= 10 ? ' أيام' : ' يوماً');
   }
 
   function fmtDate(d) {
