@@ -5,58 +5,84 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>إدارة الاشتراكات — ZIKEH STORE</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0055AA">
+<meta name="theme-color" content="#062A57">
 <link rel="icon" href="logo.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=9e3ce677">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="styles.css?v=e3ac2058">
 </head>
-<body>
-<header class="topbar is-sticky">
-  <div class="wrap topbar-in">
-    <a class="brandmark" href="./" aria-label="ZIKEH STORE توافقيات — الصفحة الرئيسية">
-      <img src="logo.jpg" alt="" width="46" height="46" class="logo">
-      <div class="brand-text">
-        <b class="ltr"><span class="z-red">ZIKEH</span> <span class="z-blue">STORE</span></b>
-        <span>إدارة الاشتراكات</span>
-      </div>
+<body class="auth-page">
+<div class="auth-bg" aria-hidden="true"></div>
+
+<main class="adm-shell">
+  <header class="adm-top">
+    <a class="acc-top" href="./" aria-label="ZIKEH STORE — الصفحة الرئيسية">
+      <span class="auth-logo-ring sm"><img src="icons/icon-192.png" alt="" width="48" height="48"></span>
+      <span class="adm-title">
+        <span class="auth-wordmark sm ltr"><span class="z-red">ZIKEH</span> STORE</span>
+        <span class="adm-sub">لوحة إدارة الاشتراكات</span>
+      </span>
     </a>
-    <nav class="topnav" aria-label="أقسام الموقع">
-      <a href="./">الرئيسية</a>
-      <a href="account.html">حسابي</a>
+    <nav class="adm-nav" aria-label="روابط">
+      <a class="adm-navbtn" href="account.html">حسابي</a>
+      <a class="adm-navbtn" href="./">الموقع</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<main class="wrap subs-main">
-  <p class="loading" id="gateMsg" role="status">عم نتأكد من صلاحياتك…</p>
-  <p class="err" id="gateErr" role="alert" hidden></p>
+  <div class="acc-loading adm-glass" id="gateMsg" role="status"><span class="acc-spinner" aria-hidden="true"></span>عم نتأكد من صلاحياتك…</div>
+  <p class="auth-msg err" id="gateErr" role="alert" hidden></p>
 
-  <div id="adminBody" hidden>
-    <section class="panel" aria-labelledby="findTitle">
-      <h2 id="findTitle">بحث عن زبون</h2>
-      <form class="toolbar" id="findForm" novalidate>
-        <div class="field">
-          <label for="findQ">رقم الزبون أو الإيميل</label>
-          <input id="findQ" class="ltr" placeholder="مثلاً ZK-4821 أو name@gmail.com" autocomplete="off">
-        </div>
-        <button class="btn primary" type="submit">بحث</button>
+  <div id="adminBody" class="adm-body" hidden>
+    <!-- أرقام سريعة -->
+    <div class="adm-stats">
+      <div class="adm-stat">
+        <span class="adm-stat-ic ok" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <span class="adm-stat-txt"><b id="statActive">0</b><span>مشترك ساري</span></span>
+      </div>
+      <div class="adm-stat">
+        <span class="adm-stat-ic soon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></span>
+        <span class="adm-stat-txt"><b id="statSoon">0</b><span>بيخلصوا خلال 7 أيام</span></span>
+      </div>
+    </div>
+
+    <!-- بحث -->
+    <section class="auth-panel adm-panel" aria-labelledby="findTitle">
+      <header class="adm-panel-head">
+        <h2 id="findTitle">بحث عن زبون</h2>
+        <p>اكتب رقم الزبون أو جزء من الإيميل</p>
+      </header>
+      <form class="adm-search" id="findForm" novalidate>
+        <span class="auth-input">
+          <svg class="in-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
+          <input id="findQ" class="ltr" placeholder="ZK-4821  أو  name@gmail.com" autocomplete="off" aria-label="رقم الزبون أو الإيميل">
+        </span>
+        <button class="auth-submit adm-search-btn" type="submit"><span>بحث</span></button>
       </form>
-      <p class="err" id="findErr" role="alert" hidden></p>
-      <div id="findResults" class="sub-cards"></div>
+      <p class="auth-msg err" id="findErr" role="alert" hidden></p>
+      <div id="findResults" class="adm-cards"></div>
     </section>
 
-    <section class="panel" aria-labelledby="listTitle">
-      <h2 id="listTitle">المشتركين <span class="sub" id="listCount"></span></h2>
-      <p class="sub">مرتّبين حسب تاريخ الانتهاء. يلي باقيلهن أقل من 7 أيام معلّمين بالبرتقالي.</p>
-      <div id="subsList" class="sub-cards"></div>
+    <!-- المشتركين -->
+    <section class="auth-panel adm-panel" aria-labelledby="listTitle">
+      <header class="adm-panel-head row">
+        <div>
+          <h2 id="listTitle">المشتركين <span class="adm-count" id="listCount"></span></h2>
+          <p>مرتّبين حسب تاريخ الانتهاء</p>
+        </div>
+        <div class="auth-tabs adm-filter" role="tablist" aria-label="تصفية" id="listFilter" data-active="all">
+          <span class="auth-tabs-pill" aria-hidden="true"></span>
+          <button type="button" role="tab" data-f="all" aria-selected="true">الكل</button>
+          <button type="button" role="tab" data-f="soon" aria-selected="false">قرّبوا يخلصوا</button>
+        </div>
+      </header>
+      <div id="subsList" class="adm-cards"></div>
     </section>
   </div>
 </main>
 
-<script src="auth-config.js?v=9e3ce677"></script>
-<script src="auth.js?v=9e3ce677"></script>
+<script src="auth-config.js?v=e3ac2058"></script>
+<script src="auth.js?v=e3ac2058"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -64,6 +90,8 @@
   const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const COLS = 'id, customer_no, email, created_at, sub_expires_at, admin_notes';
   let sb = null;
+  let listFilter = 'all';
+  let listRows = [];
   const cards = new Map();                       // id ← آخر نسخة من الزبون
 
   function gate(text) { $('gateMsg').hidden = true; $('gateErr').hidden = false; $('gateErr').textContent = text; }
@@ -73,39 +101,65 @@
     const st = A.subStatus(p.sub_expires_at);
     if (st.key === 'none') return { st, text: 'غير مشترك' };
     if (st.key === 'expired') return { st, text: 'منتهي من ' + A.fmtDate(st.end) };
-    return { st, text: 'ساري لحد ' + A.fmtDate(st.end) + ' (باقي ' + A.daysText(st.days) + ')' };
+    return { st, text: 'ساري لحد ' + A.fmtDate(st.end) + ' · باقي ' + A.daysText(st.days) };
   }
 
   function card(p) {
     cards.set(p.id, p);
     const { st, text } = statusText(p);
-    return '<article class="sub-card" data-id="' + esc(p.id) + '" data-state="' + st.key + '">' +
-      '<div class="sub-card-head"><b class="ltr mono cust-no-sm">' + esc(p.customer_no) + '</b>' +
-      '<span class="sub-pill" data-state="' + st.key + '">' + esc(text) + '</span></div>' +
-      '<dl class="acc-meta"><div><dt>الإيميل</dt><dd class="ltr">' + esc(p.email) + '</dd></div>' +
-      '<div><dt>تاريخ التسجيل</dt><dd class="ltr">' + esc(A.fmtDate(p.created_at)) + '</dd></div></dl>' +
-      '<div class="sub-actions">' +
-        '<button class="btn small primary" type="button" data-act="m1">+ شهر</button>' +
-        '<button class="btn small primary" type="button" data-act="m3">+ 3 أشهر</button>' +
-        '<button class="btn small primary" type="button" data-act="m12">+ سنة</button>' +
-        '<span class="custom-date"><input type="date" aria-label="تاريخ انتهاء مخصص">' +
-        '<button class="btn small" type="button" data-act="date">حفظ التاريخ</button></span>' +
-        '<button class="btn small danger" type="button" data-act="cancel"' + (st.key === 'none' ? ' disabled' : '') + '>إلغاء الاشتراك</button>' +
+    return '<article class="sub-card adm-card" data-id="' + esc(p.id) + '" data-state="' + st.key + '">' +
+      '<div class="adm-card-head">' +
+        '<b class="adm-no ltr">' + esc(p.customer_no) + '</b>' +
+        '<span class="sub-pill" data-state="' + st.key + '">' + esc(text) + '</span>' +
       '</div>' +
-      '<div class="field notes-field"><label>ملاحظات (بتبين إلك بس)</label>' +
-      '<textarea rows="2">' + esc(p.admin_notes || '') + '</textarea>' +
-      '<button class="btn small" type="button" data-act="notes">حفظ الملاحظات</button></div>' +
+      '<div class="adm-meta">' +
+        '<span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg><span class="ltr">' + esc(p.email) + '</span></span>' +
+        '<span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>سجّل بـ <span class="ltr">' + esc(A.fmtDate(p.created_at)) + '</span></span>' +
+      '</div>' +
+      '<div class="adm-actions">' +
+        '<button class="adm-add" type="button" data-act="m1">+ شهر</button>' +
+        '<button class="adm-add" type="button" data-act="m3">+ 3 أشهر</button>' +
+        '<button class="adm-add" type="button" data-act="m12">+ سنة</button>' +
+      '</div>' +
+      '<div class="adm-row">' +
+        '<span class="custom-date adm-date"><input type="date" aria-label="تاريخ انتهاء مخصص">' +
+        '<button class="adm-mini" type="button" data-act="date">حفظ التاريخ</button></span>' +
+        '<button class="adm-mini danger" type="button" data-act="cancel"' + (st.key === 'none' ? ' disabled' : '') + '>إلغاء الاشتراك</button>' +
+      '</div>' +
+      '<details class="adm-notes"' + (p.admin_notes ? ' open' : '') + '><summary>ملاحظات (بتبين إلك بس)</summary>' +
+        '<textarea rows="2" placeholder="مثلاً: دفع 10$ كاش">' + esc(p.admin_notes || '') + '</textarea>' +
+        '<button class="adm-mini" type="button" data-act="notes">حفظ الملاحظات</button></details>' +
       '<p class="card-msg" role="status" hidden></p>' +
       '</article>';
+  }
+
+  function drawList() {
+    const soon = listRows.filter(p => A.subStatus(p.sub_expires_at).key === 'soon');
+    $('statActive').textContent = listRows.length;
+    $('statSoon').textContent = soon.length;
+    const rows = listFilter === 'soon' ? soon : listRows;
+    $('listCount').textContent = rows.length;
+    $('subsList').innerHTML = rows.length ? rows.map(card).join('')
+      : '<p class="adm-empty">' + (listFilter === 'soon' ? 'ما حدا اشتراكو قرّب يخلص 👌' : 'ما في مشتركين لهلأ.') + '</p>';
   }
 
   async function loadList() {
     const { data, error } = await sb.from('profiles').select(COLS)
       .gt('sub_expires_at', new Date().toISOString()).order('sub_expires_at', { ascending: true }).limit(1000);
     if (error) throw error;
-    $('listCount').textContent = '(' + data.length + ')';
-    $('subsList').innerHTML = data.length ? data.map(card).join('') : '<p class="sub">ما في مشتركين لهلأ.</p>';
+    listRows = data;
+    drawList();
   }
+
+  $('listFilter').addEventListener('click', e => {
+    const b = e.target.closest('button[data-f]');
+    if (!b) return;
+    listFilter = b.dataset.f;
+    $('listFilter').dataset.active = listFilter === 'soon' ? 'signup' : 'login';
+    $('listFilter').querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+    drawList();
+  });
+  $('listFilter').dataset.active = 'login';
 
   async function find(q) {
     $('findErr').hidden = true;
@@ -119,12 +173,16 @@
       : query.ilike('email', '%' + clean + '%');
     const { data, error } = await query.order('created_at', { ascending: false }).limit(50);
     if (error) throw error;
-    $('findResults').innerHTML = data.length ? data.map(card).join('') : '<p class="sub">ما لقينا زبون بهالرقم أو الإيميل.</p>';
+    $('findResults').innerHTML = data.length ? data.map(card).join('') : '<p class="adm-empty">ما لقينا زبون بهالرقم أو الإيميل.</p>';
   }
 
   $('findForm').addEventListener('submit', e => {
     e.preventDefault();
-    find($('findQ').value).catch(err => { $('findErr').hidden = false; $('findErr').textContent = A.arError(err); });
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true; btn.classList.add('is-busy');
+    find($('findQ').value)
+      .catch(err => { $('findErr').hidden = false; $('findErr').textContent = A.arError(err); })
+      .finally(() => { btn.disabled = false; btn.classList.remove('is-busy'); });
   });
 
   // أزرار كل زبون
