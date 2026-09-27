@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="auth-config.js?v=3918ba6e"></script>
-<script src="auth-gate.js?v=3918ba6e"></script>
+<script src="auth-config.js?v=da68dabb"></script>
+<script src="auth-gate.js?v=da68dabb"></script>
 <title>ZIKEH STORE توافقيات</title>
 <meta name="description" content="ZIKEH STORE: اعرف القطع المتوافقة مع جهازك من لصاقات شاشة وكفرات وشاشات وبطاريات وآيسيات.">
 <meta name="theme-color" content="#0055AA">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=3918ba6e">
+<link rel="stylesheet" href="styles.css?v=da68dabb">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -148,10 +148,10 @@
 
 
 <!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
-<script src="data/index.js?v=3918ba6e"></script>
-<script src="core.js?v=3918ba6e"></script>
-<script src="votes.js?v=3918ba6e"></script>
-<script src="auth.js?v=3918ba6e"></script>
+<script src="data/index.js?v=da68dabb"></script>
+<script src="core.js?v=da68dabb"></script>
+<script src="votes.js?v=da68dabb"></script>
+<script src="auth.js?v=da68dabb"></script>
 <script>
 (function () {
   const P = window.PhoneFit;
@@ -863,6 +863,10 @@
   const $models = document.getElementById('brandModels');
   const $mode = document.getElementById('browseMode');
   let browseMode = 'devices';
+  // الماركة المعروضة هلأ: فتح جهاز من نفس الماركة ما بيعيد رسم القائمة (أسرع، وما بتنسكّر «عرض الكل»)
+  let shownBrand = null;
+  const brandChips = new Map();
+  const byName = new Intl.Collator('en', { numeric: true }).compare;
   const icKinds = Object.keys(P.IC_KINDS).filter(k => (data.ics || []).some(ic => ic.kind === k));
 
   function drawTabs() {
@@ -877,6 +881,7 @@
     }
   }
   function selectKind(kind, focus) {
+    shownBrand = null;
     $tabs.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.kind === kind)));
     const list = data.ics.filter(ic => ic.kind === kind && !ic.label_only).sort((a, b) => a.code.localeCompare(b.code, 'en', { numeric: true }));
     $models.innerHTML = cappedChips(list.map(icChip), 'آيسيات ' + P.IC_KINDS[kind]);
@@ -919,10 +924,14 @@
   });
   function selectBrand(brand, focus) {
     if (browseMode !== 'devices') return;
+    if (brand === shownBrand && $models.childElementCount) { if (focus) { const t = $tabs.querySelector('[aria-selected="true"]'); if (t) t.focus(); } return; }
+    shownBrand = brand;
     $tabs.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(t.dataset.brand === brand)));
-    const list = data.devices.filter(d => d.brand === brand)
-      .sort((a, b) => a.name.localeCompare(b.name, 'en', { numeric: true }));
-    $models.innerHTML = cappedChips(list.map(d => '<a class="chip ltr" href="#' + esc(d.id) + '">' + esc(d.name) + '</a>'), 'أجهزة ' + brand);
+    if (!brandChips.has(brand)) {
+      const list = data.devices.filter(d => d.brand === brand).sort((a, b) => byName(a.name, b.name));
+      brandChips.set(brand, list.map(d => '<a class="chip ltr" href="#' + esc(d.id) + '">' + esc(d.name) + '</a>'));
+    }
+    $models.innerHTML = cappedChips(brandChips.get(brand), 'أجهزة ' + brand);
     if (focus) { const t = $tabs.querySelector('[aria-selected="true"]'); if (t) t.focus(); }
   }
   if (brands.length) selectBrand(brands.includes('Samsung') ? 'Samsung' : brands[0], false);

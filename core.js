@@ -126,6 +126,12 @@
       const names = [d.name];
       const noCode = d.name.match(/^(?:Samsung\s+)?[A-Z]{1,3}\d{3,5}[A-Z]{0,3}\s+(Galaxy\b.*)$/);
       if (noCode) { names.push(noCode[1]); add(normalize(noCode[1])); }
+      // "Redmi 9A" ← الزبون بيكتب "9a" بس، متل ما "Galaxy A12" ← "a12"
+      const sub = d.name.match(/^(?:Redmi|POCO)\s+(.+)$/i);
+      if (sub) add(normalize(sub[1]));
+      // "Galaxy A53 5G" ← الزبون بيكتب "a53" بس (بدون 5G / 4G / LTE)
+      const net = d.name.match(/^(.+?)\s+(?:5G|4G|LTE)$/i);
+      if (net) { add(normalize(net[1])); if (sub) add(normalize(net[1].replace(/^(?:Redmi|POCO)\s+/i, ''))); }
       // "Galaxy S II" ← الزبون بيكتب "S2" (بس بعد كلمة، مش "Xperia 1 II")
       names.forEach(n => {
         const arabicNum = n.replace(/(^|[A-Za-z]\s)(IV|III|II)\b/g, (m, pre, r) => pre + { II: '2', III: '3', IV: '4' }[r]);
@@ -325,8 +331,9 @@
         if (k === q || k === raw) s = 1000;
         else if (k.startsWith(q)) s = 600 - (k.length - q.length);
         else if (q.length >= 2 && k.includes(q)) s = 300 - (k.length - q.length);
-        // رقم موديل مع حرف زيادة بالآخر: "sma165f" بيلاقي "sma165" (بس إذا الزيادة حرف أو حرفين)
-        else if (k.length >= 4 && /\d/.test(k) && q.startsWith(k) && q.length - k.length <= 3 && !/\d/.test(q.slice(k.length))) s = 450;
+        // رقم موديل مع حرف زيادة بالآخر: "sma165f" بيلاقي "sma165" (بس إذا الزيادة حرف أو حرفين،
+        // ومش كلمة متل pro/go: "note10pro" ما لازم تجيب "Note10")
+        else if (k.length >= 4 && /\d/.test(k) && q.startsWith(k) && q.length - k.length <= 2 && /^[a-z]+$/.test(q.slice(k.length)) && q.slice(k.length) !== 'go') s = 450;
         if (s > best) best = s;
       }
       if (best > 0 && hint) best += normalize(e.device.brand) === hint ? 200 : -200;
