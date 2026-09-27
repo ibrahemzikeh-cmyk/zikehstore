@@ -911,3 +911,19 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
   .st-chart { height: 130px; gap: 3px; }
   .st-day { font-size: .55rem; writing-mode: vertical-rl; transform: rotate(180deg); }
 }
+
+/* أصوات الزبائن بلوحة الإدارة */
+.vt-tiles { grid-template-columns: repeat(2, 1fr); }
+.st-top.vt li::before { display: none; }
+.st-top.vt li { align-items: flex-start; flex-wrap: wrap; }
+.vt-pair { flex: 1 1 220px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-width: 0; }
+.vt-pair small { flex-basis: 100%; color: var(--muted); font-size: .76rem; }
+.vt-pair a { flex: 0 1 auto !important; }
+.vt-pair i { font-style: normal; color: var(--muted); }
+.st-top.vt .vt-n { display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.vt-n b { font: 700 .8rem 'Readex Pro', sans-serif; padding: 3px 9px; border-radius: 999px; }
+.vt-n b.yes { color: #1D7A3E; background: #E6F4EA; }
+.vt-n b.no { color: #B3261E; background: #FCE8E6; }
+.vt-tag { font-style: normal; font-size: .74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+.vt-tag.ok { color: #fff; background: #1D7A3E; }
+.vt-tag.bad { color: #fff; background: #B3261E; }

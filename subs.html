@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=da68dabb">
+<link rel="stylesheet" href="styles.css?v=6c48569f">
 </head>
 <body class="auth-page">
 <div class="auth-bg" aria-hidden="true"></div>
@@ -74,6 +74,27 @@
       </div>
     </section>
 
+    <!-- أصوات الزباين -->
+    <section class="auth-panel adm-panel" aria-labelledby="votesTitle">
+      <header class="adm-panel-head row">
+        <div>
+          <h2 id="votesTitle">أصوات الزبائن</h2>
+          <p>آخر التوافقات التي صوّت عليها الزبائن («ناسبت» / «لم تناسب»)</p>
+        </div>
+        <button class="adm-mini" type="button" id="votesReload">تحديث</button>
+      </header>
+      <p class="auth-msg err" id="votesErr" role="alert" hidden></p>
+      <div id="votesBody" hidden>
+        <div class="st-tiles vt-tiles">
+          <div class="st-tile"><span>كل الأصوات</span><b id="vtTotal">0</b></div>
+          <div class="st-tile"><span>زبائن صوّتوا</span><b id="vtVoters">0</b></div>
+        </div>
+        <div class="st-top vt">
+          <ol id="vtList"></ol>
+        </div>
+      </div>
+    </section>
+
     <!-- بحث -->
     <section class="auth-panel adm-panel" aria-labelledby="findTitle">
       <header class="adm-panel-head">
@@ -109,8 +130,8 @@
   </div>
 </main>
 
-<script src="auth-config.js?v=da68dabb"></script>
-<script src="auth.js?v=da68dabb"></script>
+<script src="auth-config.js?v=6c48569f"></script>
+<script src="auth.js?v=6c48569f"></script>
 <script>
 (function () {
   const A = window.ZikehAuth;
@@ -291,6 +312,48 @@
   }
   $('statsReload').addEventListener('click', () => loadStats().catch(e => { $('statsErr').hidden = false; $('statsErr').textContent = A.arError(e); }));
 
+  // أصوات الزباين (دالة admin_votes بـ Supabase). أسامي الأجهزة من data/index.js
+  const TYPE_AR = { protector: 'لصاقة الشاشة', case: 'الكفر', screen: 'الشاشة', battery: 'البطارية', frame: 'إطار الشاشة' };
+  let names = null;
+  function loadNames() {
+    if (names) return Promise.resolve(names);
+    return new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = 'data/index.js';
+      s.onload = () => { names = new Map(((window.PHONE_DATA || {}).devices || []).map(d => [d.id, d.name])); resolve(names); };
+      s.onerror = () => { names = new Map(); resolve(names); };
+      document.head.appendChild(s);
+    });
+  }
+  async function loadVotes() {
+    $('votesErr').hidden = true;
+    const [{ data: v, error }, nm] = await Promise.all([sb.rpc('admin_votes', { max_rows: 200 }), loadNames()]);
+    if (error) {
+      $('votesErr').hidden = false;
+      $('votesErr').textContent = /admin_votes|function|schema cache|404/i.test(error.message || '')
+        ? 'التصويت غير مفعّل بعد: شغّل ملف supabase/votes.sql في Supabase (SQL Editor).'
+        : A.arError(error);
+      return;
+    }
+    const n = x => Number(x || 0).toLocaleString('en');
+    const dev = id => nm.get(id) || id;
+    $('vtTotal').textContent = n(v.total);
+    $('vtVoters').textContent = n(v.voters);
+    const pairs = v.pairs || [];
+    $('vtList').innerHTML = pairs.length ? pairs.map(p => {
+      const [type, a, b] = String(p.key).split('|');
+      const tag = p.yes >= 5 && p.yes > p.no ? '<em class="vt-tag ok">صار مؤكداً</em>'
+        : p.no >= 5 && p.no > p.yes ? '<em class="vt-tag bad">مرفوض</em>' : '';
+      return '<li><div class="vt-pair"><small>' + esc(TYPE_AR[type] || type) + '</small>' +
+        '<a class="ltr" href="./#' + esc(a) + '" target="_blank" rel="noopener">' + esc(dev(a)) + '</a>' +
+        '<i aria-hidden="true">↔</i>' +
+        '<a class="ltr" href="./#' + esc(b) + '" target="_blank" rel="noopener">' + esc(dev(b)) + '</a></div>' +
+        '<span class="vt-n"><b class="yes" title="ناسبت">✓ ' + n(p.yes) + '</b><b class="no" title="لم تناسب">✗ ' + n(p.no) + '</b>' + tag + '</span></li>';
+    }).join('') : '<li class="st-none">لا توجد أصوات بعد. ستظهر عندما يصوّت الزبائن من صفحات الأجهزة.</li>';
+    $('votesBody').hidden = false;
+  }
+  $('votesReload').addEventListener('click', () => loadVotes().catch(e => { $('votesErr').hidden = false; $('votesErr').textContent = A.arError(e); }));
+
   A.client().then(async client => {
     sb = client;
     const { data: { session } } = await sb.auth.getSession();
@@ -301,6 +364,7 @@
     $('gateMsg').hidden = true;
     $('adminBody').hidden = false;
     loadStats().catch(e => { $('statsErr').hidden = false; $('statsErr').textContent = A.arError(e); });
+    loadVotes().catch(e => { $('votesErr').hidden = false; $('votesErr').textContent = A.arError(e); });
     await loadList();
   }).catch(e => gate(A.arError(e)));
 })();
