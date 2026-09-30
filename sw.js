@@ -2,8 +2,8 @@
    - الصفحة نفسها: من الإنترنت أول شي (حتى تبين آخر نسخة)، وإذا ما في إنترنت من النسخة المحفوظة.
    - باقي الملفات (بيانات، ستايل، سكربتات): من المحفوظ فوراً وبتتحدّث بالخلفية.
      الملفات إلها رقم نسخة (?v=...)، فلما تتغيّر البيانات بيتنزّل الملف الجديد لحالو. */
-const CACHE = 'zikeh-v1';
-const SHELL = ['./', 'index.html', 'styles.css', 'core.js', 'votes.js', 'logo.jpg', 'manifest.json',
+const CACHE = 'zikeh-v2';   // v2: المرحلة 2 (التوافقات من Supabase، ما في ملفات ماركات)
+const SHELL = ['./', 'index.html', 'styles.css', 'core.js', 'votes.js', 'pages.js', 'auth.js', 'auth-config.js', 'auth-gate.js', 'logo.jpg', 'manifest.json',
   'icons/icon-192.png', 'icons/icon-512.png'];
 
 self.addEventListener('install', e => {
@@ -29,6 +29,8 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   const fonts = /fonts\.(googleapis|gstatic)\.com$/.test(url.hostname);
   if (url.origin !== location.origin && !fonts) return;
+  // صفحات التجربة على اللابتوب (build/pages): دايماً من الملف نفسه
+  if (url.pathname.includes('/build/')) return;
 
   if (req.mode === 'navigate') {
     e.respondWith(caches.open(CACHE).then(cache =>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<script src="auth-config.js?v=5b3b0f64"></script>
-<script src="auth-gate.js?v=5b3b0f64"></script>
+<script src="auth-config.js?v=0fc411c4"></script>
+<script src="auth-gate.js?v=0fc411c4"></script>
 <title>ZIKEH STORE توافقيات</title>
 <meta name="description" content="ZIKEH STORE: اعرف القطع المتوافقة مع جهازك من لصاقات شاشة وكفرات وشاشات وبطاريات وآيسيات.">
 <meta name="theme-color" content="#0055AA">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;600&family=Readex+Pro:wght@500;600&family=IBM+Plex+Mono&display=swap">
-<link rel="stylesheet" href="styles.css?v=5b3b0f64">
+<link rel="stylesheet" href="styles.css?v=0fc411c4">
 </head>
 <body>
 <header class="topbar is-sticky">
@@ -148,10 +148,11 @@
 
 
 <!-- البيانات مقسمة: data/index.js فيه الأجهزة، وملف كل ماركة بينحمّل وقت الحاجة (tools/build_site.py) -->
-<script src="data/index.js?v=5b3b0f64"></script>
-<script src="core.js?v=5b3b0f64"></script>
-<script src="votes.js?v=5b3b0f64"></script>
-<script src="auth.js?v=5b3b0f64"></script>
+<script src="data/index.js?v=0fc411c4"></script>
+<script src="core.js?v=0fc411c4"></script>
+<script src="votes.js?v=0fc411c4"></script>
+<script src="auth.js?v=0fc411c4"></script>
+<script src="pages.js?v=0fc411c4"></script>
 <script>
 (function () {
   const P = window.PhoneFit;
@@ -200,7 +201,7 @@
       thumb: r.device.img && (r.device.img.f || r.device.img.b) }));
     const ics = P.searchICs(index, text, 6).map(r => ({ id: r.ic.id, label: r.ic.code, sub: P.IC_KINDS[r.ic.kind], score: r.score, ic: true }));
     const bats = P.searchBatteries(index, text, 6).map(r => ({ id: r.bat.id, label: r.bat.code,
-      sub: 'بطارية' + (r.bat.mah ? ' · ' + mahText(r.bat) : '') + ' · ' + countWord(r.bat.devices.length, 'جهاز'),
+      sub: 'بطارية' + (r.bat.mah ? ' · ' + mahText(r.bat) : '') + ' · ' + countWord(r.bat.devices ? r.bat.devices.length : (r.bat.n || 0), 'جهاز'),
       score: r.score, badge: '<span class="ic-badge bat-badge">BAT</span>' }));
     const chips = P.searchChips(index, text, 6).map(r => r.chip
       ? { id: r.chip.id, label: r.chip.code, score: r.score,
@@ -269,7 +270,7 @@
     const d = index.byId.get(id) || index.icById.get(id) || index.batById.get(id) || index.chipById.get(id) || index.stencilById.get(id);
     if (d) $q.value = d.name || d.code;
     $q.blur();
-    if (location.hash.slice(1) === id) show(id);
+    if (location.hash.slice(1) === id) route();
     else location.hash = id;
   }
 
@@ -282,28 +283,41 @@
   const openVotes = new Set();
   const voteMsg = {};
 
+  // صفحة التوافقات بتنجاب من Supabase أول مرة (pages.js)، وبعدها بتنعرض من الذاكرة
+  let pageReq = null;
+  const PAGE_ERR = {
+    limit: 'وصلت إلى الحد اليومي لعدد الصفحات الجديدة التي يمكن فتحها من حسابك. الصفحات التي فتحتها سابقاً ما زالت تعمل، ويمكنك فتح صفحات جديدة غداً. إذا كنت تحتاج إلى المزيد تواصل معنا عبر واتساب.',
+    fast: 'تفتح الصفحات بسرعة كبيرة. انتظر دقيقة ثم حاول مرة أخرى.',
+    blocked: 'تم إيقاف حسابك مؤقتاً. تواصل معنا عبر واتساب.',
+    missing: 'هذه الصفحة قيد التحديث الآن. حاول مرة أخرى بعد دقيقة.',
+    setup: 'الموقع قيد الصيانة لدقائق. حاول مرة أخرى بعد قليل.',
+    offline: 'تعذّر جلب هذه الصفحة. يبدو أنه لا يوجد اتصال بالإنترنت حالياً، والصفحات التي لم تفتحها من قبل تحتاج إلى الإنترنت في المرة الأولى. اتصل بالإنترنت وحاول مرة أخرى.'
+  };
+  function withPage(id, label, fn) {
+    pageReq = id;
+    if (!P.needsPage(data, id)) { fn(); return; }
+    $result.hidden = false;
+    $result.innerHTML = '<div class="loading" role="status">جارٍ جلب <span class="ltr">' + esc(label) + '</span>…</div>';
+    P.ensurePage(data, index, id).then(() => {
+      if (pageReq === id) fn();
+    }).catch(err => {
+      if (pageReq !== id) return;
+      if (err && err.code === 'login') {
+        try { sessionStorage.setItem('zk_after_login', location.hash); } catch (e) { /* ignore */ }
+        location.href = 'login.html?next=index.html&gate=1';
+        return;
+      }
+      const code = err && PAGE_ERR[err.code] ? err.code : 'offline';
+      $result.innerHTML = '<p class="banner">' + esc(PAGE_ERR[code]) +
+        (code === 'limit' || code === 'blocked' ? '' : ' <button type="button" class="btn small" id="pageRetry">حاول مرة أخرى</button>') + '</p>';
+      const retry = document.getElementById('pageRetry');
+      if (retry) retry.addEventListener('click', route);
+    });
+  }
+
   function show(id) {
     if (id !== currentId) { openVotes.clear(); voteCounts = {}; myVotes = {}; }
     currentId = id;
-    const dev = index.byId.get(id);
-    if (dev && P.needsBrand(data, dev.brand)) {
-      // منحمّل ملف ماركة الجهاز أول مرة بس
-      $result.hidden = false;
-      $result.innerHTML = '<div class="loading" role="status">جارٍ جلب توافقات <span class="ltr">' + esc(dev.name) + '</span>…</div>';
-      P.ensureBrand(data, dev.brand).then(() => {
-        if (currentId !== id) return;
-        render();
-        loadVotes(id);
-      }).catch(() => {
-        if (currentId !== id) return;
-        // بدون إنترنت (التطبيق): ماركة ما انفتحت قبل هيك ما بتكون محفوظة عالموبايل
-        $result.innerHTML = '<p class="banner">' + (navigator.onLine === false || location.protocol.startsWith('http')
-          ? 'تعذّر جلب توافقات <span class="ltr">' + esc(dev.name) + '</span>. يبدو أنه لا يوجد اتصال بالإنترنت حالياً، والأجهزة التي لم تفتحها من قبل تحتاج إلى الإنترنت في المرة الأولى. اتصل بالإنترنت وحاول مرة أخرى.'
-          : 'تعذّر تحميل بيانات ' + esc(dev.brand) + '. تأكد من وجود مجلد data بجانب الصفحة، ثم حدّث الصفحة.') +
-          ' <button type="button" class="btn small" onclick="location.reload()">حاول مرة أخرى</button></p>';
-      });
-      return;
-    }
     render();
     loadVotes(id);
   }
@@ -835,25 +849,17 @@
 
   function route() {
     const id = decodeURIComponent(location.hash.slice(1));
-    if (id && index.byId.has(id)) {
-      show(id);
-      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (id && index.icById.has(id)) {
-      showIC(id);
-      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (id && index.batById.has(id)) {
-      showBattery(id);
-      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (id && index.chipById.has(id)) {
-      showChip(id);
-      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else if (id && index.stencilById.has(id)) {
-      showStencil(id);
-      $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
+    const x = id && (index.byId.get(id) || index.icById.get(id) || index.batById.get(id) || index.chipById.get(id) || index.stencilById.get(id));
+    if (!x) {
+      pageReq = null;
       $result.hidden = true;
       document.title = 'ZIKEH STORE توافقيات';
+      return;
     }
+    const open = index.byId.has(id) ? show : index.icById.has(id) ? showIC : index.batById.has(id) ? showBattery
+      : index.chipById.has(id) ? showChip : showStencil;
+    withPage(id, x.name || x.code || id, () => open(id));
+    $result.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
   window.addEventListener('hashchange', route);
 

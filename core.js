@@ -450,40 +450,82 @@
     return { devices, items, notes: [...new Set(notes)] };
   }
 
-  // ---------- ملفات الماركات (data/brands/*.js) ----------
-  // صفحة الزبون بتحمّل data/index.js (الأجهزة للبحث)، ولما يفتح جهاز منحمّل ملف ماركته بس.
-  // كل ملف بينادي PhoneFitAddBrand، والتوافق بين ماركتين موجود بالملفين فمنشيل التكرار بـ k.
-  let brandTarget = null;
-  const brandPromises = new Map();
+  // ---------- الصفحات (المرحلة 2) ----------
+  // data/index.js فيه الفهرس بس (للبحث). التوافقات بتنجاب صفحة صفحة (جهاز، آيسي، بطارية، شريحة، مسطرة)
+  // من Supabase عن طريق window.PhoneFitPageLoader (pages.js)، وبتندمج هون بنفس data و index.
+  // groups/links/denials/connectors: كل عنصر إلو k (رقمه بـ data.js) حتى ما يتكرر إذا إجا بكذا صفحة.
   const seenKeys = { groups: new Set(), links: new Set(), denials: new Set(), connectors: new Set() };
-  window.PhoneFitAddBrand = function (brand, part) {
-    const d = brandTarget;
-    if (!d) return;
-    if (!d.connectors) d.connectors = [];
-    ['groups', 'links', 'denials', 'connectors'].forEach(c => (part[c] || []).forEach(x => {
-      if (x.k == null || !seenKeys[c].has(x.k)) {
-        if (x.k != null) seenKeys[c].add(x.k);
-        d[c].push(x);
-      }
-    }));
-  };
+  const pagePromises = new Map();
 
-  function needsBrand(data, brand) {
-    return !!(data.split && data.brandFiles && data.brandFiles[brand] && !(data._loaded || {})[brand]);
+  function addToMap(map, key, item) {
+    if (!map.has(key)) map.set(key, []);
+    const list = map.get(key);
+    if (!list.includes(item)) list.push(item);
   }
 
-  function ensureBrand(data, brand) {
-    if (!needsBrand(data, brand)) return Promise.resolve();
-    if (brandPromises.has(brand)) return brandPromises.get(brand);
-    brandTarget = data;
-    const p = new Promise((resolve, reject) => {
-      const s = document.createElement('script');
-      s.src = data.brandFiles[brand];
-      s.onload = () => { (data._loaded = data._loaded || {})[brand] = true; resolve(); };
-      s.onerror = () => { brandPromises.delete(brand); s.remove(); reject(new Error('load ' + brand)); };
-      document.head.appendChild(s);
+  // الآيسيات/البطاريات/الشرائح بالفهرس ما فيها «مين بياخدها»؛ الصفحة بتجيب النسخة الكاملة
+  function mergeEntity(list, full) {
+    const cur = list.find(x => x.id === full.id);
+    if (cur) { Object.assign(cur, full); return cur; }
+    list.push(full);
+    return full;
+  }
+
+  function addPage(data, index, id, page) {
+    if (!data.connectors) data.connectors = [];
+    ['groups', 'links', 'denials', 'connectors'].forEach(c => (page[c] || []).forEach(x => {
+      if (x.k == null || !seenKeys[c].has(x.k)) {
+        if (x.k != null) seenKeys[c].add(x.k);
+        data[c].push(x);
+      }
+    }));
+    (page.ics || []).forEach(x => {
+      const ic = mergeEntity(data.ics, x);
+      if (!ic.label_only) index.icById.set(ic.id, ic);
+      (ic.devices || []).forEach(d => addToMap(index.icsByDevice, d, ic));
     });
-    brandPromises.set(brand, p);
+    (page.batteries || []).forEach(x => {
+      const b = mergeEntity(data.batteries, x);
+      index.batById.set(b.id, b);
+      (b.devices || []).forEach(d => addToMap(index.batsByDevice, d, b));
+    });
+    let chipsChanged = false;
+    (page.chips || []).forEach(x => {
+      const c = mergeEntity(data.chips, x);
+      index.chipById.set(c.id, c);
+      (c.devices || []).forEach(d => addToMap(index.chipsByDevice, d, c));
+      (c.ics || []).forEach(i => addToMap(index.chipsByIc, i, c));
+      chipsChanged = true;
+    });
+    // المساطر مبنية من شرائح الفهرس (أكواد بس): منعيد بناءها حتى تجي السماكة والاسم والمصدر
+    if (chipsChanged) {
+      index.stencilById.forEach(s => { s.items = []; });
+      (data.chips || []).forEach(c => (c.stencils || []).forEach(s => {
+        if (!s.code) return;
+        const sid = 'stn-' + slugify(s.code);
+        if (!index.stencilById.has(sid)) index.stencilById.set(sid, { id: sid, code: s.code, items: [] });
+        index.stencilById.get(sid).items.push({ chip: c, stencil: s });
+      }));
+    }
+    (data._pages = data._pages || new Set()).add(id);
+  }
+
+  function needsPage(data, id) {
+    return !!(data.remote && id && !(data._pages && data._pages.has(id)));
+  }
+
+  // بترجع Promise؛ الغلط (err.code) بيطلع من pages.js: login / limit / fast / blocked / missing / offline
+  function ensurePage(data, index, id) {
+    if (!needsPage(data, id)) return Promise.resolve();
+    if (pagePromises.has(id)) return pagePromises.get(id);
+    const loader = window.PhoneFitPageLoader;
+    const p = (loader ? loader(id) : Promise.reject(Object.assign(new Error('no loader'), { code: 'offline' })))
+      .then(page => {
+        if (!page) throw Object.assign(new Error('missing ' + id), { code: 'missing' });
+        addPage(data, index, id, page);
+      });
+    pagePromises.set(id, p);
+    p.catch(() => pagePromises.delete(id));
     return p;
   }
 
@@ -500,6 +542,6 @@
 
   window.PhoneFit = {
     TYPES, SOURCES, CONFIDENCE, IC_KINDS, CONN_KINDS, CHIP_TYPES, DRAFT_KEY, normalize, loadData, readDraft, writeDraft, clearDraft,
-    buildIndex, search, searchICs, searchBatteries, searchChips, sameChipset, compatible, needsBrand, ensureBrand, groupMeta, pairKey, isDenied, voteRules, slugify, escapeHtml
+    buildIndex, search, searchICs, searchBatteries, searchChips, sameChipset, compatible, addPage, needsPage, ensurePage, groupMeta, pairKey, isDenied, voteRules, slugify, escapeHtml
   };
 })();
