@@ -7,7 +7,8 @@
     case: { label: 'الكفر', plural: 'الكفرات' },
     screen: { label: 'الشاشة', plural: 'الشاشات' },
     battery: { label: 'البطارية', plural: 'البطاريات' },
-    frame: { label: 'إطار الشاشة', plural: 'إطارات الشاشة' }
+    frame: { label: 'إطار الشاشة', plural: 'إطارات الشاشة' },
+    glass: { label: 'بلورة الشاشة', plural: 'بلورات الشاشة' }
   };
 
   // كلمات عربية شائعة يكتبها الزبون ← مقابلها الإنكليزي
@@ -507,6 +508,8 @@
         index.stencilById.get(sid).items.push({ chip: c, stencil: s });
       }));
     }
+    // معلومات الجهاز يلي بصفحتو بس (متل بلورة الشاشة: متاجر / OCA)
+    if (page.dev && index.byId.has(id)) Object.assign(index.byId.get(id), page.dev);
     (data._pages = data._pages || new Set()).add(id);
   }
 

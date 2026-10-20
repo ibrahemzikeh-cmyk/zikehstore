@@ -927,3 +927,10 @@ td .actions { display: flex; gap: 6px; justify-content: flex-end; }
 .vt-tag { font-style: normal; font-size: .74rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
 .vt-tag.ok { color: #fff; background: #1D7A3E; }
 .vt-tag.bad { color: #fff; background: #B3261E; }
+/* بلورة الشاشة: علامات المتاجر و OCA + الاحتمالات الأضعف */
+.glass-badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.g-tag { display: inline-flex; align-items: center; gap: 4px; font-size: .8rem; font-weight: 700; padding: 3px 10px; border-radius: 999px; color: #0055AA; background: #E8F1FC; border: 1px solid #C9DDF6; }
+.g-tag.ok { color: #1D7A3E; background: #E6F4EA; border-color: #BFE3CB; }
+.g-tag.ok::before { content: "✓"; }
+.weak-toggle { justify-self: start; }
+.weak-list { display: grid; gap: 8px; }
